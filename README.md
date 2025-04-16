@@ -61,6 +61,12 @@
 
 <p align="left">## 🎵 Music: Beats, Bars, and Remixes<br><br>Music is my soul! I’m a **beatboxer** and **music producer**, creating original tracks and remixes that slap. From hip-hop to electronic, I’m always experimenting with new sounds. Check out my latest beats on my [YouTube channel](https://www.youtube.com/@theRealZayne), where I share music videos and behind-the-scenes production content.<br><br>- **What I do**: I produce my own tracks using FL Studio, mix remixes of popular songs, and freestyle beatbox whenever inspiration hits.<br>- **Collab?** If you’re a musician or vocalist, hit me up on my [Discord server](https://discord.gg/8J5F9KjkS6) to talk collabs!</p>
 
+<div align="center">
+  <a href="https://open.spotify.com/user/6a4j2pietdhrda87dx6dne5ku">
+    <img src="https://spotify-recently-played-readme.vercel.app/api?user=6a4j2pietdhrda87dx6dne5ku&count=5&unique=false" alt="Spotify recently played"  />
+  </a>
+</div>
+
 ###
 
 <div align="left">
