@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Real Zayne</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <button onclick="toggleTheme()">Toggle Dark Mode</button>
+    <div class="container">
+        <h1>Welcome to The Real Zayne's Page</h1>
+        <p>Check out my gaming projects and Apex 2.0 bot!</p>
+        <a href="https://github.com/the-realzayne">My GitHub</a>
+    </div>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+
 <br clear="both">
 
 <div align="left">
