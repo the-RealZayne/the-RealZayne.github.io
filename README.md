@@ -158,3 +158,7 @@
         channel: '1361855419785547856' // #site-sync
     })
 </script>
+
+<!-- Elfsight AI Chatbot | Untitled AI Chatbot -->
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-4fce8150-8b70-4404-9b29-59c807eee113" data-elfsight-app-lazy></div>
