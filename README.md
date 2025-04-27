@@ -72,6 +72,10 @@
 
 <p align="left">**Why join me?** I stream my gameplay on [Twitch](https://www.twitch.tv/twitch-username) (link coming soon, check my Discord for updates!) and love squadding up with fans. Whether you’re a sharpshooter, a builder, or just here for the vibes, let’s game!</p>
 
+<!-- Google Calendar Appointment Scheduling begin -->
+<iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3c6T3zyJ_yp_7ZEfmJKK7ZCdplOiMCPxlaOj3u_0H71SaBU5rGGxSMLfoWAduCvMBJAAuCl3gJ?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+<!-- end Google Calendar Appointment Scheduling -->
+
 [![](https://visitcount.itsvg.in/api?id=the-RealZayne&icon=0&color=2)](https://visitcount.itsvg.in)
 
 ###
