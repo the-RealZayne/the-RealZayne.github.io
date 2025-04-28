@@ -31,9 +31,10 @@
 
 ###
 
-<h2 align="left">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2> <div align="right">
+<div align="right">
   <img height="150" src="https://media4.giphy.com/media/l3978y5HqiEtqupiM/giphy.gif?cid=6c09b952oaglruyjqbcw4rx2t633z5hgxmqo9wrhfjsnvwrj&ep=v1_gifs_search&rid=giphy.gif&ct=g"  />
 </div>
+<h2 align="left">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2> 
 
 ###
 
