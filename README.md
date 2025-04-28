@@ -1,11 +1,16 @@
 <html lang="en">
+    
+<div align="right">
+  <button onclick="toggleTheme()">Toggle Dark Mode</button>
+</div>
+
 <head>
     <meta charset="UTF-8">
     <title>The Real Zayne</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
-    <button onclick="toggleTheme()">Toggle Dark Mode</button>
     <div class="container">
         <h1>Welcome to The Real Zayne's Page</h1>
         <p>Check out my gaming projects and Apex 2.0 bot!</p>
@@ -13,6 +18,7 @@
     </div>
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
 
 <br clear="both">
@@ -23,13 +29,11 @@
 
 <br clear="both">
 
-<div align="right">
-  <img height="150" src="https://media4.giphy.com/media/l3978y5HqiEtqupiM/giphy.gif?cid=6c09b952oaglruyjqbcw4rx2t633z5hgxmqo9wrhfjsnvwrj&ep=v1_gifs_search&rid=giphy.gif&ct=g"  />
-</div>
-
 ###
 
-<h2 align="left">Hey, I'm **Zayne** (aka *theRealZayne*), and this is my corner of the internet!</h2>
+<h2 align="left">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2> <div align="right">
+  <img height="150" src="https://media4.giphy.com/media/l3978y5HqiEtqupiM/giphy.gif?cid=6c09b952oaglruyjqbcw4rx2t633z5hgxmqo9wrhfjsnvwrj&ep=v1_gifs_search&rid=giphy.gif&ct=g"  />
+</div>
 
 ###
 
