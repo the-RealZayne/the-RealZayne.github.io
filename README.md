@@ -1,7 +1,9 @@
 <html lang="en">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <div align="right">
-        <button id="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+    <button id="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark Mode</button>
 </div>
 
 <head>
