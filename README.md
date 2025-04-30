@@ -2,7 +2,7 @@
 
 
 <div align="right">
-  <button onclick="toggleTheme()">Toggle Light Mode</button>
+  <button onclick="toggleTheme()">Toggle Dark Mode</button>
 </div>
 
 <head>
