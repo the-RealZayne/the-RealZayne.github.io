@@ -1,5 +1,10 @@
 <html lang="en">
 
+
+<div align="right">
+  <button onclick="toggleTheme()">Toggle Light Mode</button>
+</div>
+
 <head>
     <meta charset="UTF-8">
     <title>The Real Zayne</title>
