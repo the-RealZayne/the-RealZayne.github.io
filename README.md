@@ -1,8 +1,4 @@
 <html lang="en">
-    
-<div align="right">
-  <button onclick="toggleTheme()">Toggle Dark Mode</button>
-</div>
 
 <head>
     <meta charset="UTF-8">
@@ -27,16 +23,13 @@
   <img height="150" src="https://share.creavite.co/67fee7b85502193c79bac868.gif"  />
 </div>
 
-<br clear="both">
-
-###
-
 <div align="right">
   <img height="150" src="https://media4.giphy.com/media/l3978y5HqiEtqupiM/giphy.gif?cid=6c09b952oaglruyjqbcw4rx2t633z5hgxmqo9wrhfjsnvwrj&ep=v1_gifs_search&rid=giphy.gif&ct=g"  />
 </div>
-<h2 align="left">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2> 
 
-###
+<br clear="both">
+
+<h2 align="left">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2> 
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=the-RealZayne&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph"  />
@@ -184,6 +177,10 @@
         channel: '1361855419785547856' // #site-sync
     })
 </script>
+
+<!-- Elfsight Popup | Untitled Popup -->
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-b0c1e383-bf31-4ae8-9eaf-e2b8b05fd89b" data-elfsight-app-lazy></div>
 
 <!-- Elfsight AI Chatbot | Untitled AI Chatbot -->
 <script src="https://static.elfsight.com/platform/platform.js" async></script>
