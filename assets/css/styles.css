@@ -57,19 +57,3 @@ a:hover {
     background-color: #ff4500; /* Orange-red hover */
     box-shadow: 0 0 15px #ff4500; /* Orange glow */
 }
-
-/* Auto-detect system preference */
-@media (prefers-color-scheme: dark) {
-    body:not([data-theme="light"]) {
-        background-color: #1a1a1a;
-        color: #e0e0e0;
-    }
-
-    body:not([data-theme="light"]) a {
-        color: #1e90ff;
-    }
-
-    body:not([data-theme="light"]) .container {
-        background-color: #2a2a2a;
-    }
-}
