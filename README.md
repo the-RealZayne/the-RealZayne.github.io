@@ -184,6 +184,13 @@
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-snake.svg" />
 <img src="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/snake.svg" alt="Snake animation" />
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-contribution-grid-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-contribution-grid-snake.svg">
+  <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-contribution-grid-snake.svg">
+</picture>
+
+
 <img src="https://profile-counter.glitch.me/%7Bthe-RealZayne%7D/count.svg" alt="the-RealZayne :: Visitor's Count" />
 
 <script src='https://cdn.jsdelivr.net/npm/@widgetbot/crate@3' async defer>
