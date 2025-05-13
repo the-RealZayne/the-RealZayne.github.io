@@ -9,12 +9,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Real Zayne</title>
+    <title>[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻)](https://git.io/typing-svg)</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-
-[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Welcome+to;༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻'s+Page)](https://git.io/typing-svg)
-
 
 <body>
     <div class="container">
@@ -41,7 +38,7 @@
 
 [![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=the-RealZayne&data=followers,repositories,stars,commits)](https://github.com/the-RealZayne/github-widgetbox)
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79049&multiline=true&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79F38&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast)](https://git.io/typing-svg)
 
 <h2 align="left">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2> 
 
@@ -185,9 +182,11 @@
 
 <br clear="both">
 
+<picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-snake-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-snake.svg" />
 <img src="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/snake.svg" alt="Snake animation" />
+</picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-contribution-grid-snake-dark.svg">
