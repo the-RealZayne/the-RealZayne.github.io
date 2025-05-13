@@ -140,6 +140,8 @@
 
 <iframe src="https://discord.com/widget?id=1343750278792351838&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
+[![Discord Presence](https://lanyard.cnrad.dev/api/1343390005560872970)](https://discord.com/users/1343390005560872970)
+
 
 <div align="left">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/discordjs/discordjs-original.svg" height="40" alt="discordjs logo"  />
