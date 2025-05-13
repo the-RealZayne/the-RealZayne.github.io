@@ -158,7 +158,8 @@
     </p>
 
     <!-- BEGIN YOUTUBE-CARDS -->
-    <!-- END YOUTUBE-CARDS -->
+
+<!-- END YOUTUBE-CARDS -->
 
     <p align="left">
         ## 🤝 Join My Community!<br><br>
