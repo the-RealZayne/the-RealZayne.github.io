@@ -1,8 +1,8 @@
 name: GitHub-Profile-3D-Contrib
 
 on:
-  schedule: # 03:00 JST == 18:00 UTC
-    - cron: "0 18 * * *"
+  schedule:
+    - cron: "0 18 * * *"  # 03:00 JST == 18:00 UTC
   workflow_dispatch:
 
 permissions:
@@ -17,7 +17,10 @@ jobs:
       - uses: yoshi389111/github-profile-3d-contrib@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USERNAME: ${{ the-RealZayne }}
+          USERNAME: the-RealZayne
+      - name: Log generated files
+        run: |
+          find . -name "profile-green-animate.svg" || echo "File not found"
       - name: Commit & Push
         run: |
           git config user.name github-actions
