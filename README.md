@@ -15,6 +15,7 @@
 
 [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Welcome+to;༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻'s+Page)](https://git.io/typing-svg)
 
+
 <body>
     <div class="container">
         <h1>Welcome to ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻'s Page</h1>
@@ -39,6 +40,8 @@
 <br clear="both">
 
 [![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=the-RealZayne&data=followers,repositories,stars,commits)](https://github.com/the-RealZayne/github-widgetbox)
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79049&multiline=true&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast)](https://git.io/typing-svg)
 
 <h2 align="left">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2> 
 
