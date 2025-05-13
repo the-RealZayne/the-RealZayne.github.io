@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
+[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Welcome+to;༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻'s+Page)](https://git.io/typing-svg)
+
 <body>
     <div class="container">
-        <h1>Welcome to The Real Zayne's Page</h1>
+        <h1>Welcome to ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻'s Page</h1>
         <p>Check out my gaming projects and Apex 2.0 bot!</p>
         <a href="https://github.com/the-realzayne">My GitHub</a>
     </div>
@@ -35,6 +37,8 @@
 </div>
 
 <br clear="both">
+
+[![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=the-RealZayne&data=followers,repositories,stars,commits)](https://github.com/the-RealZayne/github-widgetbox)
 
 <h2 align="left">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2> 
 
@@ -70,11 +74,14 @@
   <a href="https://www.youtube.com/@theRealZayne" target="_blank">
     <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="youtube logo"  />
   </a>
-  <img src="https://img.shields.io/static/v1?message=Twitter&logo=twitter&label=&color=1DA1F2&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="twitter logo"  />
 </div>
 
 
-<p align="left">**Why join me?** I stream my gameplay on [Twitch](https://www.twitch.tv/twitch-username) (link coming soon, check my Discord for updates!) and love squadding up with fans. Whether you’re a sharpshooter, a builder, or just here for the vibes, let’s game!</p>
+<p align="left">**Why join me?** I stream my gameplay on <a href="https://www.twitch.tv/xtherealzaynex" target="_blank">
+  <img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&label=&color=9146FF&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="twitch logo"  />
+  </a> and love squadding up with fans. You can alway check my <a href="https://discord.gg/8J5F9KjkS6" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo"  />
+  </a> for updates or just to chat about some common intrests. Whether you’re a sharpshooter, a builder, or just here for the vibes, let’s game!</p>
 
 <!-- Google Calendar Appointment Scheduling begin -->
 <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3c6T3zyJ_yp_7ZEfmJKK7ZCdplOiMCPxlaOj3u_0H71SaBU5rGGxSMLfoWAduCvMBJAAuCl3gJ?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
@@ -83,7 +90,11 @@
 [![](https://visitcount.itsvg.in/api?id=the-RealZayne&icon=0&color=2)](https://visitcount.itsvg.in)
 
 
-<p align="left">## 🎵 Music: Beats, Bars, and Remixes<br><br>Music is my soul! I’m a **beatboxer** and **music producer**, creating original tracks and remixes that slap. From hip-hop to electronic, I’m always experimenting with new sounds. Check out my latest beats on my [YouTube channel](https://www.youtube.com/@theRealZayne), where I share music videos and behind-the-scenes production content.<br><br>- **What I do**: I produce my own tracks using FL Studio, mix remixes of popular songs, and freestyle beatbox whenever inspiration hits.<br>- **Collab?** If you’re a musician or vocalist, hit me up on my [Discord server](https://discord.gg/8J5F9KjkS6) to talk collabs!</p>
+<p align="left">## 🎵 Music: Beats, Bars, and Remixes<br><br>Music is my soul! I’m a **beatboxer** and upcoming **music producer**, creating original tracks and remixes that slap. From hip-hop to electronic to phonk, I’m always experimenting with new sounds. Check out my latest beats on my <a href="https://www.youtube.com/@theRealZayne" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="youtube logo"  />
+  </a> where I share music videos and behind-the-scenes production content.<br><br>- **What I do**: I produce my own tracks using my BOSS RC-505 Loopstation and AKAI MPK mini with Audacity and MPC Beats to mix remixes of popular songs, and freestyle beatbox whenever inspiration hits.<br>- **Collabs?** If you’re a musician or vocalist, hit me up on my <a href="https://discord.gg/8J5F9KjkS6" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo"  />
+  </a> to talk collabs!</p>
 
 <div align="center">
   <a href="https://open.spotify.com/user/6a4j2pietdhrda87dx6dne5ku">
@@ -121,6 +132,8 @@
 
 <p align="left">## 📹 Content Creation: YouTube & Twitch<br><br>I’m building a community through my content! Catch me on:<br><br>- **[YouTube](https://www.youtube.com/@theRealZayne)**: I post gaming highlights, music videos, and vlogs about my outdoor adventures. From Fortnite trickshots to beatboxing challenges, there’s something for everyone. Subscribe and join the squad!<br>- **Twitch**: I stream my gaming sessions, map-building in Roblox/Fortnite, and sometimes even live beatboxing. Follow me (link TBD, check Discord) for chill streams and epic moments.<br><br>**Pro tip**: Drop a comment on my videos or join my streams to get a shoutout!</p>
 
+<!-- BEGIN YOUTUBE-CARDS -->
+<!-- END YOUTUBE-CARDS -->
 
 <p align="left">## 🤝 Join My Community!<br><br>I’m all about connecting with people who share my passions. Here’s how to vibe with me:<br><br>- **Discord**: Join my server, [ᘜOᗪ'S Oᖴ ᘔ](https://discord.gg/8J5F9KjkS6), for gaming, music, and outdoor chats. It’s the spot for updates, collabs, and just hanging out.<br>- **YouTube**: Subscribe to [theRealZayne](https://www.youtube.com/@theRealZayne) for my latest videos.<br>- **Twitch**: Follow my streams for live gaming and music (link coming soon, check Discord).<br>- **GitHub**: Star this repo and follow my projects as I build more cool stuff!</p>
 
@@ -151,8 +164,11 @@
 
 <p align="left">## 💻 Coding & Creative Projects<br><br>I’m diving into the tech world and loving it! Here’s what I’m working on:<br><br>- **Roblox & Fortnite Map Editing**: I’m creating custom maps and game modes. Expect some unique arenas and fun challenges soon!<br>- **Discord Bots**: I’m learning to code bots for my server, [ᘜOᗪ'S Oᖴ ᘔ](https://discord.gg/8J5F9KjkS6). From music bots to moderation tools, I’m leveling up my coding skills.<br>- **Future Goals**: I’m exploring web development and game design. This GitHub Pages site is just the start!<br><br>Wanna talk code or gaming projects? Join my Discord and let’s geek out.</p>
 
+<img src="https://github-readme-stats.vercel.app/api/top-langs?username=the-RealZayne&show_icons=true&locale=en&layout=compact&theme=chartreuse-dark" alt="ovi" />
 
-<p align="left">## 🌲 Outdoor Adventures: Nature is My Playground<br><br>When I’m not gaming or making music, I’m outside soaking up nature. Here’s what I’m into:<br><br>- **Biking**: Whether it’s tearing up trails or cruising the neighborhood, biking keeps me moving.<br>- **Fishing**: Nothing beats the calm of casting a line and reeling in a big one.<br>- **Hiking**: I lightweight overnight hike the **Appalachian Trail**, chasing epic views and starry nights. If you love long treks or quick day hikes, let’s swap trail stories!<br>- **Camping**: From pitching a tent to roasting marshmallows, I’m all about that campfire life.<br>- **Cliff Jumping**: For the adrenaline junkies, cliff jumping into lakes is my kind of thrill.<br><br>Got a favorite outdoor spot? Share it in my [Discord](https://discord.gg/8J5F9KjkS6)!</p>
+![](./profile-3d-contrib/profile-green-animate.svg)
+
+<p align="left">## 🌲 Outdoor Adventures: Nature is My Playground<br><br>When I’m not gaming or making music, I’m outside soaking up nature. Here’s what I’m into:<br><br>- **Biking**: Whether it’s tearing up trails or cruising the neighborhood, biking keeps me moving.<br>- **Fishing**: Nothing beats the calm of casting a line and reeling in a big one.<br>- **Hiking**: I lightweight overnight hike the **Appalachian Trail**, chasing epic views and starry nights. If you love long treks or quick day hikes, let’s swap trail stories!<br>- **Camping**: From pitching a tent to roasting marshmallows, I’m all about that campfire life.<br>- **Cliff Jumping**: For the adrenaline junkies, cliff jumping into lakes or rivers is my kind of thrill.<br><br>Got a favorite outdoor spot? Share it in my [Discord](https://discord.gg/8J5F9KjkS6)!</p>
 
 
 <p align="left">## 🚀 What’s Next?<br><br>I’m always leveling up—whether it’s dropping a new track, streaming an epic gaming session, or coding something fresh. Stay tuned for:<br><br>- New Roblox/Fortnite maps you can play.<br>- More music releases and collabs.<br>- Vlogs from my Appalachian Trail hikes and cliff-jumping adventures.<br><br>Thanks for checking out my world! Let’s connect, create, and have some fun. See you in-game, on Discord, or out in the wild!<br><br>~ Zayne</p>
@@ -163,9 +179,11 @@
 
 <br clear="both">
 
-<source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tobiasmeyhoefer/tobiasmeyhoefer/output/github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/tobiasmeyhoefer/tobiasmeyhoefer/output/github-snake.svg" />
+<source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/github-snake.svg" />
 <img src="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/snake.svg" alt="Snake animation" />
+
+<img src="https://profile-counter.glitch.me/%7Bthe-RealZayne%7D/count.svg" alt="the-RealZayne :: Visitor's Count" />
 
 <script src='https://cdn.jsdelivr.net/npm/@widgetbot/crate@3' async defer>
     new Crate({
