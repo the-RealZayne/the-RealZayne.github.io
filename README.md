@@ -133,6 +133,7 @@
 <p align="left">## 📹 Content Creation: YouTube & Twitch<br><br>I’m building a community through my content! Catch me on:<br><br>- **[YouTube](https://www.youtube.com/@theRealZayne)**: I post gaming highlights, music videos, and vlogs about my outdoor adventures. From Fortnite trickshots to beatboxing challenges, there’s something for everyone. Subscribe and join the squad!<br>- **Twitch**: I stream my gaming sessions, map-building in Roblox/Fortnite, and sometimes even live beatboxing. Follow me (link TBD, check Discord) for chill streams and epic moments.<br><br>**Pro tip**: Drop a comment on my videos or join my streams to get a shoutout!</p>
 
 <!-- BEGIN YOUTUBE-CARDS -->
+
 <!-- END YOUTUBE-CARDS -->
 
 <p align="left">## 🤝 Join My Community!<br><br>I’m all about connecting with people who share my passions. Here’s how to vibe with me:<br><br>- **Discord**: Join my server, [ᘜOᗪ'S Oᖴ ᘔ](https://discord.gg/8J5F9KjkS6), for gaming, music, and outdoor chats. It’s the spot for updates, collabs, and just hanging out.<br>- **YouTube**: Subscribe to [theRealZayne](https://www.youtube.com/@theRealZayne) for my latest videos.<br>- **Twitch**: Follow my streams for live gaming and music (link coming soon, check Discord).<br>- **GitHub**: Star this repo and follow my projects as I build more cool stuff!</p>
