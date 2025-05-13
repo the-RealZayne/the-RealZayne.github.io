@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,7 +48,7 @@
 
     <!-- 3D Contribution Graph -->
     <div style="text-align: center; margin-top: 20px;">
-        <img src="./profile-3d-contrib/profile-green-animate.svg" alt="3D Contribution Graph" />
+        <img src="profile-green-animate.svg" alt="3D Contribution Graph" />
     </div>
 
     <div style="text-align: center; margin-top: 20px;">
