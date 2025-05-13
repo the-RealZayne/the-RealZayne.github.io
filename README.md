@@ -52,7 +52,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 20px;">
-        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=FF4500&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast" alt="Typing SVG" />
+        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79F38&center=true&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast" alt="Typing SVG" />
     </div>
 
     <h2 align="center">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2>
