@@ -39,8 +39,9 @@
                 <img src="https://lanyard.cnrad.dev/api/1343390005560872970" alt="Discord Presence" />
             </a>
         </div>
-        ![](https://github-contributor-stats.vercel.app/api?username=the-RealZayne&limit=5&theme=dark&combine_all_yearly_contributions=true)
     </div>
+
+        ![](https://github-contributor-stats.vercel.app/api?username=the-RealZayne&limit=5&theme=dark&combine_all_yearly_contributions=true)
 
     <!-- 3D Contribution Graph -->
     <div style="text-align: center; margin-top: 20px;">
@@ -58,7 +59,7 @@
     <div align="center">
         <img src="https://github-readme-stats.vercel.app/api?username=the-RealZayne&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph" />
         <img src="https://streak-stats.demolab.com?user=the-RealZayne&locale=en&mode=daily&theme=dracula&hide_border=false&border_radius=5" height="150" alt="streak graph" />
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=the-RealZayne&theme=dracula&hide_border=false&include_all_commits=true&count_private=true&layout=compact)" height="150" alt="stats" />
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=the-RealZayne&theme=dracula&hide_border=false&include_all_commits=true&count_private=true&layout=compact)" alt="stats" />
     </div>
 
     <p align="center">I'm a gamer, music producer, content creator, and outdoor enthusiast. Whether I'm dropping into Fortnite, producing a fire beat, or hiking the Appalachian Trail, I’m all about living life to the fullest. Check out what I’m into below and join me in my adventures!</p>
@@ -181,9 +182,8 @@
         - **YouTube**: Subscribe to [theRealZayne](https://www.youtube.com/@theRealZayne) for my latest videos.<br>
         - **Twitch**: Follow my streams for live gaming and music (link coming soon, check Discord).<br>
         - **GitHub**: Star this repo and follow my projects as I build more cool stuff!
+        [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://patreon.com/theRealZayne) 
     </p>
-
-    [![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://patreon.com/theRealZayne) 
 
     <iframe src="https://discord.com/widget?id=1343750278792351838&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
