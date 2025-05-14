@@ -70,6 +70,12 @@
         <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/dist/github-contribution-grid-snake.svg">
     </picture>
 
+<div align="center">
+<!-- Elfsight Number Counter | Untitled Number Counter -->
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-cdf1e580-1e4a-4c61-9afa-a14fc83ab41f" data-elfsight-app-lazy></div>
+</div>
+
     <p align="left">
         ## 🎮 Gaming: Let’s Squad Up!<br><br>
         Gaming is my vibe, and I’m always down for a good session. Here’s what I’m playing and why you should join me:<br><br>
