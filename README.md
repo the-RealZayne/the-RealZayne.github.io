@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <!-- Header Image -->
-    <div align="center">
-        <img height="150" src="https://share.creavite.co/67fee7b85502193c79bac868.gif" alt="Header animation" />
-    </div>
 
     <div align="right">
         <button id="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark Mode</button>
@@ -48,11 +44,7 @@
         <img src="profile-green-animate.svg" alt="3D Contribution Graph" />
     </div>
 
- <div class="container">
-        <h1>Welcome to ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻'s Page</h1>
-        <p>Check out my gaming projects and Apex 2.0 bot!</p>
-        <a href="https://github.com/the-RealZayne">My GitHub</a>
-    </div>
+    ![Github Contributions](https://greptile-stats.vercel.app/api/widget/the-RealZayne/contributions)
 
     <h2 align="center">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2>
 
@@ -69,6 +61,21 @@
         <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/dist/github-contribution-grid-snake.svg">
         <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/dist/github-contribution-grid-snake.svg">
     </picture>
+
+    <div>
+        <a href="https://github.com/Platane/snk#gh-dark-mode-only">
+            <img src="https://img.shields.io/badge/Github Contribution Snake Animation-050505?style=flat-square#gh-dark-mode-only"/>
+        </a>
+        <a href="https://github.com/Platane/snk#gh-light-mode-only">
+            <img src="https://img.shields.io/badge/Github Contribution Snake Animation-FFFFFF?style=flat-square#gh-light-mode-only"/>
+        </a>
+        <a href="https://github.com/Platane#gh-dark-mode-only">
+            <img src="https://img.shields.io/badge/by-@Platane-050505?style=flat-square#gh-dark-mode-only"/>
+        </a>
+        <a href="https://github.com/Platane#gh-light-mode-only">
+            <img src="https://img.shields.io/badge/by-@Platane-FFFFFF?style=flat-square#gh-light-mode-only"/>
+        </a>
+    </div>
 
 <div align="center">
 <!-- Elfsight Number Counter | Untitled Number Counter -->
