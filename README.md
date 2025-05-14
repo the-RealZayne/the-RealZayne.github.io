@@ -59,7 +59,7 @@
     <div align="center">
         <img src="https://github-readme-stats.vercel.app/api?username=the-RealZayne&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph" />
         <img src="https://streak-stats.demolab.com?user=the-RealZayne&locale=en&mode=daily&theme=dracula&hide_border=false&border_radius=5" height="150" alt="streak graph" />
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=the-RealZayne&theme=dracula&hide_border=false&include_all_commits=true&count_private=true&layout=compact)" alt="stats" />
+        <img src="https://github-readme-stats.vercel.app/api/top-langs?username=the-RealZayne&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dracula&hide_border=false&order=2" height="150" alt="languages graph"  />
     </div>
 
     <p align="center">I'm a gamer, music producer, content creator, and outdoor enthusiast. Whether I'm dropping into Fortnite, producing a fire beat, or hiking the Appalachian Trail, I’m all about living life to the fullest. Check out what I’m into below and join me in my adventures!</p>
