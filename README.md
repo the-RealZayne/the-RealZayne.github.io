@@ -16,12 +16,6 @@
         <button id="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark Mode</button>
     </div>
 
-    <div class="container">
-        <h1>Welcome to ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻'s Page</h1>
-        <p>Check out my gaming projects and Apex 2.0 bot!</p>
-        <a href="https://github.com/the-RealZayne">My GitHub</a>
-    </div>
-
     <!-- GitHub WidgetBox and Right Image -->
     <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
         <div>
@@ -32,6 +26,10 @@
         <div>
             <img height="150" src="https://media4.giphy.com/media/l3978y5HqiEtqupiM/giphy.gif?cid=6c09b952oaglruyjqbcw4rx2t633z5hgxmqo9wrhfjsnvwrj&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Right animation" />
         </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79F38&center=true&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast" alt="Typing SVG" />
     </div>
 
     <!-- Discord Presence and Top Languages -->
@@ -51,8 +49,10 @@
         <img src="profile-green-animate.svg" alt="3D Contribution Graph" />
     </div>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79F38&center=true&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast" alt="Typing SVG" />
+ <div class="container">
+        <h1>Welcome to ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻'s Page</h1>
+        <p>Check out my gaming projects and Apex 2.0 bot!</p>
+        <a href="https://github.com/the-RealZayne">My GitHub</a>
     </div>
 
     <h2 align="center">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2>
@@ -85,6 +85,14 @@
         - **Far Cry 6**: Nothing beats liberating an island with explosive action and a killer soundtrack. If you love immersive FPS games with a gripping story, this one’s for you.<br>
         - **Minecraft**: Building epic structures, surviving the night, or exploring with friends—Minecraft never gets old. Wanna join my server and craft something legendary?
     </p>
+
+    <div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/pacman-contribution-graph-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/pacman-contribution-graph.svg">
+  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/the-RealZayne/the-RealZayne/output/pacman-contribution-graph.svg">
+</picture>
 
     <div align="left">
         <a href="https://discord.gg/8J5F9KjkS6" target="_blank">
