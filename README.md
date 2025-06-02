@@ -215,11 +215,8 @@
         <img src="https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white" alt="Email" />
     </a>
 
-<a href="https://app.daily.dev/therealzayne"><img src="https://api.daily.dev/devcards/v2/PZdC2fjWha4ekGzjt61Ap.png?type=default&r=njx" width="356" alt="Zayne's Dev Card"/></a>
-
-
     <p align="left">
-        ## 💻 Coding & Creative Projects<br><br>
+        ## 💻 Coding & Creative Projects<br><br> <a href="https://app.daily.dev/therealzayne"><img src="https://api.daily.dev/devcards/v2/PZdC2fjWha4ekGzjt61Ap.png?type=default&r=njx" width="356" alt="Zayne's Dev Card"/></a>
         I’m diving into the tech world and loving it! Here’s what I’m working on:<br><br>
         - **Roblox & Fortnite Map Editing**: I’m creating custom maps and game modes. Expect some unique arenas and fun challenges soon!<br>
         - **Discord Bots**: I’m learning to code bots for my server, [ᘜOᗪ'S Oᖴ ᘔ](https://discord.gg/8J5F9KjkS6). From music bots to moderation tools, I’m leveling up my coding skills.<br>
