@@ -41,7 +41,7 @@
 
     <!-- 3D Contribution Graph -->
     <div style="text-align: center; margin-top: 20px;">
-        <img src="profile-green-animate.svg" alt="3D Contribution Graph" />
+        <img src="profile-3d-contrib/profile-gitblock.svg" alt="3D Contribution Graph" />
     </div>
 
     ![Github Contributions](https://greptile-stats.vercel.app/api/widget/the-RealZayne/contributions)
