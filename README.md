@@ -215,6 +215,9 @@
         <img src="https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white" alt="Email" />
     </a>
 
+<a href="https://app.daily.dev/therealzayne"><img src="https://api.daily.dev/devcards/v2/PZdC2fjWha4ekGzjt61Ap.png?type=default&r=njx" width="356" alt="Zayne's Dev Card"/></a>
+
+
     <p align="left">
         ## 💻 Coding & Creative Projects<br><br>
         I’m diving into the tech world and loving it! Here’s what I’m working on:<br><br>
