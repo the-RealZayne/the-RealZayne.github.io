@@ -1,9 +1,8 @@
 function toggleTheme() {
     const body = document.body;
     const button = document.getElementById("theme-toggle");
-    const isDark = body.getAttribute("data-theme") === "dark";
 
-    if (isDark) {
+    if (body.getAttribute("data-theme") === "dark") {
         body.removeAttribute("data-theme");
         localStorage.setItem("theme", "light");
         button.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
@@ -15,14 +14,20 @@ function toggleTheme() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("theme");
+    const savedTheme = localStorage.getItem("theme") || "light";
+    const body = document.body;
     const button = document.getElementById("theme-toggle");
 
     if (savedTheme === "dark") {
-        document.body.setAttribute("data-theme", "dark");
-        button.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        body.setAttribute("data-theme", "dark");
+        if (button) button.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
     } else {
-        document.body.removeAttribute("data-theme");
-        button.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        body.removeAttribute("data-theme");
+        if (button) button.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+    }
+
+    // Add click listener (no more inline onclick needed)
+    if (button) {
+        button.addEventListener("click", toggleTheme);
     }
 });
