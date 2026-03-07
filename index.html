@@ -1,73 +1,83 @@
-<!-- Header -->
-<header>
-  <div class="container">
-    <div class="logo">
-      <a href="index.html">༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</a>
+            </div>
+
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="gaming.html">Gaming</a></li>
+                    <li><a href="content.html">Content Creation</a></li>
+                    <li><a href="music.html">Music</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="coding.html">Coding & Projects</a></li>
+                    <li><a href="collaborations.html">Collaborations</a></li>
+                    <li><a href="activities.html">Outdoor Activities</a></li>
+                    <li><a href="booking.html">Booking / Schedule</a></li>
+                </ul>
+            </nav>
+
+            <div class="theme-toggle">
+                <button id="theme-toggle"><i class="fas fa-moon"></i> Dark Mode</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Daily.Dev Profile Card -->
+        <div style="text-align:center; margin: 2rem 0;">
+            <a href="https://app.daily.dev/therealzayne">
+                <img src="https://api.daily.dev/devcards/v2/PZdC2fjWha4ekGzjt61Ap.png?type=default&r=njx" width="356" alt="Zayne's Dev Card"/>
+            </a>
+        </div>
+
+        <!-- Intro -->
+        <h2 style="text-align: center;">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2>
+
+        <!-- Contribution Graph / Stats -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin: 2rem 0;">
+            <img src="https://github-readme-stats.vercel.app/api?username=the-RealZayne&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph" />
+            <img src="https://streak-stats.demolab.com?user=the-RealZayne&locale=en&mode=daily&theme=dracula&hide_border=false&border_radius=5" height="150" alt="streak graph" />
+            <img src="https://github-readme-stats.vercel.app/api/top-langs?username=the-RealZayne&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dracula&hide_border=false&order=2" height="150" alt="languages graph" />
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="text-align:center; padding:3rem 1rem; background:#0f0f0f; color:#aaa; margin-top:4rem;">
+        <p>© 2026 ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻ | Gamer • Producer • Creator • Adventurer</p>
+        <div style="margin:1.5rem 0;">
+            <a href="https://discord.gg/8J5F9KjkS6"><img src="..." height="35" alt="Discord"></a>
+            <a href="https://patreon.com/theRealZayne"><img src="..." height="35" alt="Patreon"></a>
+            <!-- Add real badge URLs here -->
+        </div>
+        <p>Thanks for visiting — let's connect!</p>
+    </footer>
+
+    <div align="center" style="margin-top:1rem;">
+        <img src="https://raw.githubusercontent.com/mayhemantt/mayhemantt/Update/svg/Bottom.svg" alt="Footer animation">
     </div>
 
-    <!-- Hamburger toggle -->
-    <input type="checkbox" id="menu-toggle" class="menu-toggle">
-    <label for="menu-toggle" class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
-
-    <!-- Navigation -->
-    <nav class="nav-menu">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li><a href="gaming.html">Gaming</a></li>
-        <li><a href="content.html">Content Creation</a></li>
-        <li><a href="music.html">Music</a></li>
-        <li><a href="community.html">Community</a></li>
-        <li><a href="coding.html">Coding & Projects</a></li>
-        <li><a href="collaborations.html">Collaborations</a></li>
-        <li><a href="activities.html">Outdoor Activities</a></li>
-        <li><a href="booking.html">Booking / Schedule</a></li>
-      </ul>
-    </nav>
-
-    <!-- Theme toggle (optional – keep if you want) -->
-    <div class="theme-toggle">
-      <button id="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark Mode</button>
-    </div>
-  </div>
-</header>
-
-<!-- Daily.Dev Profile Card -->
-<div style="text-align:center; margin-top:20px;">
-  <a href="https://app.daily.dev/therealzayne">
-    <img src="https://api.daily.dev/devcards/v2/PZdC2fjWha4ekGzjt61Ap.png?type=default&r=njx" width="356" alt="Zayne's Dev Card"/>
-  </a>
-</div>
-
-<!-- Intro -->
-<h2 align="center">Hey, I'm Zayne (aka theRealZayne), and this is my corner of the internet!</h2>
-
-<!-- Contribution Graph -->
-<div align="center">
-    <img src="https://github-readme-stats.vercel.app/api?username=the-RealZayne&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph" />
-    <img src="https://streak-stats.demolab.com?user=the-RealZayne&locale=en&mode=daily&theme=dracula&hide_border=false&border_radius=5" height="150" alt="streak graph" />
-    <img src="https://github-readme-stats.vercel.app/api/top-langs?username=the-RealZayne&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dracula&hide_border=false&order=2" height="150" alt="languages graph"  />
-</div>
-
-<!-- Footer -->
-<footer style="text-align:center; padding:2rem; background:#111; color:#aaa; margin-top:3rem;">
-  <p>© 2026 ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻ </p>
-  <div>
-    <!-- Your social badges here, copy from original -->
-    <a href="https://discord.gg/8J5F9KjkS6"><img src="..." alt="Discord" height="35"></a>
-    <a href="https://patreon.com/theRealZayne"><img src="..." alt="Patreon" height="35"></a>
-
-    
-    <!-- ... add Twitch, YouTube, etc. -->
-  </div>
-  <p>Thanks for visiting — let's connect!</p>
-</footer>
-
-    <!-- Footer Image -->
-<div align="center">
-    <img src="https://raw.githubusercontent.com/mayhemantt/mayhemantt/Update/svg/Bottom.svg" alt="Footer animation" />
-</div>
+    <script src="assets/js/script.js" defer></script>
+</body>
+</html>
