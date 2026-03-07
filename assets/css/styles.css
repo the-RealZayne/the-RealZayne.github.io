@@ -208,3 +208,68 @@ h1, h2 {
 [data-theme="dark"] h2 {
     color: #FF7518;
 }
+
+/* ────────────────────────────────────────
+   MOBILE OPTIMIZATIONS
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Smaller headings on mobile */
+    h1 {
+        font-size: 1.8rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Better paragraph readability */
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* Stats cards & flex items stack vertically */
+    [style*="display: flex"] {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    /* Dev icons on coding page - smaller & centered wrap */
+    div[style*="display: flex"][style*="gap: 12px"] img {
+        height: 28px !important;   /* slightly smaller than 30px for mobile */
+    }
+
+    /* Make iframes (Discord widget, Google Calendar) responsive */
+    iframe {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    /* Hamburger touch area bigger */
+    .hamburger {
+        width: 48px;
+        height: 36px;
+        padding: 10px 0;
+    }
+
+    .hamburger span {
+        height: 5px;
+    }
+
+    /* More padding in main content */
+    main.container {
+        padding: 0 16px;
+    }
+
+    /* Footer text smaller */
+    footer p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Ensure flex items don't stretch too wide on larger mobile */
+@media (max-width: 480px) {
+    img[height="150"] {
+        height: 130px !important;
+        width: auto;
+    }
+}
