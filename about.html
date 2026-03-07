@@ -1,41 +1,50 @@
-<!-- Header -->
-<header>
-  <div class="container">
-    <div class="logo">
-      <a href="index.html">༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</a>
-    </div>
+<!DOCTYPE html>
+<html lang="en" data-theme="light">  <!-- data-theme will be set by JS -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
 
-    <!-- Hamburger toggle -->
-    <input type="checkbox" id="menu-toggle" class="menu-toggle">
-    <label for="menu-toggle" class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
+    <!-- Header (same on every page) -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</a>
+            </div>
 
-    <!-- Navigation -->
-    <nav class="nav-menu">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li><a href="gaming.html">Gaming</a></li>
-        <li><a href="content.html">Content Creation</a></li>
-        <li><a href="music.html">Music</a></li>
-        <li><a href="community.html">Community</a></li>
-        <li><a href="coding.html">Coding & Projects</a></li>
-        <li><a href="collaborations.html">Collaborations</a></li>
-        <li><a href="activities.html">Outdoor Activities</a></li>
-        <li><a href="booking.html">Booking / Schedule</a></li>
-      </ul>
-    </nav>
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span></span><span></span><span></span>
+            </label>
 
-    <!-- Theme toggle (optional – keep if you want) -->
-    <div class="theme-toggle">
-      <button id="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark Mode</button>
-    </div>
-  </div>
-</header>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="gaming.html">Gaming</a></li>
+                    <li><a href="content.html">Content Creation</a></li>
+                    <li><a href="music.html">Music</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="coding.html">Coding & Projects</a></li>
+                    <li><a href="collaborations.html">Collaborations</a></li>
+                    <li><a href="activities.html">Outdoor Activities</a></li>
+                    <li><a href="booking.html">Booking / Schedule</a></li>
+                </ul>
+            </nav>
 
+            <div class="theme-toggle">
+                <button id="theme-toggle"><i class="fas fa-moon"></i> Dark Mode</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Your page content goes here -->
+    
 <!-- Scrolling Text -->
     <div style="text-align: center; margin-top: 20px;">
         <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79F38&center=true&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast" alt="Typing SVG" />
@@ -44,19 +53,24 @@
 
     <p align="center">I'm a gamer, music producer, content creator, and outdoor enthusiast. Whether I'm dropping into Fortnite, producing a fire beat, or hiking the Appalachian Trail, I’m all about living life to the fullest. Check out what I’m into below and join me in my adventures!</p>
 
-<!-- Footer -->
-<footer style="text-align:center; padding:2rem; background:#111; color:#aaa; margin-top:3rem;">
-  <p>© 2026 ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻ | Gamer • Producer • Creator • Adventurer</p>
-  <div>
-    <!-- Your social badges here, copy from original -->
-    <a href="https://discord.gg/8J5F9KjkS6"><img src="..." alt="Discord" height="35"></a>
-    <a href="https://patreon.com/theRealZayne"><img src="..." alt="Patreon" height="35"></a>
-    <!-- ... add Twitch, YouTube, etc. -->
-  </div>
-  <p>Thanks for visiting — let's connect!</p>
-</footer>
+    </main>
 
-<!-- Footer Image -->
-<div align="center">
-    <img src="https://raw.githubusercontent.com/mayhemantt/mayhemantt/Update/svg/Bottom.svg" alt="Footer animation" />
-</div>
+    <!-- Footer (same on every page) -->
+    <footer style="text-align:center; padding:3rem 1rem; background:#0f0f0f; color:#aaa; margin-top:4rem;">
+        <p>© 2026 ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻ | Gamer • Producer • Creator • Adventurer</p>
+        <div style="margin:1.5rem 0;">
+            <!-- Replace src with real badge URLs from your original file -->
+            <a href="https://discord.gg/8J5F9KjkS6"><img src="..." height="35" alt="Discord"></a>
+            <a href="https://patreon.com/theRealZayne"><img src="..." height="35" alt="Patreon"></a>
+            <!-- Add Twitch, YouTube, etc. -->
+        </div>
+        <p>Thanks for visiting — let's connect!</p>
+    </footer>
+
+    <div align="center" style="margin-top:1rem;">
+        <img src="https://raw.githubusercontent.com/mayhemantt/mayhemantt/Update/svg/Bottom.svg" alt="Footer animation">
+    </div>
+
+    <script src="assets/js/script.js" defer></script>
+</body>
+</html>
