@@ -63,22 +63,55 @@ header .container {
     text-decoration: none;
 }
 
-/* Hamburger */
+/* ────────────────────────────────────────
+   HAMBURGER MENU – 3 lines → hover glow → X on open
+───────────────────────────────────────── */
 .hamburger {
-    display: none;
+    display: none;                    /* hidden on desktop */
     flex-direction: column;
-    gap: 5px;
+    justify-content: space-between;
+    width: 40px;                      /* slightly larger for better touch/visibility */
+    height: 28px;
     cursor: pointer;
+    padding: 8px 0;
+    transition: transform 0.3s ease;
 }
 
+/* Three lines */
 .hamburger span {
-    width: 30px;
+    width: 100%;
     height: 4px;
     background: #FF4500;
-    border-radius: 2px;
-    transition: all 0.3s;
+    border-radius: 3px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 6px rgba(255, 69, 0, 0.5);
 }
 
+/* Hover: grow + brighter + stronger glow */
+.hamburger:hover {
+    transform: scale(1.15);
+}
+
+.hamburger:hover span {
+    background: #FF0000;
+    box-shadow: 0 0 14px rgba(255, 0, 0, 0.85);
+}
+
+/* When menu is open → turn into X */
+#menu-toggle:checked + .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(9px, 9px);
+}
+
+#menu-toggle:checked + .hamburger span:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+#menu-toggle:checked + .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* Hide checkbox visually */
 .menu-toggle {
     display: none;
 }
@@ -129,6 +162,7 @@ main.container {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
+        margin-left: auto;           /* push to right side */
     }
 
     .nav-menu {
@@ -139,28 +173,18 @@ main.container {
         background: #111;
         transform: translateY(-100%);
         transition: transform 0.4s ease;
-        padding: 1.5rem 0;
+        padding: 1.8rem 0;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.6);
     }
 
     .nav-menu ul {
         flex-direction: column;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1.8rem;
     }
 
     #menu-toggle:checked ~ .nav-menu {
         transform: translateY(0);
-    }
-
-    /* X animation */
-    #menu-toggle:checked + .hamburger span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    #menu-toggle:checked + .hamburger span:nth-child(2) {
-        opacity: 0;
-    }
-    #menu-toggle:checked + .hamburger span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
     }
 
     header .container {
