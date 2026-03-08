@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">  <!-- data-theme will be set by JS -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +9,23 @@
 </head>
 <body>
 
-    <!-- Header (same on every page) -->
+    <!-- Updated Header: Hamburger left, Logo center, Theme toggle right -->
     <header>
         <div class="container">
+            <!-- Hamburger on LEFT -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <!-- Logo next -->
             <div class="logo">
                 <a href="index.html">༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</a>
             </div>
 
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span></span><span></span><span></span>
-            </label>
-
+            <!-- Navigation dropdown (hidden until clicked) -->
             <nav class="nav-menu">
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -36,6 +41,7 @@
                 </ul>
             </nav>
 
+            <!-- Theme toggle on RIGHT -->
             <div class="theme-toggle">
                 <button id="theme-toggle"><i class="fas fa-moon"></i> Dark Mode</button>
             </div>
@@ -44,25 +50,23 @@
 
     <main class="container">
         <h1>About Me</h1>
-        <!-- Your page content goes here -->
-    
-<!-- Scrolling Text -->
-    <div style="text-align: center; margin-top: 20px;">
-        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79F38&center=true&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast" alt="Typing SVG" />
-    </div>
 
+        <!-- Scrolling Text -->
+        <div style="text-align: center; margin-top: 20px;">
+            <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=F79F38&center=true&width=435&lines=Gamer;Music+Producer;Content+Creator;Outdoor+Enthusiast" alt="Typing SVG" />
+        </div>
 
-    <p align="center">I'm a gamer, music producer, content creator, and outdoor enthusiast. 
-        Whether I'm dropping into Fortnite, producing a fire beat, or hiking the Appalachian Trail, I’m all about living life to the fullest. 
-        Check out what I’m into, how to reach me and join me in my adventures!</p>
-
+        <p align="center">
+            I'm a gamer, music producer, content creator, and outdoor enthusiast. 
+            Whether I'm dropping into Fortnite, producing a fire beat, or hiking the Appalachian Trail, I’m all about living life to the fullest. 
+            Check out what I’m into, how to reach me and join me in my adventures!
+        </p>
     </main>
 
-    <!-- Footer (same on every page) -->
+    <!-- Footer -->
     <footer style="text-align:center; padding:3rem 1rem; background:#0f0f0f; color:#aaa; margin-top:4rem;">
         <p>© 2026 ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻ | ZayneCreations ™</p>
         <div style="margin:1.5rem 0;">
-            <!-- Replace src with real badge URLs from your original file -->
             <a href="https://discord.gg/8J5F9KjkS6" target="_blank">
                 <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo" />
             </a>
@@ -75,9 +79,7 @@
             <a href="https://www.youtube.com/@theRealZayne" target="_blank">
                 <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="youtube logo" />
             </a>
-            <!-- Add Twitch, YouTube, etc. -->
         </div>
-        
         <p>Thanks for visiting!</p>
     </footer>
 
