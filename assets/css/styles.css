@@ -50,9 +50,9 @@ header .container {
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 .logo a {
@@ -64,10 +64,10 @@ header .container {
 }
 
 /* ────────────────────────────────────────
-   HAMBURGER + MOBILE MENU (corrected & reliable)
+   HAMBURGER MENU – always visible (desktop + mobile)
 ───────────────────────────────────────── */
 .hamburger {
-    display: none;
+    display: flex;                    /* Always visible */
     flex-direction: column;
     justify-content: space-between;
     width: 48px;
@@ -75,6 +75,8 @@ header .container {
     cursor: pointer;
     padding: 8px 0;
     transition: transform 0.3s ease;
+    order: -1;                        /* Left side */
+    margin-right: 1.5rem;             /* Space from logo */
 }
 
 .hamburger span {
@@ -100,22 +102,34 @@ header .container {
     display: none;
 }
 
-/* Desktop nav – always visible on wide screens */
+/* Navigation – hidden by default, shown on toggle */
 .nav-menu {
-    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #111;
+    padding: 2rem 1rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.7);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    pointer-events: none;
 }
 
 .nav-menu ul {
     list-style: none;
-    display: flex;
-    gap: 1.8rem;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.8rem;
 }
 
 .nav-menu a {
     color: #e0e0e0;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     white-space: nowrap;
 }
 
@@ -123,60 +137,29 @@ header .container {
     color: #FF4500;
 }
 
-/* ────── MOBILE ONLY ────── */
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-        margin-left: auto;
-    }
-
-    /* Completely hide normal nav layout on mobile when closed */
-    .nav-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #111;
-        padding: 2rem 1rem;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.7);
-        transform: translateY(-20px);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s ease;
-        pointer-events: none; /* prevents clicking through closed menu */
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.6rem;
-    }
-
-    /* When open */
-    #menu-toggle:checked ~ .nav-menu {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-    }
-
-    /* X animation */
-    #menu-toggle:checked + .hamburger span:nth-child(1) {
-        transform: rotate(45deg) translate(9px, 9px);
-    }
-    #menu-toggle:checked + .hamburger span:nth-child(2) {
-        opacity: 0;
-    }
-    #menu-toggle:checked + .hamburger span:nth-child(3) {
-        transform: rotate(-45deg) translate(9px, -9px);
-    }
-
-    header .container {
-        flex-wrap: nowrap;
-    }
+/* Show menu when open */
+#menu-toggle:checked ~ .nav-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
-/* Theme toggle */
+/* X animation */
+#menu-toggle:checked + .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(9px, 9px);
+}
+#menu-toggle:checked + .hamburger span:nth-child(2) {
+    opacity: 0;
+}
+#menu-toggle:checked + .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(9px, -9px);
+}
+
+/* Theme toggle – top right */
+.theme-toggle {
+    margin-left: auto;
+}
+
 .theme-toggle button {
     background: #FF4500;
     color: white;
@@ -201,7 +184,7 @@ main.container {
     padding: 0 20px;
 }
 
-/* Responsive images & general mobile tweaks */
+/* Responsive images */
 img {
     max-width: 100%;
     height: auto;
@@ -218,7 +201,7 @@ h1, h2 {
     color: #FF7518;
 }
 
-/* Your existing mobile optimizations (kept) */
+/* Mobile optimizations */
 @media (max-width: 768px) {
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.5rem; }
