@@ -11,6 +11,7 @@ html, body {
     height: 100%;
     font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden; /* prevent horizontal scroll on small screens */
 }
 
 /* Light mode (default) */
@@ -55,6 +56,12 @@ header .container {
     flex-wrap: nowrap;
 }
 
+/* Ensure the header layout stays in a row on mobile */
+header .container {
+    flex-direction: row;
+}
+
+/* Logo */
 .logo a {
     font-size: 2rem;
     color: #FF4500;
@@ -63,9 +70,9 @@ header .container {
     text-decoration: none;
 }
 
-/* HAMBURGER MENU – always visible, forced on mobile */
+/* HAMBURGER MENU */
 .hamburger {
-    display: flex !important;           /* Strong base rule */
+    display: none;                 /* default: hidden on desktop */
     flex-direction: column;
     justify-content: space-between;
     width: 48px;
@@ -73,8 +80,8 @@ header .container {
     cursor: pointer;
     padding: 8px 0;
     transition: transform 0.3s ease;
-    order: -1;                          /* Pushes it LEFT */
-    margin-right: 1rem;                 /* Space from logo */
+    order: -1;                     /* Pushes it LEFT */
+    margin-right: 1rem;            /* Space from logo */
 }
 
 .hamburger span {
@@ -95,12 +102,14 @@ header .container {
     box-shadow: 0 0 14px rgba(255, 0, 0, 0.85);
 }
 
-/* Hide checkbox */
+/* Hide checkbox (accessible way, doesn't affect layout) */
 .menu-toggle {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
-/* Navigation – hidden by default, shown on toggle */
+/* Navigation – mobile dropdown by default */
 .nav-menu {
     position: absolute;
     top: 100%;
@@ -153,9 +162,10 @@ header .container {
     transform: rotate(-45deg) translate(9px, -9px);
 }
 
-/* Theme toggle – top right */
+/* Theme toggle – stays on right */
 .theme-toggle {
     margin-left: auto;
+    flex-shrink: 0;
 }
 
 .theme-toggle button {
@@ -168,6 +178,7 @@ header .container {
     font-family: inherit;
     box-shadow: 0 0 10px #FF4500;
     transition: all 0.3s;
+    white-space: nowrap;
 }
 
 .theme-toggle button:hover {
@@ -199,43 +210,58 @@ h1, h2 {
     color: #FF7518;
 }
 
-/* Mobile optimizations – now explicitly forces hamburger */
+/* Mobile optimizations */
 @media (max-width: 768px) {
+    /* Show the hamburger */
     .hamburger {
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
+        display: flex;
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
         margin-left: 0;
         margin-right: 1rem;
     }
 
-    /* Ensure no horizontal nav leaks through */
-    .nav-menu {
-        display: none !important;
+    /* Keep header layout in a row so theme-toggle does not get pushed off-screen */
+    header .container {
+        flex-direction: row;
+        align-items: center;
     }
 
-    #menu-toggle:checked ~ .nav-menu {
-        display: block !important;
+    /* Use dropdown style nav; no hard display:none !important */
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
     }
+
+    /* Only show nav when checked */
+    #menu-toggle:checked ~ .nav-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* DO NOT globally override every inline flex.
+       This was causing layout issues & overflow. */
+    /* [style*="display: flex"] { ... }  <-- removed */
 
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.5rem; }
     p  { font-size: 1rem; line-height: 1.6; }
-    [style*="display: flex"] {
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-    div[style*="display: flex"][style*="gap: 12px"] img {
-        height: 28px !important;
-    }
+
+    /* If you really need to stack certain flex rows, target them specifically instead of using [style*="display:flex"] */
+
     iframe {
         width: 100% !important;
         max-width: 100%;
     }
+
     main.container {
         padding: 0 16px;
     }
+
     footer p {
         font-size: 0.9rem;
     }
