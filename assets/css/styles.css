@@ -11,7 +11,7 @@ html, body {
     height: 100%;
     font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: background-color 0.4s ease, color 0.4s ease;
-    overflow-x: hidden; /* prevent horizontal scroll on small screens */
+    overflow-x: hidden;
 }
 
 /* Light mode (default) */
@@ -54,11 +54,7 @@ header .container {
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
-}
-
-/* Ensure the header layout stays in a row on mobile */
-header .container {
-    flex-direction: row;
+    gap: 0.5rem;
 }
 
 /* Logo */
@@ -70,23 +66,24 @@ header .container {
     text-decoration: none;
 }
 
-/* HAMBURGER MENU */
+/* HAMBURGER MENU – visible on ALL sizes */
 .hamburger {
-    display: flex;                 /* default: hidden on desktop */
+    display: flex;                /* key: always visible */
     flex-direction: column;
     justify-content: space-between;
-    width: 48px;
-    height: 36px;
+    width: 36px;
+    height: 28px;
     cursor: pointer;
-    padding: 8px 0;
+    padding: 4px 0;
     transition: transform 0.3s ease;
-    order: -1;                     /* Pushes it LEFT */
-    margin-right: 1rem;            /* Space from logo */
+    order: -1;                    /* left of logo */
+    margin-right: 0.5rem;
+    flex-shrink: 0;
 }
 
 .hamburger span {
     width: 100%;
-    height: 5px;
+    height: 4px;
     background: #FF4500;
     border-radius: 3px;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -102,14 +99,14 @@ header .container {
     box-shadow: 0 0 14px rgba(255, 0, 0, 0.85);
 }
 
-/* Hide checkbox (accessible way, doesn't affect layout) */
+/* Hide checkbox BUT keep it functional */
 .menu-toggle {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
-/* Navigation – mobile dropdown by default */
+/* Navigation – dropdown controlled by checkbox */
 .nav-menu {
     position: absolute;
     top: 100%;
@@ -153,32 +150,34 @@ header .container {
 
 /* X animation */
 #menu-toggle:checked + .hamburger span:nth-child(1) {
-    transform: rotate(45deg) translate(9px, 9px);
+    transform: rotate(45deg) translate(6px, 6px);
 }
 #menu-toggle:checked + .hamburger span:nth-child(2) {
     opacity: 0;
 }
 #menu-toggle:checked + .hamburger span:nth-child(3) {
-    transform: rotate(-45deg) translate(9px, -9px);
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Theme toggle – stays on right */
+/* Theme toggle – right side */
 .theme-toggle {
     margin-left: auto;
-    flex-shrink: 0;
+    flex: 0 1 auto;
+    min-width: 0;
 }
 
 .theme-toggle button {
     background: #FF4500;
     color: white;
     border: none;
-    padding: 10px 18px;
+    padding: 8px 12px;
     border-radius: 6px;
     cursor: pointer;
     font-family: inherit;
     box-shadow: 0 0 10px #FF4500;
     transition: all 0.3s;
     white-space: nowrap;
+    font-size: 0.9rem;
 }
 
 .theme-toggle button:hover {
@@ -212,46 +211,25 @@ h1, h2 {
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
-    /* Show the hamburger */
-    .hamburger {
-        display: flex;
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-        margin-left: 0;
-        margin-right: 1rem;
-    }
-
-    /* Keep header layout in a row so theme-toggle does not get pushed off-screen */
     header .container {
-        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0.25rem;
         align-items: center;
     }
 
-    /* Use dropdown style nav; no hard display:none !important */
-    .nav-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
+    .logo a {
+        font-size: 1.4rem;
+        white-space: nowrap;
     }
 
-    /* Only show nav when checked */
-    #menu-toggle:checked ~ .nav-menu {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
+    .theme-toggle button {
+        font-size: 0.8rem;
+        padding: 6px 8px;
     }
-
-    /* DO NOT globally override every inline flex.
-       This was causing layout issues & overflow. */
-    /* [style*="display: flex"] { ... }  <-- removed */
 
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.5rem; }
     p  { font-size: 1rem; line-height: 1.6; }
-
-    /* If you really need to stack certain flex rows, target them specifically instead of using [style*="display:flex"] */
 
     iframe {
         width: 100% !important;
