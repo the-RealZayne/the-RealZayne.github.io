@@ -63,11 +63,9 @@ header .container {
     text-decoration: none;
 }
 
-/* ────────────────────────────────────────
-   HAMBURGER MENU – always visible, forced on mobile
-───────────────────────────────────────── */
+/* HAMBURGER MENU – always visible, forced on mobile */
 .hamburger {
-    display: flex !important;         /* Always visible - strong rule */
+    display: flex !important;           /* Strong base rule */
     flex-direction: column;
     justify-content: space-between;
     width: 48px;
@@ -75,8 +73,8 @@ header .container {
     cursor: pointer;
     padding: 8px 0;
     transition: transform 0.3s ease;
-    order: -1;                        /* Forces left position */
-    margin-right: 1.5rem;             /* Space from logo */
+    order: -1;                          /* Pushes it LEFT */
+    margin-right: 1rem;                 /* Space from logo */
 }
 
 .hamburger span {
@@ -201,18 +199,20 @@ h1, h2 {
     color: #FF7518;
 }
 
-/* Mobile optimizations – now reinforces hamburger visibility */
+/* Mobile optimizations – now explicitly forces hamburger */
 @media (max-width: 768px) {
     .hamburger {
         display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
         pointer-events: auto !important;
+        margin-left: 0;
         margin-right: 1rem;
     }
 
+    /* Ensure no horizontal nav leaks through */
     .nav-menu {
-        display: none !important;  /* ensure no horizontal leak */
+        display: none !important;
     }
 
     #menu-toggle:checked ~ .nav-menu {
