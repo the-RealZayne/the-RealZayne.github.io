@@ -64,30 +64,28 @@ header .container {
 }
 
 /* ────────────────────────────────────────
-   HAMBURGER MENU – 3 lines → hover glow → X on open
+   HAMBURGER + MOBILE MENU (corrected & reliable)
 ───────────────────────────────────────── */
 .hamburger {
-    display: none;                    /* hidden on desktop */
+    display: none;
     flex-direction: column;
     justify-content: space-between;
-    width: 40px;                      /* slightly larger for better touch/visibility */
-    height: 28px;
+    width: 48px;
+    height: 36px;
     cursor: pointer;
     padding: 8px 0;
     transition: transform 0.3s ease;
 }
 
-/* Three lines */
 .hamburger span {
     width: 100%;
-    height: 4px;
+    height: 5px;
     background: #FF4500;
     border-radius: 3px;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 0 6px rgba(255, 69, 0, 0.5);
 }
 
-/* Hover: grow + brighter + stronger glow */
 .hamburger:hover {
     transform: scale(1.15);
 }
@@ -97,40 +95,85 @@ header .container {
     box-shadow: 0 0 14px rgba(255, 0, 0, 0.85);
 }
 
-/* When menu is open → turn into X */
-#menu-toggle:checked + .hamburger span:nth-child(1) {
-    transform: rotate(45deg) translate(9px, 9px);
-}
-
-#menu-toggle:checked + .hamburger span:nth-child(2) {
-    opacity: 0;
-    transform: scale(0);
-}
-
-#menu-toggle:checked + .hamburger span:nth-child(3) {
-    transform: rotate(-45deg) translate(8px, -8px);
-}
-
-/* Hide checkbox visually */
+/* Hide checkbox */
 .menu-toggle {
     display: none;
 }
 
-/* Navigation */
+/* Desktop nav – always visible on wide screens */
+.nav-menu {
+    display: block;
+}
+
 .nav-menu ul {
     list-style: none;
     display: flex;
     gap: 1.8rem;
     margin: 0;
+    padding: 0;
 }
 
 .nav-menu a {
     color: #e0e0e0;
     font-size: 1.1rem;
+    white-space: nowrap;
 }
 
 .nav-menu a:hover {
     color: #FF4500;
+}
+
+/* ────── MOBILE ONLY ────── */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        margin-left: auto;
+    }
+
+    /* Completely hide normal nav layout on mobile when closed */
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #111;
+        padding: 2rem 1rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.7);
+        transform: translateY(-20px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        pointer-events: none; /* prevents clicking through closed menu */
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.6rem;
+    }
+
+    /* When open */
+    #menu-toggle:checked ~ .nav-menu {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* X animation */
+    #menu-toggle:checked + .hamburger span:nth-child(1) {
+        transform: rotate(45deg) translate(9px, 9px);
+    }
+    #menu-toggle:checked + .hamburger span:nth-child(2) {
+        opacity: 0;
+    }
+    #menu-toggle:checked + .hamburger span:nth-child(3) {
+        transform: rotate(-45deg) translate(9px, -9px);
+    }
+
+    header .container {
+        flex-wrap: nowrap;
+    }
 }
 
 /* Theme toggle */
@@ -158,41 +201,7 @@ main.container {
     padding: 0 20px;
 }
 
-/* Mobile menu */
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-        margin-left: auto;           /* push to right side */
-    }
-
-    .nav-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #111;
-        transform: translateY(-100%);
-        transition: transform 0.4s ease;
-        padding: 1.8rem 0;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.8rem;
-    }
-
-    #menu-toggle:checked ~ .nav-menu {
-        transform: translateY(0);
-    }
-
-    header .container {
-        justify-content: space-between;
-    }
-}
-
-/* Responsive images */
+/* Responsive images & general mobile tweaks */
 img {
     max-width: 100%;
     height: auto;
@@ -209,64 +218,30 @@ h1, h2 {
     color: #FF7518;
 }
 
-/* ────────────────────────────────────────
-   MOBILE OPTIMIZATIONS
-───────────────────────────────────────── */
+/* Your existing mobile optimizations (kept) */
 @media (max-width: 768px) {
-    /* Smaller headings on mobile */
-    h1 {
-        font-size: 1.8rem;
-    }
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    /* Better paragraph readability */
-    p {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    /* Stats cards & flex items stack vertically */
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    p  { font-size: 1rem; line-height: 1.6; }
     [style*="display: flex"] {
         flex-direction: column !important;
         align-items: center !important;
     }
-
-    /* Dev icons on coding page - smaller & centered wrap */
     div[style*="display: flex"][style*="gap: 12px"] img {
-        height: 28px !important;   /* slightly smaller than 30px for mobile */
+        height: 28px !important;
     }
-
-    /* Make iframes (Discord widget, Google Calendar) responsive */
     iframe {
         width: 100% !important;
         max-width: 100%;
     }
-
-    /* Hamburger touch area bigger */
-    .hamburger {
-        width: 48px;
-        height: 36px;
-        padding: 10px 0;
-    }
-
-    .hamburger span {
-        height: 5px;
-    }
-
-    /* More padding in main content */
     main.container {
         padding: 0 16px;
     }
-
-    /* Footer text smaller */
     footer p {
         font-size: 0.9rem;
     }
 }
 
-/* Ensure flex items don't stretch too wide on larger mobile */
 @media (max-width: 480px) {
     img[height="150"] {
         height: 130px !important;
