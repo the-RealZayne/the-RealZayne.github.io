@@ -64,10 +64,10 @@ header .container {
 }
 
 /* ────────────────────────────────────────
-   HAMBURGER MENU – always visible (desktop + mobile)
+   HAMBURGER MENU – always visible, forced on mobile
 ───────────────────────────────────────── */
 .hamburger {
-    display: flex;                    /* Always visible */
+    display: flex !important;         /* Always visible - strong rule */
     flex-direction: column;
     justify-content: space-between;
     width: 48px;
@@ -75,7 +75,7 @@ header .container {
     cursor: pointer;
     padding: 8px 0;
     transition: transform 0.3s ease;
-    order: -1;                        /* Left side */
+    order: -1;                        /* Forces left position */
     margin-right: 1.5rem;             /* Space from logo */
 }
 
@@ -201,8 +201,24 @@ h1, h2 {
     color: #FF7518;
 }
 
-/* Mobile optimizations */
+/* Mobile optimizations – now reinforces hamburger visibility */
 @media (max-width: 768px) {
+    .hamburger {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        margin-right: 1rem;
+    }
+
+    .nav-menu {
+        display: none !important;  /* ensure no horizontal leak */
+    }
+
+    #menu-toggle:checked ~ .nav-menu {
+        display: block !important;
+    }
+
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.5rem; }
     p  { font-size: 1rem; line-height: 1.6; }
