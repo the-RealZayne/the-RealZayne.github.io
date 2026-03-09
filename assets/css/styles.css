@@ -251,3 +251,21 @@ h1, h2 {
         width: auto;
     }
 }
+
+/* ────────────────────────────────────────
+   FIX DEV ICONS SIZE ON CODING PAGE
+───────────────────────────────────────── */
+.dev-icons img,
+div[style*="display: flex"][style*="gap: 12px"] img {
+    height: 30px !important;
+    width: auto !important;
+    max-height: 30px !important;
+}
+
+/* Slightly smaller on very small screens */
+@media (max-width: 480px) {
+    .dev-icons img,
+    div[style*="display: flex"][style*="gap: 12px"] img {
+        height: 26px !important;
+    }
+}
