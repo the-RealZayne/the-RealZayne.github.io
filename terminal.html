@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal | ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body class="terminal-page">
+
+<main class="container">
+
+<div class="terminal-window">
+  <div class="terminal-header">
+    <div class="buttons">
+      <span class="close"></span>
+      <span class="minimize"></span>
+      <span class="maximize"></span>
+    </div>
+    <div class="title">guest@portfolio:~</div>
+  </div>
+
+  <div class="terminal-body" id="term-body">
+    <div class="line">
+      Welcome to my terminal! Type <span class="highlight">help</span> to see commands.
+    </div>
+
+    <div id="output-area"></div>
+
+    <div class="input-line">
+      <span class="prompt">guest@portfolio:~$</span>
+      <input type="text" id="term-input" autocomplete="off">
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script src="assets/js/script.js"></script>
+
+</body>
+</html>
