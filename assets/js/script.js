@@ -50,83 +50,52 @@ window.addEventListener("resize", () => {
    TERMINAL SYSTEM
 ============================ */
 
-if (document.getElementById("term-input")) {
-
 const input = document.getElementById("term-input");
 const output = document.getElementById("output-area");
 const body = document.getElementById("term-body");
 
 input.addEventListener("keydown", function(e) {
-
-if (e.key === "Enter") {
-
-const val = input.value.trim().toLowerCase();
-
-const historyLine = document.createElement("div");
-historyLine.className = "line";
-historyLine.innerHTML = "<span class='prompt'>guest@portfolio:~$</span> " + val;
-output.appendChild(historyLine);
-
-if (val === "help") {
-
-const response = document.createElement("div");
-response.className = "line";
-response.innerHTML =
-"Available commands:<br>" +
-"- <span class='highlight'>about</span><br>" +
-"- <span class='highlight'>skills</span><br>" +
-"- <span class='highlight'>clear</span>";
-
-output.appendChild(response);
-
-}
-
-else if (val === "about") {
-
-const response = document.createElement("div");
-response.className = "line";
-response.innerText =
-"I’m Zayne — gamer, music producer, developer, and creator.";
-output.appendChild(response);
-
-}
-
-else if (val === "skills") {
-
-const response = document.createElement("div");
-response.className = "line";
-response.innerText =
-"> HTML, CSS, JavaScript, Node.js, Discord Bots, Game Modding";
-output.appendChild(response);
-
-}
-
-else if (val === "clear") {
-
-output.innerHTML = "";
-
-}
-
-else if (val !== "") {
-
-const response = document.createElement("div");
-response.className = "line";
-response.innerText =
-"Command not found. Type help.";
-
-output.appendChild(response);
-
-}
-
-input.value = "";
-body.scrollTop = body.scrollHeight;
-
-}
-
+  if (e.key === "Enter") {
+    const val = input.value.trim().toLowerCase();
+    
+    // Create the history line showing what was typed
+    const historyLine = document.createElement("div");
+    historyLine.className = "line";
+    historyLine.innerHTML = "<span class=\"prompt\">guest@portfolio:~$</span> " + val;
+    output.appendChild(historyLine);
+    
+    // Handle specific commands
+    if (val === "help") {
+      const response = document.createElement("div");
+      response.className = "line";
+      response.innerHTML = "Available commands:<br>- <span class=\"highlight\">about</span>: Learn about me<br>- <span class=\"highlight\">skills</span>: View my tech stack<br>- <span class=\"highlight\">clear</span>: Clear the terminal";
+      output.appendChild(response);
+    } else if (val === "about") {
+      const response = document.createElement("div");
+      response.className = "line";
+      response.innerText = "I am a frontend developer passionate about modern web design and clean code.";
+      output.appendChild(response);
+    } else if (val === "skills") {
+      const response = document.createElement("div");
+      response.className = "line";
+      response.innerText = "> HTML, CSS, JavaScript, React, SQL";
+      output.appendChild(response);
+    } else if (val === "clear") {
+      output.innerHTML = "";
+    } else if (val !== "") {
+      const response = document.createElement("div");
+      response.className = "line";
+      response.innerText = "Command not found. Type help for a list of commands.";
+      output.appendChild(response);
+    }
+    
+    // Clear input and scroll to bottom
+    input.value = "";
+    body.scrollTop = body.scrollHeight;
+  }
 });
 
+// Auto focus when clicking anywhere in the terminal
 body.addEventListener("click", function() {
-input.focus();
+  input.focus();
 });
-
-}
