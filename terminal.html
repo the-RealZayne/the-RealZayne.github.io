@@ -1,113 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css"><!-- your main styles -->
-    <link rel="stylesheet" href="assets/css/terminal.css"> <!-- NEW: we'll create this -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/terminal.css">
+
 </head>
+
 <body>
 
-    <!-- Updated Header: Hamburger LEFT, Logo, Theme toggle RIGHT -->
-    <header>
-        <div class="container">
-            <!-- Hamburger on LEFT -->
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
+<header>
+<div class="container">
 
-            <!-- Logo next to hamburger -->
-            <div class="logo">
-                <a href="index.html">༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</a>
-            </div>
+<input type="checkbox" id="menu-toggle" class="menu-toggle">
 
-            <!-- Navigation dropdown (hidden until clicked) -->
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Me</a></li>
-                    <li><a href="gaming.html">Gaming</a></li>
-                    <li><a href="content.html">Content Creation</a></li>
-                    <li><a href="music.html">Music</a></li>
-                    <li><a href="community.html">Community</a></li>
-                    <li><a href="coding.html">Coding & Projects</a></li>
-                    <li><a href="collaborations.html">Collaborations</a></li>
-                    <li><a href="activities.html">Outdoor Activities</a></li>
-                    <li><a href="booking.html">Booking / Schedule</a></li>
-                    <li><a href="contribute.html">Contribute</a></li>
-                </ul>
-            </nav>
+<label for="menu-toggle" class="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</label>
 
-            <!-- Theme toggle on RIGHT -->
-            <div class="theme-toggle">
-                <button id="theme-toggle"><i class="fas fa-moon"></i> Dark Mode</button>
-            </div>
-        </div>
-    </header>
-    
-    <main class="container" style="margin-top: 2rem; text-align: center;">
-        <h1>Interactive Terminal</h1>
-        <p style="margin-bottom: 2rem; color: #FF7518;">Type <span style="color:#FF4500; font-weight:bold;">help</span> to begin. Dark mode friendly.</p>
+<div class="logo">
+<a href="index.html">༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</a>
+</div>
 
-        <!-- The terminal component -->
-        <div class="terminal-window">
-            <div class="terminal-header">
-                <div class="buttons">
-                    <span class="close"></span>
-                    <span class="minimize"></span>
-                    <span class="maximize"></span>
-                </div>
-                <div class="title">zayne@therealspace:~</div>
-            </div>
+<nav class="nav-menu">
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About Me</a></li>
+<li><a href="gaming.html">Gaming</a></li>
+<li><a href="content.html">Content Creation</a></li>
+<li><a href="music.html">Music</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="coding.html">Coding & Projects</a></li>
+<li><a href="collaborations.html">Collaborations</a></li>
+<li><a href="activities.html">Outdoor Activities</a></li>
+<li><a href="booking.html">Booking / Schedule</a></li>
+<li><a href="contribute.html">Contribute</a></li>
+</ul>
+</nav>
 
-            <div class="terminal-body" id="term-body">
-                <div class="line">Welcome aboard, operator. Type <span class="highlight">help</span> for commands.</div>
-                <div id="output-area"></div>
-                <div class="input-line">
-                    <span class="prompt">zayne@therealspace:~$</span>
-                    <input type="text" id="term-input" autocomplete="off" autofocus>
-                </div>
-            </div>
-        </div>
-    </main>
+<div class="theme-toggle">
+<button id="theme-toggle">
+<i class="fas fa-moon"></i> Dark Mode
+</button>
+</div>
 
-    <!-- Footer -->
-    <footer style="text-align:center; padding:3rem 1rem; background:#0f0f0f; color:#aaa; margin-top:4rem;">
-        <p>© 2026 ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻ | ZayneCreations ™</p>
-        <div style="margin:1.5rem 0;">
-            <a href="https://discord.gg/8J5F9KjkS6" target="_blank">
-                <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo" />
-            </a>
-            <a href="https://patreon.com/theRealZayne" target="_blank">
-                <img src="https://img.shields.io/static/v1?message=Patreon&logo=patreon&label=&color=F96854&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="patreon logo" />
-            </a>
-            <a href="https://www.twitch.tv/xtherealzaynex" target="_blank">
-                <img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&label=&color=9146FF&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="twitch logo" />
-            </a>
-            <a href="https://www.youtube.com/@theRealZayne" target="_blank">
-                <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="youtube logo" />
-            </a>
-        </div>
-        <p>Thanks for visiting!</p>
+</div>
+</header>
 
-    <div align="center">
-        <img alt="Visitor Stats" 
-            src="https://widgetbite.com/stats/the-RealZayne"/>  
-    </div>
-    </footer>
+<main class="container" style="margin-top:2rem;text-align:center;">
 
-    <div align="center" style="margin-top:1rem;">
-        <img src="https://raw.githubusercontent.com/mayhemantt/mayhemantt/Update/svg/Bottom.svg" alt="Footer animation">
-    </div>
+<h1>Interactive Terminal</h1>
 
-    <script src="assets/js/script.js" defer></script>
-    
-    <script src="assets/js/terminal.js"></script>         <!-- NEW: terminal logic -->
-    
+<p style="margin-bottom:2rem;color:#FF7518;">
+Type <span style="color:#FF4500;font-weight:bold;">help</span> to begin.
+Dark mode friendly.
+</p>
+
+<div class="terminal-window">
+
+<div class="terminal-header">
+<div class="buttons">
+<span class="close"></span>
+<span class="minimize"></span>
+<span class="maximize"></span>
+</div>
+<div class="title">zayne@therealspace:~</div>
+</div>
+
+<div class="terminal-body" id="term-body">
+
+<!-- INITIATE SCREEN -->
+<div id="terminal-init">
+<button id="init-btn">INITIATE</button>
+</div>
+
+<div class="line">
+Welcome aboard, operator. Type
+<span class="highlight">help</span>
+for commands.
+</div>
+
+<div id="output-area"></div>
+
+<div class="input-line">
+<span class="prompt">zayne@therealspace:~$</span>
+<input type="text" id="term-input" autocomplete="off" autofocus>
+</div>
+
+</div>
+</div>
+</main>
+
+<footer style="text-align:center;padding:3rem 1rem;background:#0f0f0f;color:#aaa;margin-top:4rem;">
+
+<p>© 2026 ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻ | ZayneCreations ™</p>
+
+<div style="margin:1.5rem 0;">
+
+<a href="https://discord.gg/8J5F9KjkS6" target="_blank">
+<img src="https://img.shields.io/static/v1?message=Discord&logo=discord&color=7289DA&style=for-the-badge" height="35">
+</a>
+
+<a href="https://patreon.com/theRealZayne" target="_blank">
+<img src="https://img.shields.io/static/v1?message=Patreon&logo=patreon&color=F96854&style=for-the-badge" height="35">
+</a>
+
+<a href="https://www.twitch.tv/xtherealzaynex" target="_blank">
+<img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&color=9146FF&style=for-the-badge" height="35">
+</a>
+
+<a href="https://www.youtube.com/@theRealZayne" target="_blank">
+<img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&color=FF0000&style=for-the-badge" height="35">
+</a>
+
+</div>
+
+<p>Thanks for visiting!</p>
+
+</footer>
+
+<script src="assets/js/script.js" defer></script>
+<script src="assets/js/terminal.js"></script>
+
 </body>
 </html>
