@@ -46,7 +46,7 @@ window.addEventListener("resize", () => {
     applyTheme(savedTheme);
 });
 
-// Visitor counter with weekly graph
+// Visitor counter with weekly graph - FIXED DAY ORDER
 document.addEventListener('DOMContentLoaded', function() {
     const statsSvg = document.getElementById('stats');
     if (!statsSvg) return;
@@ -60,34 +60,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!data[today]) data[today] = 0;
     data[today]++;
     
-    // Keep only last 7 days + total
-    const weekStart = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000);
+    // Calculate 7-day window: Mon=0, Tue=1, Wed=2, Thu=3, Fri=4, Sat=5, Sun=6
+    const weekStart = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000); // 6 days ago
     const days = {};
     let total = 0;
     let weekTotal = 0;
     
-    // Calculate 7-day window
     for (let i = 0; i < 7; i++) {
-        const day = new Date(weekStart.getTime() + i * 24 * 60 * 60 * 1000).toDateString();
-        days[day] = data[day] || 0;
-        total += data[day] || 0;
-        if (i === 6) weekTotal += days[day]; // Today
-        else weekTotal += days[day];
+        const checkDate = new Date(weekStart.getTime() + i * 24 * 60 * 60 * 1000);
+        const dateStr = checkDate.toDateString();
+        days[i] = data[dateStr] || 0;  // i=0 is Monday position
+        weekTotal += days[i];
+        total += data[dateStr] || 0;
     }
     
-    // Update total count
+    // Update total count (all time)
     total = Object.values(data).reduce((sum, val) => sum + val, 0);
     
-    // Update SVG elements
-    const dayOrder = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    const weekDays = Object.keys(days);
-    
+    // Update SVG elements - bars are positioned Mon=0 to Sun=6
     document.getElementById('textStats').textContent = `+${weekTotal} this week, ${total.toLocaleString()} total`;
     
-    // Update each day bar
     document.querySelectorAll('.day-bar').forEach((bar, index) => {
-        const dayIndex = index;
-        const dayCount = days[weekDays[dayIndex]] || 0;
+        const dayCount = days[index] || 0;  // index 0=Mon, 1=Tue, ..., 6=Sun
         const dayElement = bar.querySelector('.day-number');
         const rectElement = bar.querySelector('.day-bar-rect');
         
@@ -97,8 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Animate bar height (max 25px for 50+ views)
         const height = Math.min(dayCount * 0.5, 25);
         const yPos = 28 - height;
-        rectElement.setAttribute('height', height);
-        rectElement.setAttribute('y', yPos);
         
         // Animate number sliding down
         dayElement.style.opacity = '0';
