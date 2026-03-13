@@ -1,10 +1,15 @@
 // assets/js/terminal.js
+
 const input = document.getElementById("term-input");
 const output = document.getElementById("output-area");
 const termBody = document.getElementById("term-body");
 
 let historyCommands = [];
 let historyIndex = -1;
+
+/* -------------------------------
+   Typing animation for responses
+--------------------------------*/
 
 function typeResponse(text) {
     const resp = document.createElement("div");
@@ -16,6 +21,7 @@ function typeResponse(text) {
     function typeChar() {
         if (i < text.length) {
             resp.innerHTML += text[i];
+            termBody.scrollTop = termBody.scrollHeight;
             i++;
             setTimeout(typeChar, 8);
         } else {
@@ -26,37 +32,120 @@ function typeResponse(text) {
     typeChar();
 }
 
-function bootSequence() {
+/* -------------------------------
+   Boot typing function
+--------------------------------*/
 
-    const bootLines = [
-        "Booting ZAYNE_OS v1.0...",
-        "Loading modules...",
-        "Initializing creative engine...",
-        "Mounting filesystem...",
-        "Connecting to community node...",
-        "AI subsystem online",
-        "Terminal ready.",
-        "<br>Type <span class='highlight'>help</span> to begin."
-    ];
+function typeLine(text, speed = 20) {
 
-    let i = 0;
+    return new Promise(resolve => {
 
-    function next() {
-        if (i < bootLines.length) {
-            const line = document.createElement("div");
-            line.className = "line";
-            line.innerHTML = bootLines[i];
-            output.appendChild(line);
+        const line = document.createElement("div");
+        line.className = "line typing";
+        output.appendChild(line);
 
-            termBody.scrollTop = termBody.scrollHeight;
+        let i = 0;
 
-            i++;
-            setTimeout(next, 350);
+        function type() {
+
+            if (i < text.length) {
+                line.innerHTML += text[i];
+                termBody.scrollTop = termBody.scrollHeight;
+                i++;
+                setTimeout(type, speed);
+            } else {
+                line.classList.remove("typing");
+                resolve();
+            }
+
         }
+
+        type();
+
+    });
+
+}
+
+/* -------------------------------
+   Fake loading dots animation
+--------------------------------*/
+
+function loadingDots(text, duration = 1500) {
+
+    return new Promise(resolve => {
+
+        const line = document.createElement("div");
+        line.className = "line";
+        line.innerHTML = text;
+        output.appendChild(line);
+
+        let dots = 0;
+
+        const interval = setInterval(() => {
+
+            dots = (dots + 1) % 4;
+            line.innerHTML = text + ".".repeat(dots);
+
+        }, 300);
+
+        setTimeout(() => {
+
+            clearInterval(interval);
+            line.innerHTML = text + "... OK";
+
+            resolve();
+
+        }, duration);
+
+    });
+
+}
+
+/* -------------------------------
+   Boot sequence
+--------------------------------*/
+
+async function bootSequence() {
+
+    const logo = [
+
+"████████╗██╗  ██╗███████╗██████╗ ███████╗ █████╗ ██╗     ",
+"╚══██╔══╝██║  ██║██╔════╝██╔══██╗██╔════╝██╔══██╗██║     ",
+"   ██║   ███████║█████╗  ██████╔╝█████╗  ███████║██║     ",
+"   ██║   ██╔══██║██╔══╝  ██╔══██╗██╔══╝  ██╔══██║██║     ",
+"   ██║   ██║  ██║███████╗██║  ██║███████╗██║  ██║███████╗",
+"",
+"███████╗ █████╗ ██╗   ██╗███╗   ██╗███████╗",
+"╚══███╔╝██╔══██╗╚██╗ ██╔╝████╗  ██║██╔════╝",
+"  ███╔╝ ███████║ ╚████╔╝ ██╔██╗ ██║█████╗  ",
+" ███╔╝  ██╔══██║  ╚██╔╝  ██║╚██╗██║██╔══╝  ",
+"███████╗██║  ██║   ██║   ██║ ╚████║███████╗",
+];
+
+    for (let line of logo) {
+        await typeLine(line, 2);
     }
 
-    next();
+    await new Promise(r => setTimeout(r, 700));
+
+    await typeLine("Booting ZAYNE_OS v1.0...");
+    await loadingDots("Loading modules", 1500);
+    await loadingDots("Initializing creative engine", 1800);
+    await loadingDots("Mounting filesystem", 1200);
+    await loadingDots("Connecting to community node", 2000);
+
+    await typeLine("AI subsystem online");
+    await typeLine("Terminal ready.");
+
+    await new Promise(r => setTimeout(r, 500));
+
+    await typeLine("Type 'help' to begin.");
+
 }
+
+/* -------------------------------
+   Command system
+--------------------------------*/
 
 if (input && output && termBody) {
 
@@ -65,17 +154,22 @@ if (input && output && termBody) {
     input.addEventListener("keydown", function(e) {
 
         if (e.key === "ArrowUp") {
+
             if (historyCommands.length > 0) {
                 historyIndex--;
                 if (historyIndex < 0) historyIndex = 0;
                 input.value = historyCommands[historyIndex];
             }
+
             return;
+
         }
 
         if (e.key === "ArrowDown") {
+
             if (historyCommands.length > 0) {
                 historyIndex++;
+
                 if (historyIndex >= historyCommands.length) {
                     historyIndex = historyCommands.length;
                     input.value = "";
@@ -83,7 +177,9 @@ if (input && output && termBody) {
                     input.value = historyCommands[historyIndex];
                 }
             }
+
             return;
+
         }
 
         if (e.key === "Enter") {
@@ -102,125 +198,123 @@ if (input && output && termBody) {
 
             let responseText = "";
 
-            if (val === "help") {
+            switch(val){
 
-                responseText = `
-Available commands:<br>
-- <span class="highlight">about</span><br>
-- <span class="highlight">skills</span><br>
-- <span class="highlight">gaming</span><br>
-- <span class="highlight">music</span><br>
-- <span class="highlight">outdoors</span><br>
-- <span class="highlight">coding</span><br>
-- <span class="highlight">content</span><br>
-- <span class="highlight">community</span><br>
-- <span class="highlight">collabs</span><br>
-- <span class="highlight">support</span><br>
-- <span class="highlight">studio</span><br>
-- <span class="highlight">ski</span><br>
-- <span class="highlight">social</span><br>
-- <span class="highlight">hidden</span><br>
-- <span class="highlight">clear</span>
-`;
+                case "help":
+                responseText =
+`Available commands:
+about
+skills
+gaming
+music
+outdoors
+coding
+content
+community
+collabs
+support
+studio
+ski
+social
+hidden
+clear`;
+                break;
 
-            } else if (val === "about") {
+                case "about":
+                responseText = "Zayne — gamer, producer, coder, outdoor explorer.";
+                break;
 
-                responseText = "Zayne (theRealZayne) — Gamer, beatmaker, outdoor junkie, code dabbler.";
+                case "skills":
+                responseText = "HTML • CSS • JavaScript • Discord bots • Music production • Raspberry Pi";
+                break;
 
-            } else if (val === "skills") {
+                case "gaming":
+                responseText = "Fortnite, GTA V, Roblox development, Minecraft builds.";
+                break;
 
-                responseText = "HTML/CSS/JS • GitHub Pages • Discord bots • Roblox/Fortnite creative • Audacity + MPC Beats • Raspberry Pi tinkering";
+                case "music":
+                responseText = "Beatboxing + producing hip hop / phonk / electronic.";
+                break;
 
-            } else if (val === "gaming") {
+                case "outdoors":
+                responseText = "10+ years skiing • hiking • fishing • camping.";
+                break;
 
-                responseText = "Fortnite, GTA V chaos, Roblox map editing, Minecraft builds, Far Cry vibes.";
+                case "coding":
+                responseText = "Discord bots, Raspberry Pi robotics, experimental tools.";
+                break;
 
-            } else if (val === "music") {
+                case "content":
+                responseText = "Gaming videos, ski edits, music production.";
+                break;
 
-                responseText = "Beatboxing + producing phonk/hip-hop/electronic. BOSS RC-505 + AKAI MPK Mini. 4+ years producing. Track with MaddeX released, another coming soon. Find beats on SoundCloud.";
+                case "community":
+                responseText = "Join the Discord server for gaming, coding, and music.";
+                break;
 
-            } else if (val === "outdoors") {
+                case "collabs":
+                responseText = "Open to collabs for music, gaming streams, and dev.";
+                break;
 
-                responseText = "10 years skiing. Mountains: Sunday River, Sugarloaf, Lost Valley, Mt Abram, Pleasant Mountain. GoPro ski edits on YouTube. Hiking, fishing, biking, camping, cliff jumping.";
+                case "support":
+                responseText = "Support through Patreon or other platforms.";
+                break;
 
-            } else if (val === "coding") {
+                case "studio":
+                responseText = "Home studio for beatboxing and music creation.";
+                break;
 
-                responseText = "Raspberry Pi AI robot car, P4wnagotchi experiments, Discord bot development with real-time game stats and tools.";
+                case "ski":
+                responseText = "Mountains: Sunday River • Sugarloaf • Mt Abram • Lost Valley";
+                break;
 
-            } else if (val === "content") {
+                case "social":
+                responseText = "Discord • Twitch • YouTube • SoundCloud";
+                break;
 
-                responseText = "YouTube gaming highlights, ski edits, music videos. Twitch streams and map building sessions.";
+                case "hidden":
+                responseText =
+`Hidden commands discovered:
+robot
+snowboard
+future
+easteregg`;
+                break;
 
-            } else if (val === "community") {
+                case "robot":
+                responseText = "Experimental Raspberry Pi AI robot car project.";
+                break;
 
-                responseText = "Join the Discord server ᘜOᗪ'S Oᖴ ᘔ for gaming, music, coding and outdoor adventures.";
+                case "snowboard":
+                responseText = "Snowboarding arc begins next winter.";
+                break;
 
-            } else if (val === "collabs") {
+                case "future":
+                responseText = "Future goals: robotics, music releases, ski edits.";
+                break;
 
-                responseText = "Collabs welcome — music, gaming streams, coding projects.";
+                case "easteregg":
+                responseText = "You found the archive node. More secrets ahead.";
+                break;
 
-            } else if (val === "support") {
-
-                responseText = "Support through Patreon or Acorns Early. Helps fund gear, coding projects and adventures.";
-
-            } else if (val === "studio") {
-
-                responseText = "Mini home studio for recording and beatboxing sessions with friends and collaborators.";
-
-            } else if (val === "ski") {
-
-                responseText = "Mountains: Sunday River • Sugarloaf • Lost Valley • Mt Abram • Pleasant Mountain";
-
-            } else if (val === "social") {
-
-                responseText = "Discord • Twitch • YouTube • Patreon • SoundCloud";
-
-            } else if (val === "hidden") {
-
-                responseText = `
-Hidden commands unlocked:<br>
-- <span class="highlight">robot</span><br>
-- <span class="highlight">snowboard</span><br>
-- <span class="highlight">future</span><br>
-- <span class="highlight">easteregg</span>
-`;
-
-            } else if (val === "robot") {
-
-                responseText = "AI robot car built with Raspberry Pi. More robotics experiments coming.";
-
-            } else if (val === "snowboard") {
-
-                responseText = "Snowboarding mission begins next season.";
-
-            } else if (val === "future") {
-
-                responseText = "Future goals: music releases, robotics builds, game tools, ski edits.";
-
-            } else if (val === "easteregg") {
-
-                responseText = "Accessing hidden archive... Status: Just getting started.";
-
-            } else if (val === "clear") {
-
+                case "clear":
                 output.innerHTML = "";
                 input.value = "";
                 return;
 
-            } else if (val !== "") {
-
-                responseText = `zsh: command not found: ${val}<br>Type 'help'`;
-
+                default:
+                responseText = `command not found: ${val}`;
             }
 
-            if (responseText) {
-                typeResponse(responseText);
-            }
+            if(responseText) typeResponse(responseText);
 
             input.value = "";
             termBody.scrollTop = termBody.scrollHeight;
+
         }
+
     });
 
     termBody.addEventListener("click", () => input.focus());
+
 }
