@@ -51,29 +51,27 @@
 
     <main class="container">
 
-<!-- TERMINAL START -->
-
+        <!-- The terminal component -->
         <div class="terminal-window">
-  <div class="terminal-header">
-    <div class="buttons">
-      <span class="close"></span>
-      <span class="minimize"></span>
-      <span class="maximize"></span>
-    </div>
-    <div class="title">guest@portfolio:~</div>
-  </div>
-  
-  <div class="terminal-body" id="term-body">
-    <div class="line">Welcome to my Terminal! Type <span class="highlight">help</span> to see available commands.</div>
-    <div id="output-area"></div>
-    <div class="input-line">
-      <span class="prompt">guest@portfolio:~$</span>
-      <input type="text" id="term-input" autocomplete="off" autofocus>
-    </div>
-  </div>
-</div>
+            <div class="terminal-header">
+                <div class="buttons">
+                    <span class="close"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                </div>
+                <div class="title">zayne@therealspace:~</div>
+            </div>
 
-<!-- TERMINAL END -->
+            <div class="terminal-body" id="term-body">
+                <div class="line">Welcome aboard, operator. Type <span class="highlight">help</span> for commands.</div>
+                <div id="output-area"></div>
+                <div class="input-line">
+                    <span class="prompt">zayne@therealspace:~$</span>
+                    <input type="text" id="term-input" autocomplete="off" autofocus>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <!-- Footer -->
     <footer style="text-align:center; padding:3rem 1rem; background:#0f0f0f; color:#aaa; margin-top:4rem;">
@@ -105,5 +103,8 @@
     </div>
 
     <script src="assets/js/script.js" defer></script>
+    
+    <script src="assets/js/terminal.js"></script>         <!-- NEW: terminal logic -->
+    
 </body>
 </html>
