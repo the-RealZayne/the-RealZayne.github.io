@@ -146,3 +146,25 @@
     50% { opacity: 0; }
     100% { opacity: 1; }
 }
+#terminal-init{
+display:flex;
+justify-content:center;
+align-items:center;
+height:300px;
+}
+
+#init-btn{
+background:black;
+color:#00ff9c;
+border:1px solid #00ff9c;
+padding:12px 24px;
+font-family:monospace;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+}
+
+#init-btn:hover{
+background:#00ff9c;
+color:black;
+}
