@@ -256,53 +256,52 @@ if(input && output && termBody){
             ["studio", 150],
             ["ski", 150],
             ["social", 150],
-            ["hidden", 150],
             ["clear", 1000]
           ]);
           break;
 
         case "about":
-          await cmdSequence([["Zayne — gamer, producer, coder, outdoor explorer."]]);
+          await cmdSequence([["Zayne — Gamer, Producer, Coder, Outdoor Enthusiast."]]);
           break;
 
         case "skills":
-          await cmdSequence([["HTML • CSS • JavaScript • Discord bots • Music production • Raspberry Pi"]]);
+          await cmdSequence([["HTML • CSS • JavaScript • Discord Bots • Music Production • Raspberry PI"]]);
           break;
 
         case "gaming":
-          await cmdSequence([["Fortnite, GTA V, Roblox development, Minecraft builds."]]);
+          await cmdSequence([["Fortnite/Development, GTA V, Roblox/Development, Minecraft/Development, Rainbow 6, Far Cry."]]);
           break;
 
         case "music":
-          await cmdSequence([["Beatboxing + producing hip hop / phonk / electronic."]]);
+          await cmdSequence([["Beatboxing + Producing Hip-Hop / Phonk / Electronic."]]);
           break;
 
         case "outdoors":
-          await cmdSequence([["10+ years skiing • hiking • fishing • camping."]]);
+          await cmdSequence([["Skiing • Hiking • Fishing • Camping • Sports."]]);
           break;
 
         case "coding":
-          await cmdSequence([["Discord bots, Raspberry Pi robotics, experimental tools."]]);
+          await cmdSequence([["Discord Bots, Raspberry PI/Robotics, Experimental Tools."]]);
           break;
 
         case "content":
-          await cmdSequence([["Gaming videos, ski edits, music production."]]);
+          await cmdSequence([["Gaming Videos, Ski Edits, Music Production."]]);
           break;
 
         case "community":
-          await cmdSequence([["Join the Discord server for gaming, coding, and music."]]);
+          await cmdSequence([["Join the Discord server for Gaming, Coding, and Music."]]);
           break;
 
         case "collabs":
-          await cmdSequence([["Open to collabs for music, gaming streams, and dev."]]);
+          await cmdSequence([["Open to collabs for Music, Gaming Streamsing, and Dev."]]);
           break;
 
         case "support":
-          await cmdSequence([["Support through Patreon or other platforms."]]);
+          await cmdSequence([["Support through Patreon, Acorns Early or other platforms soon to come."]]);
           break;
 
         case "studio":
-          await cmdSequence([["Home studio for beatboxing and music creation."]]);
+          await cmdSequence([["Home Studio for Beatboxing, Recording and Music Creation."]]);
           break;
 
         case "ski":
@@ -324,15 +323,15 @@ if(input && output && termBody){
           break;
 
         case "robot":
-          await cmdSequence([["Experimental Raspberry Pi AI robot car project."]]);
+          await cmdSequence([["Experimental Raspberry Pi AI Robot Car project."]]);
           break;
 
         case "snowboard":
-          await cmdSequence([["Snowboarding arc begins next winter."]]);
+          await cmdSequence([["Snowboarding arc begins next winter. LETS GOOO!"]]);
           break;
 
         case "future":
-          await cmdSequence([["Future goals: robotics, music releases, ski edits."]]);
+          await cmdSequence([["Future goals: Robotics, New Music Releases, Ski Edits, Epic Game Replays."]]);
           break;
 
         case "easteregg":
@@ -345,7 +344,7 @@ if(input && output && termBody){
           return;
 
         default:
-          await typeLine(`command not found: ${val}`);
+          await typeLine(`command not found dummy: ${val}`);
       }
 
       input.value="";
