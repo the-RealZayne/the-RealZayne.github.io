@@ -129,9 +129,13 @@ async function loginSequence(){
   
   await typeLineToSpan("********", "pass-input", 200);  // Even slower for password (120ms)
   await new Promise(r=>setTimeout(r,2000));
-  
+
   await typeLine("");
-  await typeLine('<span class="access-granted">ACCESS GRANTED</span>');
+const accessLine = document.createElement("div");
+accessLine.className = "line access-granted";
+accessLine.textContent = "ACCESS GRANTED";
+output.appendChild(accessLine);
+termBody.scrollTop = termBody.scrollHeight;
   
   await new Promise(r=>setTimeout(r,900));
 }
