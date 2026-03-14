@@ -11,7 +11,9 @@ let historyCommands = [];
 let historyIndex = -1;
 
 /* typing response */
+
 function typeResponse(text){
+
 const resp=document.createElement("div");
 resp.className="line typing";
 output.appendChild(resp);
@@ -19,6 +21,7 @@ output.appendChild(resp);
 let i=0;
 
 function type(){
+
 if(i<text.length){
 resp.innerHTML+=text[i];
 termBody.scrollTop=termBody.scrollHeight;
@@ -27,13 +30,19 @@ setTimeout(type,12);
 }else{
 resp.classList.remove("typing");
 }
+
 }
+
 type();
+
 }
 
 /* slow line typing */
+
 function typeLine(text,speed=55){
+
 return new Promise(resolve=>{
+
 const line=document.createElement("div");
 line.className="line typing";
 output.appendChild(line);
@@ -41,6 +50,7 @@ output.appendChild(line);
 let i=0;
 
 function type(){
+
 if(i<text.length){
 line.innerHTML+=text[i];
 termBody.scrollTop=termBody.scrollHeight;
@@ -50,14 +60,21 @@ setTimeout(type,speed);
 line.classList.remove("typing");
 resolve();
 }
+
 }
+
 type();
+
 });
+
 }
 
 /* loading dots */
+
 function loadingDots(text,duration=2000){
+
 return new Promise(resolve=>{
+
 const line=document.createElement("div");
 line.className="line";
 output.appendChild(line);
@@ -65,45 +82,53 @@ output.appendChild(line);
 let dots=0;
 
 const interval=setInterval(()=>{
+
 dots=(dots+1)%4;
 line.innerHTML=text+".".repeat(dots);
+
 },400);
 
 setTimeout(()=>{
+
 clearInterval(interval);
 line.innerHTML=text+"... done";
+
 resolve();
+
 },duration);
+
 });
+
 }
 
-/* LOGIN SEQUENCE - FIXED WITH VISUAL TWEAKS */
+/* LOGIN SEQUENCE */
+
 async function loginSequence(){
+  
 await loadingDots("Connecting to Interweb");
 await new Promise(r=>setTimeout(r,1500));
-
+  
 await loadingDots("Establishing therealzayne node");
 await new Promise(r=>setTimeout(r,900));
 
 await typeLine("");
-// Static label + typing username value
-await typeLine('<span class="static-label">username:</span> ');
-const usernameLine = await typeLine("theRealZayne"); // Types value only
-await new Promise(r=>setTimeout(r,2500));
+await typeLine("username: guest");
+await new Promise(r=>setTimeout(r,2000));
 
-// Static label + typing password value  
-await typeLine('<span class="static-label">password:</span> ');
-const passwordLine = await typeLine("********"); // Types asterisks
-await new Promise(r=>setTimeout(r,3500));
+await typeLine("password: ********");
+await new Promise(r=>setTimeout(r,3000));
 
 await typeLine("");
-await typeLine('<span class="access-granted">Access granted.</span>');
+await typeLine("Access granted.");
 
 await new Promise(r=>setTimeout(r,900));
+
 }
 
-/* BOOT SEQUENCE - RED HELP TEXT */
+/* BOOT SEQUENCE */
+
 async function bootSequence(){
+
 await typeLine("Booting REAL_ZAYNE_OS v1.00...");
 await new Promise(r=>setTimeout(r,800));
 
@@ -118,45 +143,64 @@ await typeLine("Terminal ready.");
 
 await new Promise(r=>setTimeout(r,800));
 
-await typeLine('Type <span class="help-text">help</span> to begin.');
+await typeLine("Type 'help' to begin.");
+
 }
 
-/* INITIATE BUTTON - UNCHANGED */
+/* INITIATE BUTTON */
+
 if(initBtn){
+
 initBtn.addEventListener("click",async()=>{
+
 initScreen.style.display="none";
 
 await loginSequence();
 await bootSequence();
+
 });
+
 }
 
-/* COMMAND SYSTEM - VERTICAL HELP MENU */
+/* COMMAND SYSTEM */
+
 if(input && output && termBody){
+
 input.addEventListener("keydown",function(e){
+
 if(e.key==="ArrowUp"){
+
 if(historyCommands.length>0){
 historyIndex--;
 if(historyIndex<0)historyIndex=0;
 input.value=historyCommands[historyIndex];
 }
+
 return;
+
 }
 
 if(e.key==="ArrowDown"){
+
 if(historyCommands.length>0){
+
 historyIndex++;
+
 if(historyIndex>=historyCommands.length){
 historyIndex=historyCommands.length;
 input.value="";
 }else{
 input.value=historyCommands[historyIndex];
 }
+
 }
+
 return;
+
 }
 
 if(e.key==="Enter"){
+
 const val=input.value.trim().toLowerCase();
 
 if(val!==""){
@@ -172,24 +216,24 @@ output.appendChild(history);
 let responseText="";
 
 switch(val){
+
 case "help":
-responseText=`<div class="command-list">
-<span class="command-item">about</span>
-<span class="command-item">skills</span>
-<span class="command-item">gaming</span>
-<span class="command-item">music</span>
-<span class="command-item">outdoors</span>
-<span class="command-item">coding</span>
-<span class="command-item">content</span>
-<span class="command-item">community</span>
-<span class="command-item">collabs</span>
-<span class="command-item">support</span>
-<span class="command-item">studio</span>
-<span class="command-item">ski</span>
-<span class="command-item">social</span>
-<span class="command-item">hidden</span>
-<span class="command-item">clear</span>
-</div>`;
+responseText=`Available commands:
+about
+skills
+gaming
+music
+outdoors
+coding
+content
+community
+collabs
+support
+studio
+ski
+social
+hidden
+clear`;
 break;
 
 case "about":
@@ -275,14 +319,18 @@ return;
 
 default:
 responseText=`command not found: ${val}`;
+
 }
 
 if(responseText) typeResponse(responseText);
 
 input.value="";
 termBody.scrollTop=termBody.scrollHeight;
+
+}
+
 });
 
 termBody.addEventListener("click",()=>input.focus());
-}
 
+}
