@@ -11,9 +11,7 @@ let historyCommands = [];
 let historyIndex = -1;
 
 /* typing response */
-
 function typeResponse(text){
-
 const resp=document.createElement("div");
 resp.className="line typing";
 output.appendChild(resp);
@@ -21,7 +19,6 @@ output.appendChild(resp);
 let i=0;
 
 function type(){
-
 if(i<text.length){
 resp.innerHTML+=text[i];
 termBody.scrollTop=termBody.scrollHeight;
@@ -30,19 +27,13 @@ setTimeout(type,12);
 }else{
 resp.classList.remove("typing");
 }
-
 }
-
 type();
-
 }
 
 /* slow line typing */
-
 function typeLine(text,speed=55){
-
 return new Promise(resolve=>{
-
 const line=document.createElement("div");
 line.className="line typing";
 output.appendChild(line);
@@ -50,7 +41,6 @@ output.appendChild(line);
 let i=0;
 
 function type(){
-
 if(i<text.length){
 line.innerHTML+=text[i];
 termBody.scrollTop=termBody.scrollHeight;
@@ -60,21 +50,14 @@ setTimeout(type,speed);
 line.classList.remove("typing");
 resolve();
 }
-
 }
-
 type();
-
 });
-
 }
 
 /* loading dots */
-
 function loadingDots(text,duration=2000){
-
 return new Promise(resolve=>{
-
 const line=document.createElement("div");
 line.className="line";
 output.appendChild(line);
@@ -82,53 +65,41 @@ output.appendChild(line);
 let dots=0;
 
 const interval=setInterval(()=>{
-
 dots=(dots+1)%4;
 line.innerHTML=text+".".repeat(dots);
-
 },400);
 
 setTimeout(()=>{
-
 clearInterval(interval);
 line.innerHTML=text+"... done";
-
 resolve();
-
 },duration);
-
 });
-
 }
 
-/* LOGIN SEQUENCE */
-
+/* LOGIN SEQUENCE - STATIC LABELS + TYPING VALUES */
 async function loginSequence(){
-  
 await loadingDots("Connecting to Interweb");
 await new Promise(r=>setTimeout(r,1500));
-  
+
 await loadingDots("Establishing therealzayne node");
 await new Promise(r=>setTimeout(r,900));
 
 await typeLine("");
-await typeLine("username: guest");
-await new Promise(r=>setTimeout(r,2000));
+await typeLine('<span class="static-label">username:</span> <span class="typewriter-value" data-text="theRealZayne">|</span>');
+await new Promise(r=>setTimeout(r,2500));
 
-await typeLine("password: ********");
-await new Promise(r=>setTimeout(r,3000));
+await typeLine('<span class="static-label">password:</span> <span class="typewriter-value" data-text="zayne2026">|</span>');
+await new Promise(r=>setTimeout(r,3500));
 
 await typeLine("");
-await typeLine("Access granted.");
+await typeLine('<span class="access-granted">Access granted.</span>');
 
 await new Promise(r=>setTimeout(r,900));
-
 }
 
 /* BOOT SEQUENCE */
-
 async function bootSequence(){
-
 await typeLine("Booting REAL_ZAYNE_OS v1.00...");
 await new Promise(r=>setTimeout(r,800));
 
@@ -143,64 +114,52 @@ await typeLine("Terminal ready.");
 
 await new Promise(r=>setTimeout(r,800));
 
-await typeLine("Type 'help' to begin.");
+await typeLine('Type <span class="help-text">help</span> to begin.');
 
 }
 
 /* INITIATE BUTTON */
-
 if(initBtn){
-
 initBtn.addEventListener("click",async()=>{
-
 initScreen.style.display="none";
 
 await loginSequence();
 await bootSequence();
 
+// Initialize typewriter values after login
+document.querySelectorAll('.typewriter-value').forEach(el => {
+  const text = el.getAttribute('data-text');
+  el.innerHTML = text;
 });
-
+});
 }
 
 /* COMMAND SYSTEM */
-
 if(input && output && termBody){
-
 input.addEventListener("keydown",function(e){
-
 if(e.key==="ArrowUp"){
-
 if(historyCommands.length>0){
 historyIndex--;
 if(historyIndex<0)historyIndex=0;
 input.value=historyCommands[historyIndex];
 }
-
 return;
-
 }
 
 if(e.key==="ArrowDown"){
-
 if(historyCommands.length>0){
-
 historyIndex++;
-
 if(historyIndex>=historyCommands.length){
 historyIndex=historyCommands.length;
 input.value="";
 }else{
 input.value=historyCommands[historyIndex];
 }
-
 }
-
 return;
-
 }
 
 if(e.key==="Enter"){
-
 const val=input.value.trim().toLowerCase();
 
 if(val!==""){
@@ -216,24 +175,24 @@ output.appendChild(history);
 let responseText="";
 
 switch(val){
-
 case "help":
-responseText=`Available commands:
-about
-skills
-gaming
-music
-outdoors
-coding
-content
-community
-collabs
-support
-studio
-ski
-social
-hidden
-clear`;
+responseText=`<div class="command-list">
+<span class="command-item">about</span>
+<span class="command-item">skills</span>
+<span class="command-item">gaming</span>
+<span class="command-item">music</span>
+<span class="command-item">outdoors</span>
+<span class="command-item">coding</span>
+<span class="command-item">content</span>
+<span class="command-item">community</span>
+<span class="command-item">collabs</span>
+<span class="command-item">support</span>
+<span class="command-item">studio</span>
+<span class="command-item">ski</span>
+<span class="command-item">social</span>
+<span class="command-item">hidden</span>
+<span class="command-item">clear</span>
+</div>`;
 break;
 
 case "about":
@@ -319,18 +278,13 @@ return;
 
 default:
 responseText=`command not found: ${val}`;
-
 }
 
 if(responseText) typeResponse(responseText);
 
 input.value="";
 termBody.scrollTop=termBody.scrollHeight;
-
-}
-
 });
 
 termBody.addEventListener("click",()=>input.focus());
-
 }
