@@ -77,6 +77,14 @@ function typeLineToSpan(text, spanId, speed=55){
   });
 }
 
+/* ASYNC COMMAND SEQUENCE */
+async function cmdSequence(commands) {
+  for(const [text, delay = 1500] of commands) {
+    await typeLine(text);
+    await new Promise(r => setTimeout(r, delay));
+  }
+}
+
 /* loading dots */
 function loadingDots(text,duration=2000){
   return new Promise(resolve=>{
@@ -101,7 +109,6 @@ function loadingDots(text,duration=2000){
 
 /* LOGIN SEQUENCE */
 async function loginSequence(){
-  
   await loadingDots("Connecting to Interweb");
   await new Promise(r=>setTimeout(r,900));
   
@@ -117,7 +124,7 @@ async function loginSequence(){
   output.appendChild(userPrompt);
   termBody.scrollTop = termBody.scrollHeight;
   
-  await typeLineToSpan("guest", "user-input", 200);  // Slower typing (80ms delay)
+  await typeLineToSpan("guest", "user-input", 200);
   await new Promise(r=>setTimeout(r,1500));
   
   // Stationary password prompt on SAME line  
@@ -127,15 +134,15 @@ async function loginSequence(){
   output.appendChild(passPrompt);
   termBody.scrollTop = termBody.scrollHeight;
   
-  await typeLineToSpan("********", "pass-input", 200);  // Even slower for password (120ms)
+  await typeLineToSpan("********", "pass-input", 200);
   await new Promise(r=>setTimeout(r,2000));
 
   await typeLine("");
-const accessLine = document.createElement("div");
-accessLine.className = "line access-granted";
-accessLine.textContent = "ACCESS GRANTED";
-output.appendChild(accessLine);
-termBody.scrollTop = termBody.scrollHeight;
+  const accessLine = document.createElement("div");
+  accessLine.className = "line access-granted";
+  accessLine.textContent = "ACCESS GRANTED";
+  output.appendChild(accessLine);
+  termBody.scrollTop = termBody.scrollHeight;
   
   await new Promise(r=>setTimeout(r,900));
 }
@@ -156,10 +163,10 @@ async function bootSequence(){
 
   await new Promise(r=>setTimeout(r,800));
   const helpLine = document.createElement("div");
-helpLine.className = "line";
-helpLine.innerHTML = `Type <span class="help-highlight">'help'</span> to begin.`;
-output.appendChild(helpLine);
-termBody.scrollTop = termBody.scrollHeight;
+  helpLine.className = "line";
+  helpLine.innerHTML = `Type <span class="help-highlight">'help'</span> to begin.`;
+  output.appendChild(helpLine);
+  termBody.scrollTop = termBody.scrollHeight;
 }
 
 /* INITIATE BUTTON */
@@ -173,7 +180,7 @@ if(initBtn){
 
 /* COMMAND SYSTEM */
 if(input && output && termBody){
-  input.addEventListener("keydown",function(e){
+  input.addEventListener("keydown", async function(e){  // Made async
     if(e.key==="ArrowUp"){
       if(historyCommands.length>0){
         historyIndex--;
@@ -209,102 +216,105 @@ if(input && output && termBody){
       history.innerHTML=`<span class="prompt">zayne@therealspace:~$</span> ${val}`;
       output.appendChild(history);
 
-      let responseText="";
-
+      // ASYNC COMMAND RESPONSES
       switch(val){
         case "help":
-          responseText=`Available commands:
-about
-skills
-gaming
-music
-outdoors
-coding
-content
-community
-collabs
-support
-studio
-ski
-social
-hidden
-clear`;
+          await cmdSequence([
+            ["Available commands:", 500],
+            ["  <span class='prompt'>about</span>", 150],
+            ["  <span class='prompt'>skills</span>", 150],
+            ["  <span class='prompt'>gaming</span>", 150],
+            ["  <span class='prompt'>music</span>", 150],
+            ["  <span class='prompt'>outdoors</span>", 150],
+            ["  <span class='prompt'>coding</span>", 150],
+            ["  <span class='prompt'>content</span>", 150],
+            ["  <span class='prompt'>community</span>", 150],
+            ["  <span class='prompt'>collabs</span>", 150],
+            ["  <span class='prompt'>support</span>", 150],
+            ["  <span class='prompt'>studio</span>", 150],
+            ["  <span class='prompt'>ski</span>", 150],
+            ["  <span class='prompt'>social</span>", 150],
+            ["  <span class='prompt'>hidden</span>", 150],
+            ["  <span class='prompt'>clear</span>", 1000]
+          ]);
           break;
 
         case "about":
-          responseText="Zayne — gamer, producer, coder, outdoor explorer.";
+          await cmdSequence([["Zayne — gamer, producer, coder, outdoor explorer."]]);
           break;
 
         case "skills":
-          responseText="HTML • CSS • JavaScript • Discord bots • Music production • Raspberry Pi";
+          await cmdSequence([["HTML • CSS • JavaScript • Discord bots • Music production • Raspberry Pi"]]);
           break;
 
         case "gaming":
-          responseText="Fortnite, GTA V, Roblox development, Minecraft builds.";
+          await cmdSequence([["Fortnite, GTA V, Roblox development, Minecraft builds."]]);
           break;
 
         case "music":
-          responseText="Beatboxing + producing hip hop / phonk / electronic.";
+          await cmdSequence([["Beatboxing + producing hip hop / phonk / electronic."]]);
           break;
 
         case "outdoors":
-          responseText="10+ years skiing • hiking • fishing • camping.";
+          await cmdSequence([["10+ years skiing • hiking • fishing • camping."]]);
           break;
 
         case "coding":
-          responseText="Discord bots, Raspberry Pi robotics, experimental tools.";
+          await cmdSequence([["Discord bots, Raspberry Pi robotics, experimental tools."]]);
           break;
 
         case "content":
-          responseText="Gaming videos, ski edits, music production.";
+          await cmdSequence([["Gaming videos, ski edits, music production."]]);
           break;
 
         case "community":
-          responseText="Join the Discord server for gaming, coding, and music.";
+          await cmdSequence([["Join the Discord server for gaming, coding, and music."]]);
           break;
 
         case "collabs":
-          responseText="Open to collabs for music, gaming streams, and dev.";
+          await cmdSequence([["Open to collabs for music, gaming streams, and dev."]]);
           break;
 
         case "support":
-          responseText="Support through Patreon or other platforms.";
+          await cmdSequence([["Support through Patreon or other platforms."]]);
           break;
 
         case "studio":
-          responseText="Home studio for beatboxing and music creation.";
+          await cmdSequence([["Home studio for beatboxing and music creation."]]);
           break;
 
         case "ski":
-          responseText="Mountains: Sunday River • Sugarloaf • Mt Abram • Lost Valley";
+          await cmdSequence([["Mountains: Sunday River • Sugarloaf • Mt Abram • Lost Valley"]]);
           break;
 
         case "social":
-          responseText="Discord • Twitch • YouTube • SoundCloud";
+          await cmdSequence([["Discord • Twitch • YouTube • SoundCloud"]]);
           break;
 
         case "hidden":
-          responseText=`Hidden commands discovered:
-robot
-snowboard
-future
-easteregg`;
+          await cmdSequence([
+            ["Hidden commands discovered:", 500],
+            ["  <span class='prompt'>robot</span>", 200],
+            ["  <span class='prompt'>snowboard</span>", 200],
+            ["  <span class='prompt'>future</span>", 200],
+            ["  <span class='prompt'>easteregg</span>", 1000]
+          ]);
           break;
 
         case "robot":
-          responseText="Experimental Raspberry Pi AI robot car project.";
+          await cmdSequence([["Experimental Raspberry Pi AI robot car project."]]);
           break;
 
         case "snowboard":
-          responseText="Snowboarding arc begins next winter.";
+          await cmdSequence([["Snowboarding arc begins next winter."]]);
           break;
 
         case "future":
-          responseText="Future goals: robotics, music releases, ski edits.";
+          await cmdSequence([["Future goals: robotics, music releases, ski edits."]]);
           break;
 
         case "easteregg":
-          responseText="You found the archive node. More secrets ahead.";
+          await cmdSequence([["You found the archive node. More secrets ahead."]]);
           break;
 
         case "clear":
@@ -313,10 +323,8 @@ easteregg`;
           return;
 
         default:
-          responseText=`command not found: ${val}`;
+          await typeLine(`command not found: ${val}`);
       }
-
-      if(responseText) typeResponse(responseText);
 
       input.value="";
       termBody.scrollTop=termBody.scrollHeight;
