@@ -104,24 +104,24 @@ resolve();
 /* LOGIN SEQUENCE */
 
 async function loginSequence(){
-
-await loadingDots("Connecting to therealspace node");
-await new Promise(r=>setTimeout(r,900));
   
-await typeLine("Connecting to therealspace node...");
+await loadingDots("Connecting to Interweb");
+await new Promise(r=>setTimeout(r,1500));
+  
+await loadingDots("Establishing therealzayne node");
 await new Promise(r=>setTimeout(r,900));
 
 await typeLine("");
 await typeLine("username: guest");
-await new Promise(r=>setTimeout(r,700));
+await new Promise(r=>setTimeout(r,2000));
 
 await typeLine("password: ********");
-await new Promise(r=>setTimeout(r,800));
+await new Promise(r=>setTimeout(r,6000));
 
 await typeLine("");
 await typeLine("Access granted.");
 
-await new Promise(r=>setTimeout(r,1500));
+await new Promise(r=>setTimeout(r,900));
 
 }
 
@@ -135,13 +135,13 @@ await new Promise(r=>setTimeout(r,800));
 await loadingDots("Loading modules");
 await loadingDots("Initializing creative engine");
 await loadingDots("Mounting filesystems");
-await loadingDots("Establishing Interweb");
 await loadingDots("Connecting to community node");
 
 await typeLine("AI subsystem online");
+await new Promise(r=>setTimeout(r,5000));
 await typeLine("Terminal ready.");
 
-await new Promise(r=>setTimeout(r,600));
+await new Promise(r=>setTimeout(r,2000));
 
 await typeLine("Type 'help' to begin.");
 
