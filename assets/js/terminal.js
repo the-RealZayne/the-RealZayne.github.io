@@ -116,7 +116,7 @@ await typeLine("username: guest");
 await new Promise(r=>setTimeout(r,2000));
 
 await typeLine("password: ********");
-await new Promise(r=>setTimeout(r,6000));
+await new Promise(r=>setTimeout(r,4000));
 
 await typeLine("");
 await typeLine("Access granted.");
