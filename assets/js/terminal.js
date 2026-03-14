@@ -105,6 +105,9 @@ resolve();
 
 async function loginSequence(){
 
+await loadingDots("Connecting to therealspace node");
+await new Promise(r=>setTimeout(r,900));
+  
 await typeLine("Connecting to therealspace node...");
 await new Promise(r=>setTimeout(r,900));
 
@@ -118,7 +121,7 @@ await new Promise(r=>setTimeout(r,800));
 await typeLine("");
 await typeLine("Access granted.");
 
-await new Promise(r=>setTimeout(r,900));
+await new Promise(r=>setTimeout(r,1500));
 
 }
 
@@ -126,12 +129,13 @@ await new Promise(r=>setTimeout(r,900));
 
 async function bootSequence(){
 
-await typeLine("Booting ZAYNE_OS v1.0...");
+await typeLine("Booting REAL_ZAYNE_OS v1.00...");
 await new Promise(r=>setTimeout(r,800));
 
 await loadingDots("Loading modules");
 await loadingDots("Initializing creative engine");
-await loadingDots("Mounting filesystem");
+await loadingDots("Mounting filesystems");
+await loadingDots("Establishing Interweb");
 await loadingDots("Connecting to community node");
 
 await typeLine("AI subsystem online");
