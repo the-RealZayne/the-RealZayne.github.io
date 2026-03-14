@@ -179,3 +179,15 @@ color:black;
     color: #00ff9c !important;
     text-shadow: 0 0 10px rgba(0, 255, 156, 0.7);
 }
+
+.help-highlight {
+    color: #FF4500 !important;
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(255, 69, 0, 0.7);
+}
+
+[data-theme="light"] .help-highlight {
+    color: #FF7518 !important;
+    text-shadow: 0 0 8px rgba(255, 117, 24, 0.8);
+}
+
