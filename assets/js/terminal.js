@@ -155,7 +155,11 @@ async function bootSequence(){
   await typeLine("Terminal ready.");
 
   await new Promise(r=>setTimeout(r,800));
-  await typeLine("Type 'help' to begin.");
+  const helpLine = document.createElement("div");
+helpLine.className = "line";
+helpLine.innerHTML = `Type <span class="help-highlight">'help'</span> to begin.`;
+output.appendChild(helpLine);
+termBody.scrollTop = termBody.scrollHeight;
 }
 
 /* INITIATE BUTTON */
