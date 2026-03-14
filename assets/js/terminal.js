@@ -77,25 +77,72 @@ resolve();
 });
 }
 
-/* LOGIN SEQUENCE - STATIC LABELS + TYPING VALUES */
+/* TYPE USERNAME WITH TYPEWRITER EFFECT */
+async function typeUsername(){
+  const line = document.createElement("div");
+  line.className = "line";
+  line.innerHTML = '<span class="static-label">username:</span> <span id="user-typed" style="border-right: 2px solid #00ff00; overflow: hidden; white-space: nowrap; display: inline-block;"></span>';
+  output.appendChild(line);
+  
+  const username = "theRealZayne";
+  let i = 0;
+  
+  function typeChar() {
+    if (i < username.length) {
+      document.getElementById('user-typed').innerHTML += username[i];
+      termBody.scrollTop = termBody.scrollHeight;
+      i++;
+      setTimeout(typeChar, 80);
+    } else {
+      document.getElementById('user-typed').style.borderRight = 'none';
+    }
+  }
+  typeChar();
+}
+
+/* TYPE PASSWORD WITH TYPEWRITER EFFECT */
+async function typePassword(){
+  const line = document.createElement("div");
+  line.className = "line";
+  line.innerHTML = '<span class="static-label">password:</span> <span id="pass-typed" style="border-right: 2px solid #00ff00; overflow: hidden; white-space: nowrap; display: inline-block;"></span>';
+  output.appendChild(line);
+  
+  const password = "zayne2026";
+  let i = 0;
+  
+  function typeChar() {
+    if (i < password.length) {
+      document.getElementById('pass-typed').innerHTML += '*';
+      termBody.scrollTop = termBody.scrollHeight;
+      i++;
+      setTimeout(typeChar, 80);
+    } else {
+      document.getElementById('pass-typed').style.borderRight = 'none';
+    }
+  }
+  typeChar();
+}
+
+/* LOGIN SEQUENCE - FIXED */
 async function loginSequence(){
-await loadingDots("Connecting to Interweb");
-await new Promise(r=>setTimeout(r,1500));
+  await loadingDots("Connecting to Interweb");
+  await new Promise(r=>setTimeout(r,1500));
 
-await loadingDots("Establishing therealzayne node");
-await new Promise(r=>setTimeout(r,900));
+  await loadingDots("Establishing therealzayne node");
+  await new Promise(r=>setTimeout(r,900));
 
-await typeLine("");
-await typeLine('<span class="static-label">username:</span> <span class="typewriter-value" data-text="theRealZayne">|</span>');
-await new Promise(r=>setTimeout(r,2500));
+  await typeLine("");
+  await typeLine("guest");
+  await typeUsername();
+  await new Promise(r=>setTimeout(r,2500));
 
-await typeLine('<span class="static-label">password:</span> <span class="typewriter-value" data-text="zayne2026">|</span>');
-await new Promise(r=>setTimeout(r,3500));
+  await typePassword();
+  await new Promise(r=>setTimeout(r,3500));
 
-await typeLine("");
-await typeLine('<span class="access-granted">Access granted.</span>');
+  await typeLine("");
+  await typeLine('<span class="access-granted">Access granted.</span>');
 
-await new Promise(r=>setTimeout(r,900));
+  await new Promise(r=>setTimeout(r,900));
 }
 
 /* BOOT SEQUENCE */
@@ -115,7 +162,6 @@ await typeLine("Terminal ready.");
 await new Promise(r=>setTimeout(r,800));
 
 await typeLine('Type <span class="help-text">help</span> to begin.');
-
 }
 
 /* INITIATE BUTTON */
@@ -125,12 +171,6 @@ initScreen.style.display="none";
 
 await loginSequence();
 await bootSequence();
-
-// Initialize typewriter values after login
-document.querySelectorAll('.typewriter-value').forEach(el => {
-  const text = el.getAttribute('data-text');
-  el.innerHTML = text;
-});
 });
 }
 
