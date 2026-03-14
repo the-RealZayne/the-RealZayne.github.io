@@ -102,27 +102,40 @@ resolve();
 }
 
 /* LOGIN SEQUENCE */
-
 async function loginSequence(){
   
-await loadingDots("Connecting to Interweb");
-await new Promise(r=>setTimeout(r,1500));
+  await loadingDots("Connecting to Interweb");
+  await new Promise(r=>setTimeout(r,1500));
   
-await loadingDots("Establishing therealzayne node");
-await new Promise(r=>setTimeout(r,900));
+  await loadingDots("Establishing therealzayne node");
+  await new Promise(r=>setTimeout(r,900));
 
-await typeLine("");
-await typeLine("username: guest");
-await new Promise(r=>setTimeout(r,2000));
-
-await typeLine("password: ********");
-await new Promise(r=>setTimeout(r,3000));
-
-await typeLine("");
-await typeLine("Access granted.");
-
-await new Promise(r=>setTimeout(r,900));
-
+  await typeLine("");
+  
+  // Stationary prompt + slow typing username
+  const userLine = document.createElement("div");
+  userLine.className = "line typing";
+  userLine.innerHTML = '<span class="prompt">username: </span>';
+  output.appendChild(userLine);
+  termBody.scrollTop = termBody.scrollHeight;
+  
+  await typeLine("guest", 80);  // Slower typing (80ms delay)
+  await new Promise(r=>setTimeout(r,1500));
+  
+  // Stationary prompt + slow typing password
+  const passLine = document.createElement("div");
+  passLine.className = "line typing";
+  passLine.innerHTML = '<span class="prompt">password: </span>';
+  output.appendChild(passLine);
+  termBody.scrollTop = termBody.scrollHeight;
+  
+  await typeLine("********", 120);  // Even slower for password (120ms)
+  await new Promise(r=>setTimeout(r,2000));
+  
+  await typeLine("");
+  await typeLine("Access granted.");
+  
+  await new Promise(r=>setTimeout(r,900));
 }
 
 /* BOOT SEQUENCE */
