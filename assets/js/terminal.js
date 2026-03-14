@@ -103,10 +103,10 @@ function loadingDots(text,duration=2000){
 async function loginSequence(){
   
   await loadingDots("Connecting to Interweb");
-  await new Promise(r=>setTimeout(r,1500));
+  await new Promise(r=>setTimeout(r,900));
   
   await loadingDots("Establishing therealzayne node");
-  await new Promise(r=>setTimeout(r,900));
+  await new Promise(r=>setTimeout(r,800));
 
   await typeLine("");
   
@@ -117,7 +117,7 @@ async function loginSequence(){
   output.appendChild(userPrompt);
   termBody.scrollTop = termBody.scrollHeight;
   
-  await typeLineToSpan("guest", "user-input", 80);  // Slower typing (80ms delay)
+  await typeLineToSpan("guest", "user-input", 200);  // Slower typing (80ms delay)
   await new Promise(r=>setTimeout(r,1500));
   
   // Stationary password prompt on SAME line  
@@ -127,11 +127,11 @@ async function loginSequence(){
   output.appendChild(passPrompt);
   termBody.scrollTop = termBody.scrollHeight;
   
-  await typeLineToSpan("********", "pass-input", 120);  // Even slower for password (120ms)
+  await typeLineToSpan("********", "pass-input", 200);  // Even slower for password (120ms)
   await new Promise(r=>setTimeout(r,2000));
   
   await typeLine("");
-  await typeLine("Access granted.");
+  await typeLine('<span class="access-granted">Access granted.</span>');
   
   await new Promise(r=>setTimeout(r,900));
 }
