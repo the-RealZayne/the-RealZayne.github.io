@@ -1,0 +1,46 @@
+name: Version Bump
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Read current version
+      id: version
+      run: |
+        VERSION_FILE="version.txt"
+        if [ -f "$VERSION_FILE" ]; then
+          CURRENT_VERSION=$(cat "$VERSION_FILE")
+        else
+          echo "V1.00" > "$VERSION_FILE"
+          CURRENT_VERSION="V1.00"
+        fi
+        
+        # Parse V1.00 -> 1.00 -> 1.01
+        MAJOR=$(echo $CURRENT_VERSION | cut -d'V' -f2 | cut -d'.' -f1)
+        MINOR=$(echo $CURRENT_VERSION | cut -d'V' -f2 | cut -d'.' -f2)
+        NEW_MINOR=$((MINOR + 1))
+        NEW_VERSION="V${MAJOR}.${NEW_MINOR}"
+        
+        echo "current-version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+        echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+    - name: Update version file
+      run: |
+        echo "${{ steps.version.outputs.new-version }}" > version.txt
+
+    - name: Commit version bump
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "chore: bump version to ${{ steps.version.outputs.new-version }}"
+        file_pattern: version.txt
