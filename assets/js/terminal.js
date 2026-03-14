@@ -116,7 +116,7 @@ await typeLine("username: guest");
 await new Promise(r=>setTimeout(r,2000));
 
 await typeLine("password: ********");
-await new Promise(r=>setTimeout(r,4000));
+await new Promise(r=>setTimeout(r,3000));
 
 await typeLine("");
 await typeLine("Access granted.");
@@ -138,10 +138,10 @@ await loadingDots("Mounting filesystems");
 await loadingDots("Connecting to community node");
 
 await typeLine("AI subsystem online");
-await new Promise(r=>setTimeout(r,5000));
+await new Promise(r=>setTimeout(r,1000));
 await typeLine("Terminal ready.");
 
-await new Promise(r=>setTimeout(r,2000));
+await new Promise(r=>setTimeout(r,800));
 
 await typeLine("Type 'help' to begin.");
 
