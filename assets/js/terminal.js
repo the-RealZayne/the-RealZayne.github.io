@@ -213,23 +213,19 @@ if(input && output && termBody){
 
       switch(val){
         case "help":
-          responseText=`Available commands:
-about
-skills
-gaming
-music
-outdoors
-coding
-content
-community
-collabs
-support
-studio
-ski
-social
-hidden
-clear`;
-          break;
+  // Type title first
+  await typeLine("Available commands:");
+  
+  // Type each command individually with full typing animation
+  const commands = ["about", "skills", "gaming", "music", "outdoors", "coding", "content", "community", "collabs", "support", "studio", "ski", "social", "hidden", "clear"];
+  
+  for(const cmd of commands) {
+    await typeLine(`  <span class="prompt">${cmd}</span>`);
+    await new Promise(r => setTimeout(r, 100)); // Pause between commands
+  }
+  
+  termBody.scrollTop = termBody.scrollHeight;
+  return; // Skip normal response
 
         case "about":
           responseText="Zayne — gamer, producer, coder, outdoor explorer.";
