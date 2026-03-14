@@ -46,73 +46,87 @@ window.addEventListener("resize", () => {
     applyTheme(savedTheme);
 });
 
-// Visitor counter with weekly graph - FIXED DAY ORDER
+// Visitor counter with weekly graph - ALIGN TODAY TO CORRECT LABEL
 document.addEventListener('DOMContentLoaded', function() {
     const statsSvg = document.getElementById('stats');
     if (!statsSvg) return;
 
+    // Map JS getDay() → label text
+    const jsDayToLabel = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
     // Load or initialize data
     let data = JSON.parse(localStorage.getItem('zayneVisitorData') || '{}');
     const now = new Date();
-    const today = now.toDateString();
-    
+    const todayStr = now.toDateString();
+    const todayLabel = jsDayToLabel[now.getDay()]; // e.g. 'Fri'
+
     // Increment today's count
-    if (!data[today]) data[today] = 0;
-    data[today]++;
-    
-    // Calculate 7-day window: Mon=0, Tue=1, Wed=2, Thu=3, Fri=4, Sat=5, Sun=6
-    const weekStart = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000); // 6 days ago
-    const days = {};
-    let total = 0;
-    let weekTotal = 0;
-    
-    for (let i = 0; i < 7; i++) {
-        const checkDate = new Date(weekStart.getTime() + i * 24 * 60 * 60 * 1000);
-        const dateStr = checkDate.toDateString();
-        days[i] = data[dateStr] || 0;  // i=0 is Monday position
-        weekTotal += days[i];
-        total += data[dateStr] || 0;
-    }
-    
-    // Update total count (all time)
-    total = Object.values(data).reduce((sum, val) => sum + val, 0);
-    
-    // Update SVG elements - bars are positioned Mon=0 to Sun=6
-    document.getElementById('textStats').textContent = `+${weekTotal} this week, ${total.toLocaleString()} total`;
-    
-    document.querySelectorAll('.day-bar').forEach((bar, index) => {
-        const dayCount = days[index] || 0;  // index 0=Mon, 1=Tue, ..., 6=Sun
-        const dayElement = bar.querySelector('.day-number');
-        const rectElement = bar.querySelector('.day-bar-rect');
-        
-        // Set count
-        dayElement.textContent = dayCount;
-        
-        // Animate bar height (max 25px for 50+ views)
-        const height = Math.min(dayCount * 0.5, 25);
-        const yPos = 28 - height;
-        
-        // Animate number sliding down
-        dayElement.style.opacity = '0';
-        dayElement.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-            dayElement.style.transition = 'all 0.5s ease';
-            dayElement.style.opacity = '1';
-            dayElement.style.transform = 'translateY(0)';
-        }, 100 * index);
-        
-        // Animate bar growth
-        rectElement.style.opacity = '0';
-        rectElement.style.height = '0';
-        rectElement.style.y = '28';
-        setTimeout(() => {
-            rectElement.style.transition = 'all 0.5s ease';
-            rectElement.style.opacity = '1';
-            rectElement.style.height = height + 'px';
-            rectElement.style.y = yPos + 'px';
-        }, 150 * index);
+    if (!data[todayStr]) data[todayStr] = 0;
+    data[todayStr]++;
+
+    // Build last 7 days by label
+    const daysByLabel = { Mon:0, Tue:0, Wed:0, Thu:0, Fri:0, Sat:0, Sun:0 };
+    const sevenDaysAgo = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000);
+    const allDates = Object.keys(data);
+
+    allDates.forEach(dateKey => {
+        const d = new Date(dateKey);
+        if (d >= sevenDaysAgo && d <= now) {
+            const label = jsDayToLabel[d.getDay()]; // Sun..Sat
+            if (daysByLabel[label] !== undefined) {
+                daysByLabel[label] += data[dateKey];
+            }
+        }
     });
-    
-    // Save updated data
+
+    // Week + total totals
+    const weekTotal = Object.values(daysByLabel).reduce((a,b)=>a+b,0);
+    const total = Object.values(data).reduce((a,b)=>a+b,0);
+
+    // Update summary text
+    const textStats = document.getElementById('textStats');
+    if (textStats) {
+        textStats.textContent = `+${weekTotal} this week, ${total.toLocaleString()} total`;
+    }
+
+    // Update bars: they are laid out in SVG Mon..Sun left→right by their label text
+    document.querySelectorAll('.day-bar').forEach(bar => {
+        const labelNode = bar.querySelector('.day-label');
+        const numberNode = bar.querySelector('.day-number');
+        const rectNode = bar.querySelector('.day-bar-rect');
+        if (!labelNode || !numberNode || !rectNode) return;
+
+        const label = labelNode.textContent.trim(); // 'Mon'...'Sun'
+        const count = daysByLabel[label] || 0;
+
+        // Set number
+        numberNode.textContent = count;
+
+        // Height (cap at 25px)
+        const height = Math.min(count * 0.5, 25);
+        const yPos = 28 - height;
+
+        // Simple animation
+        numberNode.style.opacity = '0';
+        numberNode.style.transform = 'translateY(20px)';
+        rectNode.style.opacity = '0';
+        rectNode.style.height = '0';
+        rectNode.setAttribute('y', '28');
+
+        setTimeout(() => {
+            numberNode.style.transition = 'all 0.5s ease';
+            numberNode.style.opacity = '1';
+            numberNode.style.transform = 'translateY(0)';
+        }, 100);
+
+        setTimeout(() => {
+            rectNode.style.transition = 'all 0.5s ease';
+            rectNode.style.opacity = '1';
+            rectNode.style.height = height + 'px';
+            rectNode.setAttribute('y', yPos.toString());
+        }, 150);
+    });
+
+    // Persist
     localStorage.setItem('zayneVisitorData', JSON.stringify(data));
 });
