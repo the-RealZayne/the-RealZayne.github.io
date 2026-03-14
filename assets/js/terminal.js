@@ -11,94 +11,92 @@ let historyCommands = [];
 let historyIndex = -1;
 
 /* typing response */
-
 function typeResponse(text){
+  const resp=document.createElement("div");
+  resp.className="line typing";
+  output.appendChild(resp);
 
-const resp=document.createElement("div");
-resp.className="line typing";
-output.appendChild(resp);
+  let i=0;
 
-let i=0;
+  function type(){
+    if(i<text.length){
+      resp.innerHTML+=text[i];
+      termBody.scrollTop=termBody.scrollHeight;
+      i++;
+      setTimeout(type,12);
+    }else{
+      resp.classList.remove("typing");
+    }
+  }
 
-function type(){
-
-if(i<text.length){
-resp.innerHTML+=text[i];
-termBody.scrollTop=termBody.scrollHeight;
-i++;
-setTimeout(type,12);
-}else{
-resp.classList.remove("typing");
-}
-
-}
-
-type();
-
+  type();
 }
 
 /* slow line typing */
-
 function typeLine(text,speed=55){
+  return new Promise(resolve=>{
+    const line=document.createElement("div");
+    line.className="line typing";
+    output.appendChild(line);
 
-return new Promise(resolve=>{
+    let i=0;
 
-const line=document.createElement("div");
-line.className="line typing";
-output.appendChild(line);
+    function type(){
+      if(i<text.length){
+        line.innerHTML+=text[i];
+        termBody.scrollTop=termBody.scrollHeight;
+        i++;
+        setTimeout(type,speed);
+      }else{
+        line.classList.remove("typing");
+        resolve();
+      }
+    }
 
-let i=0;
-
-function type(){
-
-if(i<text.length){
-line.innerHTML+=text[i];
-termBody.scrollTop=termBody.scrollHeight;
-i++;
-setTimeout(type,speed);
-}else{
-line.classList.remove("typing");
-resolve();
+    type();
+  });
 }
 
-}
-
-type();
-
-});
-
+/* type into existing span element (no new line) */
+function typeLineToSpan(text, spanId, speed=55){
+  return new Promise(resolve=>{
+    const span = document.getElementById(spanId);
+    let i=0;
+    function type(){
+      if(i<text.length){
+        span.innerHTML += text[i];
+        termBody.scrollTop = termBody.scrollHeight;
+        i++;
+        setTimeout(type, speed);
+      } else {
+        span.classList.remove("typing");
+        resolve();
+      }
+    }
+    type();
+  });
 }
 
 /* loading dots */
-
 function loadingDots(text,duration=2000){
+  return new Promise(resolve=>{
+    const line=document.createElement("div");
+    line.className="line";
+    output.appendChild(line);
 
-return new Promise(resolve=>{
+    let dots=0;
 
-const line=document.createElement("div");
-line.className="line";
-output.appendChild(line);
+    const interval=setInterval(()=>{
+      dots=(dots+1)%4;
+      line.innerHTML=text+".".repeat(dots);
+    },400);
 
-let dots=0;
-
-const interval=setInterval(()=>{
-
-dots=(dots+1)%4;
-line.innerHTML=text+".".repeat(dots);
-
-},400);
-
-setTimeout(()=>{
-
-clearInterval(interval);
-line.innerHTML=text+"... done";
-
-resolve();
-
-},duration);
-
-});
-
+    setTimeout(()=>{
+      clearInterval(interval);
+      line.innerHTML=text+"... done";
+      resolve();
+    },duration);
+  });
 }
 
 /* LOGIN SEQUENCE */
@@ -112,24 +110,24 @@ async function loginSequence(){
 
   await typeLine("");
   
-  // Stationary prompt + slow typing username
-  const userLine = document.createElement("div");
-  userLine.className = "line typing";
-  userLine.innerHTML = '<span class="prompt">username: </span>';
-  output.appendChild(userLine);
+  // Stationary username prompt on SAME line
+  const userPrompt = document.createElement("div");
+  userPrompt.className = "line";
+  userPrompt.innerHTML = '<span class="prompt">username: </span><span id="user-input" class="typing"></span>';
+  output.appendChild(userPrompt);
   termBody.scrollTop = termBody.scrollHeight;
   
-  await typeLine("guest", 80);  // Slower typing (80ms delay)
+  await typeLineToSpan("guest", "user-input", 80);  // Slower typing (80ms delay)
   await new Promise(r=>setTimeout(r,1500));
   
-  // Stationary prompt + slow typing password
-  const passLine = document.createElement("div");
-  passLine.className = "line typing";
-  passLine.innerHTML = '<span class="prompt">password: </span>';
-  output.appendChild(passLine);
+  // Stationary password prompt on SAME line  
+  const passPrompt = document.createElement("div");
+  passPrompt.className = "line";
+  passPrompt.innerHTML = '<span class="prompt">password: </span><span id="pass-input" class="typing"></span>';
+  output.appendChild(passPrompt);
   termBody.scrollTop = termBody.scrollHeight;
   
-  await typeLine("********", 120);  // Even slower for password (120ms)
+  await typeLineToSpan("********", "pass-input", 120);  // Even slower for password (120ms)
   await new Promise(r=>setTimeout(r,2000));
   
   await typeLine("");
@@ -139,99 +137,75 @@ async function loginSequence(){
 }
 
 /* BOOT SEQUENCE */
-
 async function bootSequence(){
+  await typeLine("Booting REAL_ZAYNE_OS v1.00...");
+  await new Promise(r=>setTimeout(r,800));
 
-await typeLine("Booting REAL_ZAYNE_OS v1.00...");
-await new Promise(r=>setTimeout(r,800));
+  await loadingDots("Loading modules");
+  await loadingDots("Initializing creative engine");
+  await loadingDots("Mounting filesystems");
+  await loadingDots("Connecting to community node");
 
-await loadingDots("Loading modules");
-await loadingDots("Initializing creative engine");
-await loadingDots("Mounting filesystems");
-await loadingDots("Connecting to community node");
+  await typeLine("AI subsystem online");
+  await new Promise(r=>setTimeout(r,1000));
+  await typeLine("Terminal ready.");
 
-await typeLine("AI subsystem online");
-await new Promise(r=>setTimeout(r,1000));
-await typeLine("Terminal ready.");
-
-await new Promise(r=>setTimeout(r,800));
-
-await typeLine("Type 'help' to begin.");
-
+  await new Promise(r=>setTimeout(r,800));
+  await typeLine("Type 'help' to begin.");
 }
 
 /* INITIATE BUTTON */
-
 if(initBtn){
-
-initBtn.addEventListener("click",async()=>{
-
-initScreen.style.display="none";
-
-await loginSequence();
-await bootSequence();
-
-});
-
+  initBtn.addEventListener("click",async()=>{
+    initScreen.style.display="none";
+    await loginSequence();
+    await bootSequence();
+  });
 }
 
 /* COMMAND SYSTEM */
-
 if(input && output && termBody){
+  input.addEventListener("keydown",function(e){
+    if(e.key==="ArrowUp"){
+      if(historyCommands.length>0){
+        historyIndex--;
+        if(historyIndex<0)historyIndex=0;
+        input.value=historyCommands[historyIndex];
+      }
+      return;
+    }
 
-input.addEventListener("keydown",function(e){
+    if(e.key==="ArrowDown"){
+      if(historyCommands.length>0){
+        historyIndex++;
+        if(historyIndex>=historyCommands.length){
+          historyIndex=historyCommands.length;
+          input.value="";
+        }else{
+          input.value=historyCommands[historyIndex];
+        }
+      }
+      return;
+    }
 
-if(e.key==="ArrowUp"){
+    if(e.key==="Enter"){
+      const val=input.value.trim().toLowerCase();
 
-if(historyCommands.length>0){
-historyIndex--;
-if(historyIndex<0)historyIndex=0;
-input.value=historyCommands[historyIndex];
-}
+      if(val!==""){
+        historyCommands.push(val);
+        historyIndex=historyCommands.length;
+      }
 
-return;
+      const history=document.createElement("div");
+      history.className="line";
+      history.innerHTML=`<span class="prompt">zayne@therealspace:~$</span> ${val}`;
+      output.appendChild(history);
 
-}
+      let responseText="";
 
-if(e.key==="ArrowDown"){
-
-if(historyCommands.length>0){
-
-historyIndex++;
-
-if(historyIndex>=historyCommands.length){
-historyIndex=historyCommands.length;
-input.value="";
-}else{
-input.value=historyCommands[historyIndex];
-}
-
-}
-
-return;
-
-}
-
-if(e.key==="Enter"){
-
-const val=input.value.trim().toLowerCase();
-
-if(val!==""){
-historyCommands.push(val);
-historyIndex=historyCommands.length;
-}
-
-const history=document.createElement("div");
-history.className="line";
-history.innerHTML=`<span class="prompt">zayne@therealspace:~$</span> ${val}`;
-output.appendChild(history);
-
-let responseText="";
-
-switch(val){
-
-case "help":
-responseText=`Available commands:
+      switch(val){
+        case "help":
+          responseText=`Available commands:
 about
 skills
 gaming
@@ -247,103 +221,99 @@ ski
 social
 hidden
 clear`;
-break;
+          break;
 
-case "about":
-responseText="Zayne — gamer, producer, coder, outdoor explorer.";
-break;
+        case "about":
+          responseText="Zayne — gamer, producer, coder, outdoor explorer.";
+          break;
 
-case "skills":
-responseText="HTML • CSS • JavaScript • Discord bots • Music production • Raspberry Pi";
-break;
+        case "skills":
+          responseText="HTML • CSS • JavaScript • Discord bots • Music production • Raspberry Pi";
+          break;
 
-case "gaming":
-responseText="Fortnite, GTA V, Roblox development, Minecraft builds.";
-break;
+        case "gaming":
+          responseText="Fortnite, GTA V, Roblox development, Minecraft builds.";
+          break;
 
-case "music":
-responseText="Beatboxing + producing hip hop / phonk / electronic.";
-break;
+        case "music":
+          responseText="Beatboxing + producing hip hop / phonk / electronic.";
+          break;
 
-case "outdoors":
-responseText="10+ years skiing • hiking • fishing • camping.";
-break;
+        case "outdoors":
+          responseText="10+ years skiing • hiking • fishing • camping.";
+          break;
 
-case "coding":
-responseText="Discord bots, Raspberry Pi robotics, experimental tools.";
-break;
+        case "coding":
+          responseText="Discord bots, Raspberry Pi robotics, experimental tools.";
+          break;
 
-case "content":
-responseText="Gaming videos, ski edits, music production.";
-break;
+        case "content":
+          responseText="Gaming videos, ski edits, music production.";
+          break;
 
-case "community":
-responseText="Join the Discord server for gaming, coding, and music.";
-break;
+        case "community":
+          responseText="Join the Discord server for gaming, coding, and music.";
+          break;
 
-case "collabs":
-responseText="Open to collabs for music, gaming streams, and dev.";
-break;
+        case "collabs":
+          responseText="Open to collabs for music, gaming streams, and dev.";
+          break;
 
-case "support":
-responseText="Support through Patreon or other platforms.";
-break;
+        case "support":
+          responseText="Support through Patreon or other platforms.";
+          break;
 
-case "studio":
-responseText="Home studio for beatboxing and music creation.";
-break;
+        case "studio":
+          responseText="Home studio for beatboxing and music creation.";
+          break;
 
-case "ski":
-responseText="Mountains: Sunday River • Sugarloaf • Mt Abram • Lost Valley";
-break;
+        case "ski":
+          responseText="Mountains: Sunday River • Sugarloaf • Mt Abram • Lost Valley";
+          break;
 
-case "social":
-responseText="Discord • Twitch • YouTube • SoundCloud";
-break;
+        case "social":
+          responseText="Discord • Twitch • YouTube • SoundCloud";
+          break;
 
-case "hidden":
-responseText=`Hidden commands discovered:
+        case "hidden":
+          responseText=`Hidden commands discovered:
 robot
 snowboard
 future
 easteregg`;
-break;
+          break;
 
-case "robot":
-responseText="Experimental Raspberry Pi AI robot car project.";
-break;
+        case "robot":
+          responseText="Experimental Raspberry Pi AI robot car project.";
+          break;
 
-case "snowboard":
-responseText="Snowboarding arc begins next winter.";
-break;
+        case "snowboard":
+          responseText="Snowboarding arc begins next winter.";
+          break;
 
-case "future":
-responseText="Future goals: robotics, music releases, ski edits.";
-break;
+        case "future":
+          responseText="Future goals: robotics, music releases, ski edits.";
+          break;
 
-case "easteregg":
-responseText="You found the archive node. More secrets ahead.";
-break;
+        case "easteregg":
+          responseText="You found the archive node. More secrets ahead.";
+          break;
 
-case "clear":
-output.innerHTML="";
-input.value="";
-return;
+        case "clear":
+          output.innerHTML="";
+          input.value="";
+          return;
 
-default:
-responseText=`command not found: ${val}`;
+        default:
+          responseText=`command not found: ${val}`;
+      }
 
-}
+      if(responseText) typeResponse(responseText);
 
-if(responseText) typeResponse(responseText);
+      input.value="";
+      termBody.scrollTop=termBody.scrollHeight;
+    }
+  });
 
-input.value="";
-termBody.scrollTop=termBody.scrollHeight;
-
-}
-
-});
-
-termBody.addEventListener("click",()=>input.focus());
-
+  termBody.addEventListener("click",()=>input.focus());
 }
