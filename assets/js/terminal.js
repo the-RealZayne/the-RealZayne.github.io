@@ -131,7 +131,7 @@ async function loginSequence(){
   await new Promise(r=>setTimeout(r,2000));
   
   await typeLine("");
-  await typeLine('<span class="access-granted">Access granted.</span>');
+  await typeLine('<span class="access-granted">ACCESS GRANTED</span>');
   
   await new Promise(r=>setTimeout(r,900));
 }
