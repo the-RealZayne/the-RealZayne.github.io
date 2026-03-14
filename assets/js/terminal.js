@@ -77,10 +77,32 @@ function typeLineToSpan(text, spanId, speed=55){
   });
 }
 
-/* ASYNC COMMAND SEQUENCE */
+/* FIXED ASYNC COMMAND SEQUENCE - creates styled elements directly */
 async function cmdSequence(commands) {
   for(const [text, delay = 1500] of commands) {
-    await typeLine(text);
+    const line = document.createElement("div");
+    line.className = "line typing";
+    output.appendChild(line);
+    termBody.scrollTop = termBody.scrollHeight;
+    
+    // Create styled content
+    if(text.includes("about") || text.includes("skills") || text.includes("gaming") || 
+       text.includes("music") || text.includes("outdoors") || text.includes("coding") ||
+       text.includes("content") || text.includes("community") || text.includes("collabs") ||
+       text.includes("support") || text.includes("studio") || text.includes("ski") ||
+       text.includes("social") || text.includes("hidden") || text.includes("robot") ||
+       text.includes("snowboard") || text.includes("future") || text.includes("clear") ||
+       text.includes("easteregg")) {
+      // Command names get prompt styling
+      line.innerHTML = `<span class="prompt">${text.trim()}</span>`;
+    } else {
+      line.innerHTML = text;
+    }
+    
+    // Typing animation effect
+    let visibleChars = line.textContent.length;
+    await new Promise(r => setTimeout(r, visibleChars * 60));
+    line.classList.remove("typing");
     await new Promise(r => setTimeout(r, delay));
   }
 }
@@ -180,7 +202,7 @@ if(initBtn){
 
 /* COMMAND SYSTEM */
 if(input && output && termBody){
-  input.addEventListener("keydown", async function(e){  // Made async
+  input.addEventListener("keydown", async function(e){
     if(e.key==="ArrowUp"){
       if(historyCommands.length>0){
         historyIndex--;
@@ -221,21 +243,21 @@ if(input && output && termBody){
         case "help":
           await cmdSequence([
             ["Available commands:", 500],
-            ["  <span class='prompt'>about</span>", 150],
-            ["  <span class='prompt'>skills</span>", 150],
-            ["  <span class='prompt'>gaming</span>", 150],
-            ["  <span class='prompt'>music</span>", 150],
-            ["  <span class='prompt'>outdoors</span>", 150],
-            ["  <span class='prompt'>coding</span>", 150],
-            ["  <span class='prompt'>content</span>", 150],
-            ["  <span class='prompt'>community</span>", 150],
-            ["  <span class='prompt'>collabs</span>", 150],
-            ["  <span class='prompt'>support</span>", 150],
-            ["  <span class='prompt'>studio</span>", 150],
-            ["  <span class='prompt'>ski</span>", 150],
-            ["  <span class='prompt'>social</span>", 150],
-            ["  <span class='prompt'>hidden</span>", 150],
-            ["  <span class='prompt'>clear</span>", 1000]
+            ["about", 150],
+            ["skills", 150],
+            ["gaming", 150],
+            ["music", 150],
+            ["outdoors", 150],
+            ["coding", 150],
+            ["content", 150],
+            ["community", 150],
+            ["collabs", 150],
+            ["support", 150],
+            ["studio", 150],
+            ["ski", 150],
+            ["social", 150],
+            ["hidden", 150],
+            ["clear", 1000]
           ]);
           break;
 
@@ -294,10 +316,10 @@ if(input && output && termBody){
         case "hidden":
           await cmdSequence([
             ["Hidden commands discovered:", 500],
-            ["  <span class='prompt'>robot</span>", 200],
-            ["  <span class='prompt'>snowboard</span>", 200],
-            ["  <span class='prompt'>future</span>", 200],
-            ["  <span class='prompt'>easteregg</span>", 1000]
+            ["robot", 200],
+            ["snowboard", 200],
+            ["future", 200],
+            ["easteregg", 1000]
           ]);
           break;
 
