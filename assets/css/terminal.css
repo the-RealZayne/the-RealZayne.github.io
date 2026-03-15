@@ -308,3 +308,74 @@ color:black;
 .func { color: #fab387; }
 .str { color: #f9e2af; }
 
+/* VS Code-style File Tree */
+.rz-file-tree {
+  padding: 10px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.rz-folder {
+  margin-bottom: 2px;
+}
+
+.rz-tree-item {
+  padding: 4px 8px 4px 24px;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.rz-tree-item:hover {
+  background: #334155;
+}
+
+.rz-tree-item.active {
+  background: #0f172a;
+  color: #FF7518;
+}
+
+.folder-item {
+  font-weight: 500;
+  color: #facc15;
+}
+
+.file-item {
+  color: #e2e8f0;
+}
+
+.rz-tree-item i {
+  margin-right: 8px;
+  width: 16px;
+  text-align: center;
+}
+
+.folder-chevron {
+  position: absolute;
+  left: 4px;
+  transition: transform 0.2s;
+}
+
+.rz-folder-children {
+  display: none;
+  padding-left: 16px;
+  border-left: 1px solid #475569;
+  margin-left: 8px;
+}
+
+.rz-tab-placeholder {
+  padding: 20px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.rz-code-view .code-content {
+  flex: 1;
+  white-space: pre-wrap;
+  font-family: 'Fira Code', 'Consolas', monospace;
+}
+
+
