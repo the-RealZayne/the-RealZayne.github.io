@@ -512,10 +512,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (maximizeBtn) {
-  maximizeBtn.style.cursor = 'pointer';
-  maximizeBtn.addEventListener('click', () => {
-    launchIDE(); // Launch VS Code-style IDE!
-  });
+    maximizeBtn.addEventListener('click', () => {
+      const term = document.querySelector('.terminal-window');
+      if (!term) return;
+      if (term.dataset.maximized === '1') {
+        term.style.width = '';
+        term.style.maxWidth = '800px';
+        term.style.height = '';
+        term.dataset.maximized = '0';
+      } else {
+        term.style.maxWidth = 'none';
+        term.style.width = '100vw';
+        term.style.height = '100vh';
+        term.dataset.maximized = '1';
+      }
+    });
 }
   }
 });
