@@ -18,7 +18,7 @@ jobs:
     - name: Read and bump version intelligently
       id: version
       run: |
-        VERSION_FILE="VERSION"
+        VERSION_FILE="version.txt"
         if [ -f "$VERSION_FILE" ]; then
           CURRENT_VERSION=$(cat "$VERSION_FILE")
         else
@@ -70,10 +70,10 @@ jobs:
 
     - name: Update version file
       run: |
-        echo "${{ steps.version.outputs.new-version }}" > VERSION
+        echo "${{ steps.version.outputs.new-version }}" > version.txt
 
     - name: Commit version bump
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "chore: bump version to ${{ steps.version.outputs.new-version }}"
-        file_pattern: VERSION
+        file_pattern: version.txt
