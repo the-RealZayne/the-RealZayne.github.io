@@ -121,3 +121,70 @@ margin-right:20px;
 .func{color:#dcdcaa;}
 .obj{color:#4ec9b0;}
 .str{color:#ce9178;}
+
+/* CODE WINDOW (same style as terminal) */
+
+.code-window{
+width:100%;
+max-width:900px;
+margin:0 auto;
+background:#0f0f0f;
+border:1px solid #FF4500;
+border-radius:8px;
+box-shadow:0 0 30px rgba(255,69,0,.25),0 25px 50px -12px rgba(0,0,0,.6);
+overflow:hidden;
+font-family:'Orbitron',"Courier New",monospace;
+}
+
+[data-theme="light"] .code-window{
+background:#111;
+border-color:#FF7518;
+box-shadow:0 0 25px rgba(255,117,24,.4);
+}
+
+.code-header{
+background:#1a1a1a;
+padding:10px 16px;
+display:flex;
+align-items:center;
+border-bottom:1px solid #FF450033;
+}
+
+[data-theme="light"] .code-header{
+background:#222;
+border-bottom-color:#FF751833;
+}
+
+.code-body{
+padding:0;
+background:#0f0f0f;
+}
+
+/* window buttons */
+
+.window-buttons{
+display:flex;
+gap:8px;
+}
+
+.window-buttons span{
+width:12px;
+height:12px;
+border-radius:50%;
+box-shadow:inset 0 1px 2px rgba(0,0,0,.6);
+cursor:pointer;
+}
+
+.close{background:#ff5f56;}
+.minimize{background:#ffbd2e;}
+.maximize{background:#27c93f;}
+
+.code-title{
+flex:1;
+text-align:center;
+color:#FF4500;
+font-size:.9rem;
+font-weight:bold;
+letter-spacing:1px;
+pointer-events:none;
+}
