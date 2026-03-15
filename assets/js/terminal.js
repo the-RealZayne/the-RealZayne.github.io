@@ -195,7 +195,7 @@ async function bootSequence(){
 async function loadRzCode() {
   document.querySelector('.input-line').style.display = 'none';
   output.innerHTML = '';
-  document.querySelector('.title').textContent = ':RZ-CODE VIEWER:';
+  document.querySelector('.title').textContent = ':RZCODE VIEWER:';
   
   termBody.innerHTML = `
     <div class="rz-ide-container">
