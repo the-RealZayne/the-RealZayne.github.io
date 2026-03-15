@@ -527,7 +527,5 @@ document.addEventListener('DOMContentLoaded', () => {
         term.dataset.maximized = '1';
       }
     });
-}
   }
 });
-
