@@ -8,107 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/terminal.css">
-<style>
-/* RZ IDE Viewer Styles - ADD THIS TO YOUR terminal.css LATER */
-.rz-ide-container {
-    height: 100%;
-    display: flex;
-    font-family: 'Consolas', 'Monaco', monospace;
-    background: #0f172a;
-}
-.rz-ide {
-    flex: 1;
-    display: flex;
-    height: 100%;
-}
-.rz-ide-sidebar {
-    width: 220px;
-    background: #1e293b;
-    border-right: 1px solid #334155;
-    padding: 20px 0;
-}
-.rz-sidebar-title {
-    font-size: 12px;
-    color: #94a3b8;
-    text-transform: uppercase;
-    padding: 0 15px 15px;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-.rz-file-item {
-    padding: 8px 15px;
-    cursor: pointer;
-    font-size: 13px;
-    color: #cbd5e1;
-    border-left: 3px solid transparent;
-    transition: all 0.2s;
-}
-.rz-file-item:hover {
-    background: #334155;
-    color: #f1f5f9;
-}
-.rz-file-item.active {
-    background: #0f172a;
-    color: #FF7518;
-    border-left-color: #FF7518;
-}
-.rz-ide-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: #0f172a;
-}
-.rz-ide-tabs {
-    display: flex;
-    background: #1e293b;
-    border-bottom: 1px solid #334155;
-}
-.rz-tab {
-    padding: 12px 20px;
-    color: #94a3b8;
-    font-size: 13px;
-    cursor: pointer;
-    border-right: 1px solid #334155;
-    transition: all 0.2s;
-}
-.rz-tab:last-child {
-    border-right: none;
-}
-.rz-tab.active {
-    background: #0f172a;
-    color: #f1f5f9;
-}
-.rz-ide-editor {
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-}
-.rz-code-view {
-    height: 100%;
-    padding: 20px;
-    overflow-y: auto;
-    display: none;
-}
-.rz-code-view.active-code {
-    display: block;
-}
-.rz-code-line {
-    display: flex;
-    line-height: 1.6;
-    margin-bottom: 2px;
-}
-.rz-line-num {
-    width: 40px;
-    color: #64748b;
-    font-size: 12px;
-    user-select: none;
-}
-.kw { color: #89b4fa; font-weight: 600; }
-.var { color: #f38ba8; }
-.obj { color: #a6e3a1; }
-.func { color: #fab387; }
-.str { color: #f9e2af; }
-</style>
+
 </head>
 
 <body>
@@ -157,7 +57,8 @@
 
 <h1>Interactive Terminal</h1>
 
-<p style="margin-bottom:2rem;color:#FF7518;"></p>
+<p style="margin-bottom:2rem;color:#FF7518;"><!-- What you put in place of this text will show up above the terminal window -->
+</p>
 
 <div class="terminal-window">
 
@@ -168,6 +69,12 @@
   <span class="minimize" id="btn-minimize"></span>
   <span class="maximize" id="btn-maximize"></span>
 </div>
+<!--
+<div class="buttons">
+<span class="close"></span>
+<span class="minimize"></span>
+<span class="maximize"></span>
+</div> -->
         
 <div class="title">:RZO V1.00:</div>
 </div>
@@ -179,7 +86,8 @@
 <button id="init-btn">INITIATE</button>
 </div>
 
-<div class="line"></div>
+<div class="line"><!-- What you put in place of this text will show up in the terminal window -->
+</div>
 
 <div id="output-area"></div>
 
@@ -218,249 +126,58 @@
 
 <p>Thanks for visiting!</p>
 
-<!-- ANIMATED WEEKLY VISITOR COUNTER -->
-<div class="flex justify-center items-center" style="margin: 1rem 0;">
-    <svg id="stats" width="180px" height="120px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <text x="50%" y="3%" fill="#888" font-size="10px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace"></text>
-        <text id="textStats" x="50%" y="97%" fill="#888" font-size="10px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">+0 this week, 0 total</text>
-        
-        <!-- Weekly bars container -->
-        <g id="weeklyBars" transform="scale(3)">
-            <g class="day-bar" data-day="0" transform="translate(5,10)">
-                <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Mon</text>
-            </g>
-            <g class="day-bar" data-day="1" transform="translate(13,10)">
-                <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Tue</text>
-            </g>
-            <g class="day-bar" data-day="2" transform="translate(21,10)">
-                <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Wed</text>
-            </g>
-            <g class="day-bar" data-day="3" transform="translate(29,10)">
-                <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Thu</text>
-            </g>
-            <g class="day-bar" data-day="4" transform="translate(37,10)">
-                <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Fri</text>
-            </g>
-            <g class="day-bar" data-day="5" transform="translate(45,10)">
-                <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Sat</text>
-            </g>
-            <g class="day-bar" data-day="6" transform="translate(53,10)">
-                <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Sun</text>
-            </g>
-        </g>
-    </svg>
-</div>
-
-</footer>
+        <!-- ANIMATED WEEKLY VISITOR COUNTER -->
+        <div class="flex justify-center items-center" style="margin: 1rem 0;">
+            <svg id="stats" width="180px" height="120px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <text x="50%" y="3%" fill="#888" font-size="10px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace"></text>
+                <text id="textStats" x="50%" y="97%" fill="#888" font-size="10px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">+0 this week, 0 total</text>
+                
+                <!-- Weekly bars container -->
+                <g id="weeklyBars" transform="scale(3)">
+                    <g class="day-bar" data-day="0" transform="translate(5,10)">
+                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
+                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
+                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Mon</text>
+                    </g>
+                    <g class="day-bar" data-day="1" transform="translate(13,10)">
+                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
+                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
+                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Tue</text>
+                    </g>
+                    <g class="day-bar" data-day="2" transform="translate(21,10)">
+                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
+                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
+                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Wed</text>
+                    </g>
+                    <g class="day-bar" data-day="3" transform="translate(29,10)">
+                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
+                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
+                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Thu</text>
+                    </g>
+                    <g class="day-bar" data-day="4" transform="translate(37,10)">
+                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
+                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
+                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Fri</text>
+                    </g>
+                    <g class="day-bar" data-day="5" transform="translate(45,10)">
+                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
+                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
+                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Sat</text>
+                    </g>
+                    <g class="day-bar" data-day="6" transform="translate(53,10)">
+                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
+                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
+                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Sun</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </footer>
 
 <script src="assets/js/script.js" defer></script>
+<script src="assets/js/terminal.js"></script>
 
-<!-- COMPLETE TERMINAL FUNCTIONALITY WITH RZCODE COMMAND -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const termInput = document.getElementById('term-input');
-    const termBody = document.getElementById('term-body');
-    const outputArea = document.getElementById('output-area');
-    const initBtn = document.getElementById('init-btn');
-    
-    // Terminal commands object
-    const commands = {
-        'help': {
-            output: [
-                '<span class="prompt">guest@therealzayne:~$ help</span>',
-                '<div class="output-line">Available commands:</div>',
-                '<div class="output-line">  help              - Show this help</div>',
-                '<div class="output-line">  clear             - Clear terminal</div>',
-                '<div class="output-line">  <span style="color:#FF7518;">open rzcode</span>     - Open RZ Code IDE viewer</div>',
-                '<div class="output-line">  about             - About this system</div>'
-            ].join('')
-        },
-        'clear': {
-            action: 'clear'
-        },
-        'open rzcode': {
-            action: 'rzcode'
-        },
-        'about': {
-            output: [
-                '<span class="prompt">guest@therealzayne:~$ about</span>',
-                '<div class="output-line"><span style="color:#FF7518;">:RZO V1.00: Initialized</span></div>',
-                '<div class="output-line">Welcome to the RZ Operating System Terminal</div>',
-                '<div class="output-line">Type <span style="color:#FF7518;">help</span> for available commands</div>'
-            ].join('')
-        }
-    };
-
-    // Initialize terminal
-    function initTerminal() {
-        document.getElementById('terminal-init').style.display = 'none';
-        termInput.focus();
-        addOutput('<div class="output-line"><span style="color:#00FF00;">:RZO V1.00: System Online</span></div>');
-        addOutput('<div class="output-line">Type <span style="color:#FF7518;">help</span> to get started</div>');
-    }
-
-    // Add output to terminal
-    function addOutput(html) {
-        outputArea.innerHTML += html;
-        outputArea.scrollTop = outputArea.scrollHeight;
-    }
-
-    // Clear terminal
-    function clearTerminal() {
-        outputArea.innerHTML = '';
-    }
-
-    // Load RZ Code IDE viewer
-    function loadRzCode() {
-        // Hide terminal input and prompt
-        document.querySelector('.input-line').style.display = 'none';
-        
-        // Clear existing output
-        outputArea.innerHTML = '';
-        
-        // Replace terminal body content with IDE viewer
-        termBody.innerHTML = `
-            <div class="rz-ide-container">
-                <div class="rz-ide">
-                    <div class="rz-ide-sidebar">
-                        <div class="rz-sidebar-title">EXPLORER</div>
-                        <div class="rz-file-item active" id="rz-file-1">
-                            <span>script.js</span>
-                        </div>
-                        <div class="rz-file-item" id="rz-file-2">
-                            <span>style.css</span>
-                        </div>
-                    </div>
-                    <div class="rz-ide-main">
-                        <div class="rz-ide-tabs">
-                            <div class="rz-tab active" id="rz-tab-1">script.js</div>
-                            <div class="rz-tab" id="rz-tab-2">style.css</div>
-                        </div>
-                        <div class="rz-ide-editor">
-                            <div class="rz-code-view active-code" id="rz-code-1">
-                                <div class="rz-code-line"><span class="rz-line-num">1</span><span class="kw">const</span> <span class="var">initApp</span> = <span class="kw">function</span>() {</div>
-                                <div class="rz-code-line"><span class="rz-line-num">2</span>  <span class="obj">console</span>.<span class="func">log</span>(<span class="str">"System initialized flawlessly."</span>);</div>
-                                <div class="rz-code-line"><span class="rz-line-num">3</span>};</div>
-                                <div class="rz-code-line"><span class="rz-line-num">4</span></div>
-                                <div class="rz-code-line"><span class="rz-line-num">5</span><span class="func">initApp</span>();</div>
-                            </div>
-                            <div class="rz-code-view" id="rz-code-2">
-                                <div class="rz-code-line"><span class="rz-line-num">1</span>.running {</div>
-                                <div class="rz-code-line"><span class="rz-line-num">2</span> display:flex;</div>
-                                <div class="rz-code-line"><span class="rz-line-num">3</span> justify-content:center;</div>
-                                <div class="rz-code-line"><span class="rz-line-num">4</span> align-items:center;</div>
-                                <div class="rz-code-line"><span class="rz-line-num">5</span> background:#0f172a;</div>
-                                <div class="rz-code-line"><span class="rz-line-num">6</span>}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        // Change terminal header title
-        document.querySelector('.title').textContent = ':RZ-CODE VIEWER:';
-        
-        // Add basic IDE interactivity
-        initRzCodeTabs();
-    }
-
-    // Initialize RZ Code tabs functionality
-    function initRzCodeTabs() {
-        const tabs = document.querySelectorAll('.rz-tab');
-        const codeViews = document.querySelectorAll('.rz-code-view');
-        const fileItems = document.querySelectorAll('.rz-file-item');
-
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                codeViews.forEach(cv => cv.classList.remove('active-code'));
-                tab.classList.add('active');
-                codeViews[index].classList.add('active-code');
-            });
-        });
-
-        fileItems.forEach((fileItem, index) => {
-            fileItem.addEventListener('click', () => {
-                fileItems.forEach(fi => fi.classList.remove('active'));
-                tabs.forEach(t => t.classList.remove('active'));
-                codeViews.forEach(cv => cv.classList.remove('active-code'));
-                fileItem.classList.add('active');
-                tabs[index].classList.add('active');
-                codeViews[index].classList.add('active-code');
-            });
-        });
-    }
-
-    // Handle terminal input
-    function handleInput() {
-        const input = termInput.value.trim();
-        if (!input) return;
-
-        // Add input to output
-        addOutput(`<span class="prompt">guest@therealzayne:~$ ${input}</span>`);
-
-        // Process command
-        if (commands[input]) {
-            const cmd = commands[input];
-            
-            if (cmd.action === 'clear') {
-                clearTerminal();
-            } else if (cmd.action === 'rzcode') {
-                setTimeout(() => loadRzCode(), 100);
-            } else if (cmd.output) {
-                addOutput(cmd.output);
-            }
-        } else {
-            addOutput('<div class="output-line" style="color:#ff4444;">Command not found. Type <span style="color:#FF7518;">help</span> for available commands.</div>');
-        }
-
-        // Clear input
-        termInput.value = '';
-    }
-
-    // Event listeners
-    initBtn.addEventListener('click', initTerminal);
-    
-    termInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            handleInput();
-        }
-    });
-
-    // Window buttons
-    document.getElementById('btn-close').addEventListener('click', () => {
-        window.close();
-    });
-    
-    document.getElementById('btn-minimize').addEventListener('click', () => {
-        termBody.style.transform = 'scaleY(0.1)';
-        setTimeout(() => {
-            termBody.style.transform = 'scaleY(1)';
-        }, 200);
-    });
-    
-    document.getElementById('btn-maximize').addEventListener('click', () => {
-        termBody.style.transform = termBody.style.transform === 'scale(1.5)' ? 'scale(1)' : 'scale(1.5)';
-    });
-});
-</script>
-
-<!-- VERSION DISPLAY -->
+        <!-- VERSION DISPLAY -->
 <div style="position: fixed; bottom: 10px; left: 20px; color: #888; font-family: 'Orbitron', monospace; font-size: 12px; z-index: 1000; pointer-events: none;">
   <span id="version-display">Loading...</span>
 </div>
