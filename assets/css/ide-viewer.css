@@ -1,0 +1,123 @@
+/* Scoped IDE viewer styles */
+
+.rz-ide-container {
+display:flex;
+justify-content:center;
+margin-top:40px;
+}
+
+.rz-ide {
+display:flex;
+width:100%;
+max-width:900px;
+height:500px;
+background:#1e1e1e;
+border-radius:12px;
+overflow:hidden;
+border:1px solid #333;
+}
+
+.rz-ide-sidebar{
+width:220px;
+background:#181818;
+border-right:1px solid #2d2d2d;
+padding:16px 0;
+}
+
+.rz-sidebar-title{
+color:#858585;
+font-size:.75rem;
+font-weight:600;
+padding:0 20px;
+margin-bottom:12px;
+letter-spacing:1px;
+}
+
+.rz-file-item{
+display:flex;
+align-items:center;
+gap:10px;
+padding:6px 20px;
+color:#ccc;
+font-size:.9rem;
+cursor:pointer;
+}
+
+.rz-file-item:hover{
+background:#2a2d2e;
+color:#fff;
+}
+
+.rz-file-item.active{
+background:#37373d;
+color:#fff;
+}
+
+.rz-ide-main{
+flex-grow:1;
+display:flex;
+flex-direction:column;
+}
+
+.rz-ide-tabs{
+display:flex;
+background:#252526;
+height:40px;
+}
+
+.rz-tab{
+display:flex;
+align-items:center;
+padding:0 20px;
+background:#2d2d2d;
+color:#969696;
+cursor:pointer;
+border-right:1px solid #1e1e1e;
+}
+
+.rz-tab.active{
+background:#1e1e1e;
+color:#fff;
+border-top:2px solid #007acc;
+}
+
+.rz-ide-editor{
+flex-grow:1;
+padding:20px 0;
+overflow-y:auto;
+font-family:"Courier New",monospace;
+font-size:.95rem;
+line-height:1.6;
+}
+
+.rz-code-view{
+display:none;
+}
+
+.rz-code-view.active-code{
+display:block;
+}
+
+.rz-code-line{
+display:flex;
+padding:0 20px;
+}
+
+.rz-code-line:hover{
+background:#282828;
+}
+
+.rz-line-num{
+color:#858585;
+width:30px;
+text-align:right;
+margin-right:20px;
+}
+
+/* Syntax Colors */
+
+.kw{color:#569cd6;}
+.var{color:#4fc1ff;}
+.func{color:#dcdcaa;}
+.obj{color:#4ec9b0;}
+.str{color:#ce9178;}
