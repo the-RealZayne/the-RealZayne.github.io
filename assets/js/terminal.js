@@ -92,7 +92,7 @@ async function cmdSequence(commands) {
        text.includes("support") || text.includes("studio") || text.includes("ski") ||
        text.includes("social") || text.includes("hidden") || text.includes("robot") ||
        text.includes("snowboard") || text.includes("future") || text.includes("clear") ||
-       text.includes("easteregg")) || text.includes("rzcode")) {
+       text.includes("easteregg") || text.includes("rzcode")) {
       // Command names get prompt styling
       line.innerHTML = `<span class="prompt">${text.trim()}</span>`;
     } else {
@@ -378,11 +378,11 @@ if(input && output && termBody){
           await cmdSequence([["Discord • Twitch • YouTube • SoundCloud"]]);
           break;
 
-          case "open rzcode":
-case "rzcode":
-  await cmdSequence([["Loading RZ Code IDE...", 800]]);
-  loadRzCode();
-  return;
+        case "open rzcode":
+        case "rzcode":
+          await cmdSequence([["Loading RZ Code IDE...", 800]]);
+          loadRzCode();
+          return;
 
         case "hidden":
           await cmdSequence([
