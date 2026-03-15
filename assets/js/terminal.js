@@ -254,7 +254,7 @@ function buildFileTree(treeItems) {
   const validItems = treeItems.filter(item => {
     const path = item.path.toLowerCase();
     // Skip GitHub special folders
-    return !path.startsWith('.github/issue_template') && 
+    return !path.startsWith('.github/ISSUE_TEMPLATE') && 
            !path.startsWith('.github/workflows') &&
            !path.includes('/node_modules/') &&
            item.type !== 'commit'; // Skip commit objects
