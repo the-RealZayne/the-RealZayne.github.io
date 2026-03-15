@@ -506,14 +506,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Optional: behaviors for other buttons
   if (minimizeBtn) {
     minimizeBtn.addEventListener('click', () => {
-      const term = document.querySelector('.terminal-window');
+      const term = document.querySelector('.terminal-window, .code-window');
       if (term) term.style.display = 'none';
     });
   }
 
   if (maximizeBtn) {
     maximizeBtn.addEventListener('click', () => {
-      const term = document.querySelector('.terminal-window');
+      const term = document.querySelector('.terminal-window, .code-window');
       if (!term) return;
       if (term.dataset.maximized === '1') {
         term.style.width = '';
