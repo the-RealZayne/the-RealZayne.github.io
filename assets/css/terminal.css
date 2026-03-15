@@ -190,3 +190,121 @@ color:black;
     color: #FF7518 !important;
     text-shadow: 0 0 8px rgba(255, 117, 24, 0.8);
 }
+
+/* RZ IDE Viewer Styles */
+.rz-ide-container {
+    height: 100%;
+    display: flex;
+    font-family: 'Consolas', 'Monaco', monospace;
+    background: #0f172a;
+}
+
+.rz-ide {
+    flex: 1;
+    display: flex;
+    height: 100%;
+}
+
+.rz-ide-sidebar {
+    width: 220px;
+    background: #1e293b;
+    border-right: 1px solid #334155;
+    padding: 20px 0;
+}
+
+.rz-sidebar-title {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    padding: 0 15px 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.rz-file-item {
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #cbd5e1;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.rz-file-item:hover {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.rz-file-item.active {
+    background: #0f172a;
+    color: #FF7518;
+    border-left-color: #FF7518;
+}
+
+.rz-ide-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #0f172a;
+}
+
+.rz-ide-tabs {
+    display: flex;
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+}
+
+.rz-tab {
+    padding: 12px 20px;
+    color: #94a3b8;
+    font-size: 13px;
+    cursor: pointer;
+    border-right: 1px solid #334155;
+    transition: all 0.2s;
+}
+
+.rz-tab:last-child {
+    border-right: none;
+}
+
+.rz-tab.active {
+    background: #0f172a;
+    color: #f1f5f9;
+}
+
+.rz-ide-editor {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.rz-code-view {
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    display: none;
+}
+
+.rz-code-view.active-code {
+    display: block;
+}
+
+.rz-code-line {
+    display: flex;
+    line-height: 1.6;
+    margin-bottom: 2px;
+}
+
+.rz-line-num {
+    width: 40px;
+    color: #64748b;
+    font-size: 12px;
+    user-select: none;
+}
+
+.kw { color: #89b4fa; font-weight: 600; }
+.var { color: #f38ba8; }
+.obj { color: #a6e3a1; }
+.func { color: #fab387; }
+.str { color: #f9e2af; }
+
