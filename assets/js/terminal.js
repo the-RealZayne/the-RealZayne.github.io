@@ -490,3 +490,43 @@ function runDom3DViewer() {
     }
   }
 }
+
+// Wire terminal header buttons
+document.addEventListener('DOMContentLoaded', () => {
+  const closeBtn = document.getElementById('btn-close');
+  const minimizeBtn = document.getElementById('btn-minimize');
+  const maximizeBtn = document.getElementById('btn-maximize');
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      runDom3DViewer(); // launch 3D DOM viewer
+    });
+  }
+
+  // Optional: behaviors for other buttons
+  if (minimizeBtn) {
+    minimizeBtn.addEventListener('click', () => {
+      const term = document.querySelector('.terminal-window');
+      if (term) term.style.display = 'none';
+    });
+  }
+
+  if (maximizeBtn) {
+    maximizeBtn.addEventListener('click', () => {
+      const term = document.querySelector('.terminal-window');
+      if (!term) return;
+      if (term.dataset.maximized === '1') {
+        term.style.width = '';
+        term.style.maxWidth = '800px';
+        term.style.height = '';
+        term.dataset.maximized = '0';
+      } else {
+        term.style.maxWidth = 'none';
+        term.style.width = '100vw';
+        term.style.height = '100vh';
+        term.dataset.maximized = '1';
+      }
+    });
+  }
+});
+
