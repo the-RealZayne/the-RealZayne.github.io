@@ -15,32 +15,65 @@ jobs:
         fetch-depth: 0
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Read current version
+    - name: Read and bump version intelligently
       id: version
       run: |
-        VERSION_FILE="version.txt"
+        VERSION_FILE="VERSION"
         if [ -f "$VERSION_FILE" ]; then
           CURRENT_VERSION=$(cat "$VERSION_FILE")
         else
-          echo "V1.00" > "$VERSION_FILE"
-          CURRENT_VERSION="V1.00"
+          echo "V1.0.0" > "$VERSION_FILE"
+          CURRENT_VERSION="V1.0.0"
         fi
-        
-        # Parse V1.00 -> 1.00 -> 1.01
-        MAJOR=$(echo $CURRENT_VERSION | cut -d'V' -f2 | cut -d'.' -f1)
-        MINOR=$(echo $CURRENT_VERSION | cut -d'V' -f2 | cut -d'.' -f2)
-        NEW_MINOR=$((MINOR + 1))
-        NEW_VERSION="V${MAJOR}.${NEW_MINOR}"
-        
+
+        # Parse V1.0.0 -> major=1 minor=0 patch=0
+        CORE=${CURRENT_VERSION#V}
+        MAJOR=$(echo $CORE | cut -d'.' -f1)
+        MINOR=$(echo $CORE | cut -d'.' -f2)
+        PATCH=$(echo $CORE | cut -d'.' -f3)
+
+        # Force decimal arithmetic (remove leading zeros)
+        MAJOR=$((10#$MAJOR))
+        MINOR=$((10#$MINOR))
+        PATCH=$((10#$PATCH))
+
+        # Bump logic:
+        # - PATCH++ for every commit (patch release)
+        PATCH=$((PATCH + 1))
+
+        # ROLLOVER LOGIC:
+        # Patch 99 → Minor+1, Patch=0
+        if [ "$PATCH" -ge 100 ]; then
+          MINOR=$((MINOR + 1))
+          PATCH=0
+        fi
+
+        # Minor 100 → Major+1, Minor=0, Patch=0  
+        if [ "$MINOR" -ge 100 ]; then
+          MAJOR=$((MAJOR + 1))
+          MINOR=0
+          PATCH=0
+        fi
+
+        # Format with leading zeros: V1.0.1, V1.10.5, V12.34.56
+        MAJOR_PADDED=$(printf "%d" "$MAJOR")
+        MINOR_PADDED=$(printf "%02d" "$MINOR")
+        PATCH_PADDED=$(printf "%02d" "$PATCH")
+
+        NEW_VERSION="V${MAJOR_PADDED}.${MINOR_PADDED}.${PATCH_PADDED}"
+
+        echo "current-version=$CURRENT_VERSION"
+        echo "new-version=$NEW_VERSION"
+
         echo "current-version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
         echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
     - name: Update version file
       run: |
-        echo "${{ steps.version.outputs.new-version }}" > version.txt
+        echo "${{ steps.version.outputs.new-version }}" > VERSION
 
     - name: Commit version bump
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "chore: bump version to ${{ steps.version.outputs.new-version }}"
-        file_pattern: version.txt
+        file_pattern: VERSION
