@@ -192,8 +192,8 @@ async function bootSequence(){
 }
 
 let GITHUB_REPO = {
-  owner: 'theRealZayne',  // ← CHANGE TO YOUR GITHUB USERNAME
-  repo: 'theRealZayne.github.io', // ← CHANGE TO YOUR REPO NAME
+  owner: 'the-RealZayne',  // ← CHANGE TO YOUR GITHUB USERNAME
+  repo: 'the-RealZayne.github.io', // ← CHANGE TO YOUR REPO NAME
   branch: 'main'
 };
 
