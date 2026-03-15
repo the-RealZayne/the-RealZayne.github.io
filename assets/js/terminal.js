@@ -233,7 +233,7 @@ async function loadGitHubFileTree() {
             <i class="fab fa-github" style="margin-right:8px;"></i>
             ${GITHUB_REPO.owner}/${GITHUB_REPO.repo}
           </div>
-          <div class="rz-file-tree" id="file-tree">${buildFileTree(clean.tree)}</div>
+          <div class="rz-file-tree" id="file-tree">${buildFileTree(cleanTree)}</div>
         </div>
         <div class="rz-ide-main">
           <div class="rz-ide-tabs" id="rz-ide-tabs">
