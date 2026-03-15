@@ -233,7 +233,7 @@ async function loadGitHubFileTree() {
             <i class="fab fa-github" style="margin-right:8px;"></i>
             ${GITHUB_REPO.owner}/${GITHUB_REPO.repo}
           </div>
-          <div class="rz-file-tree" id="file-tree">${buildFileTree(data.tree)}</div>
+          <div class="rz-file-tree" id="file-tree">${buildFileTree(clean.tree)}</div>
         </div>
         <div class="rz-ide-main">
           <div class="rz-ide-tabs" id="rz-ide-tabs">
@@ -263,10 +263,11 @@ function buildFileTree(treeItems) {
            !path.startsWith('.github/workflows') &&
            !path.includes('/node_modules/') &&
            item.type !== 'commit'; // Skip commit objects
+           item.path && item.sha; // Ensure basic properties exist
   });
   
   // Build nested structure
-  treeItems.forEach(item => {
+  validItems.forEach(item => {
     const parts = item.path.split('/');
     let current = treeMap;
     
