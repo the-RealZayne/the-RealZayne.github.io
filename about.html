@@ -149,7 +149,7 @@
 </div>
 
 <script>
-fetch('VERSION')
+fetch('version.txt')
   .then(response => response.text())
   .then(version => {
     document.getElementById('version-display').textContent = version.trim();
