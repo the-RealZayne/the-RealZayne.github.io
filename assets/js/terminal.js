@@ -250,6 +250,16 @@ async function loadGitHubFileTree() {
 function buildFileTree(treeItems) {
   const treeMap = {};
   
+  // Filter out GitHub special folders that cause issues
+  const validItems = treeItems.filter(item => {
+    const path = item.path.toLowerCase();
+    // Skip GitHub special folders
+    return !path.startsWith('.github/issue_template') && 
+           !path.startsWith('.github/workflows') &&
+           !path.includes('/node_modules/') &&
+           item.type !== 'commit'; // Skip commit objects
+  });
+  
   // Build nested structure
   treeItems.forEach(item => {
     const parts = item.path.split('/');
