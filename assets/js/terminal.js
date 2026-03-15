@@ -191,70 +191,244 @@ async function bootSequence(){
   termBody.scrollTop = termBody.scrollHeight;
 }
 
-/* RZCODE IDE VIEWER */
+let GITHUB_REPO = {
+  owner: 'theRealZayne',  // ← CHANGE TO YOUR GITHUB USERNAME
+  repo: 'theRealZayne.github.io', // ← CHANGE TO YOUR REPO NAME
+  branch: 'main'
+};
+
 async function loadRzCode() {
   document.querySelector('.input-line').style.display = 'none';
   output.innerHTML = '';
-  document.querySelector('.title').textContent = ':RZCODE VIEWER:';
+  document.querySelector('.title').textContent = ':RZ-CODE VIEWER:';
+  
+  // Show loading
+  const loadingDiv = document.createElement('div');
+  loadingDiv.innerHTML = '<div style="color:#94a3b8;padding:20px;">Loading GitHub repo...</div>';
+  termBody.appendChild(loadingDiv);
+  
+  try {
+    await loadGitHubFileTree();
+  } catch(e) {
+    termBody.innerHTML = `<div style="color:#ff4444;padding:20px;">Error loading repo: ${e.message}</div>`;
+  }
+}
+
+async function loadGitHubFileTree() {
+  const repoUrl = `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.repo}/git/trees/${GITHUB_REPO.branch}?recursive=1`;
+  
+  const response = await fetch(repoUrl);
+  const data = await response.json();
   
   termBody.innerHTML = `
     <div class="rz-ide-container">
       <div class="rz-ide">
         <div class="rz-ide-sidebar">
-          <div class="rz-sidebar-title">EXPLORER</div>
-          <div class="rz-file-item active" id="rz-file-1"><span>script.js</span></div>
-          <div class="rz-file-item" id="rz-file-2"><span>style.css</span></div>
+          <div class="rz-sidebar-title">
+            <i class="fab fa-github" style="margin-right:8px;"></i>
+            ${GITHUB_REPO.owner}/${GITHUB_REPO.repo}
+          </div>
+          <div class="rz-file-tree" id="file-tree">${buildFileTree(data.tree)}</div>
         </div>
         <div class="rz-ide-main">
-          <div class="rz-ide-tabs">
-            <div class="rz-tab active" id="rz-tab-1">script.js</div>
-            <div class="rz-tab" id="rz-tab-2">style.css</div>
+          <div class="rz-ide-tabs" id="rz-ide-tabs">
+            <div class="rz-tab-placeholder">Select a file to view</div>
           </div>
-          <div class="rz-ide-editor">
-            <div class="rz-code-view active-code" id="rz-code-1">
-              <div class="rz-code-line"><span class="rz-line-num">1</span><span class="kw">const</span> <span class="var">initApp</span> = <span class="kw">function</span>() {</div>
-              <div class="rz-code-line"><span class="rz-line-num">2</span>  <span class="obj">console</span>.<span class="func">log</span>(<span class="str">"System initialized flawlessly."</span>);</div>
-              <div class="rz-code-line"><span class="rz-line-num">3</span>};</div>
-              <div class="rz-code-line"><span class="rz-line-num">5</span><span class="func">initApp</span>();</div>
-            </div>
-            <div class="rz-code-view" id="rz-code-2">
-              <div class="rz-code-line"><span class="rz-line-num">1</span>.running {</div>
-              <div class="rz-code-line"><span class="rz-line-num">2</span> display:flex;</div>
-              <div class="rz-code-line"><span class="rz-line-num">5</span> background:#0f172a;</div>
-              <div class="rz-code-line"><span class="rz-line-num">6</span>}</div>
+          <div class="rz-ide-editor" id="rz-ide-editor">
+            <div style="color:#94a3b8;padding:40px;text-align:center;">
+              Click a file to view its contents
             </div>
           </div>
         </div>
       </div>
     </div>
   `;
-  setTimeout(initRzCodeTabs, 100);
+  
+  initFileTree();
 }
 
-function initRzCodeTabs() {
-  const tabs = document.querySelectorAll('.rz-tab');
-  const codeViews = document.querySelectorAll('.rz-code-view');
-  const fileItems = document.querySelectorAll('.rz-file-item');
+function buildFileTree(treeItems) {
+  const treeMap = {};
+  
+  // Build nested structure
+  treeItems.forEach(item => {
+    const parts = item.path.split('/');
+    let current = treeMap;
+    
+    for(let i = 0; i < parts.length - 1; i++) {
+      const part = parts[i];
+      if(!current[part]) current[part] = { children: {}, type: 'folder' };
+      current = current[part].children;
+    }
+    
+    const filename = parts[parts.length - 1];
+    current[filename] = {
+      type: item.type === 'tree' ? 'folder' : 'file',
+      path: item.path,
+      sha: item.sha,
+      url: item.url
+    };
+  });
+  
+  return buildTreeHTML(treeMap);
+}
 
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      codeViews.forEach(cv => cv.classList.remove('active-code'));
-      tab.classList.add('active');
-      codeViews[index].classList.add('active-code');
+function buildTreeHTML(treeObj, path = '') {
+  let html = '';
+  
+  Object.keys(treeObj).forEach(key => {
+    const item = treeObj[key];
+    const fullPath = path ? `${path}/${key}` : key;
+    
+    if(item.type === 'folder') {
+      html += `
+        <div class="rz-folder">
+          <div class="rz-tree-item folder-item" data-path="${fullPath}">
+            <i class="fas fa-chevron-right folder-chevron"></i>
+            <i class="fas fa-folder"></i>
+            <span>${key}</span>
+          </div>
+          <div class="rz-folder-children">${buildTreeHTML(item.children, fullPath)}</div>
+        </div>
+      `;
+    } else {
+      html += `
+        <div class="rz-tree-item file-item" data-path="${item.path}" data-sha="${item.sha}" data-url="${item.url}">
+          <i class="fas fa-file-code"></i>
+          <span>${key}</span>
+        </div>
+      `;
+    }
+  });
+  
+  return html;
+}
+
+function initFileTree() {
+  const fileItems = document.querySelectorAll('.rz-tree-item');
+  const tabsContainer = document.getElementById('rz-ide-tabs');
+  const editorContainer = document.getElementById('rz-ide-editor');
+  const openTabs = new Map(); // Track open tabs
+  
+  fileItems.forEach(item => {
+    item.addEventListener('click', async (e) => {
+      const target = e.target.closest('.rz-tree-item');
+      if(!target || target.classList.contains('folder-item')) return;
+      
+      const path = target.dataset.path;
+      const sha = target.dataset.sha;
+      
+      // Load file content
+      try {
+        const content = await fetchGitHubFile(path, sha);
+        openTab(path, content, target);
+      } catch(e) {
+        editorContainer.innerHTML = `<div style="color:#ff4444;padding:20px;">Error loading ${path}: ${e.message}</div>`;
+      }
     });
   });
-
-  fileItems.forEach((fileItem, index) => {
-    fileItem.addEventListener('click', () => {
-      fileItems.forEach(fi => fi.classList.remove('active'));
-      tabs.forEach(t => t.classList.remove('active'));
-      codeViews.forEach(cv => cv.classList.remove('active-code'));
-      fileItem.classList.add('active');
-      tabs[index].classList.add('active');
-      codeViews[index].classList.add('active-code');
+  
+  // Folder expand/collapse
+  document.querySelectorAll('.folder-item').forEach(folder => {
+    folder.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const chevron = folder.querySelector('.folder-chevron');
+      const children = folder.parentElement.querySelector('.rz-folder-children');
+      
+      if(chevron.classList.contains('fa-chevron-right')) {
+        chevron.classList.remove('fa-chevron-right');
+        chevron.classList.add('fa-chevron-down');
+        children.style.display = 'block';
+      } else {
+        chevron.classList.remove('fa-chevron-down');
+        chevron.classList.add('fa-chevron-right');
+        children.style.display = 'none';
+      }
     });
   });
+}
+
+async function fetchGitHubFile(path, sha) {
+  const url = `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.repo}/contents/${path}?ref=${GITHUB_REPO.branch}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  
+  if(data.content) {
+    return atob(data.content); // Decode base64
+  }
+  
+  // Fallback to git blobs API
+  const blobUrl = `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.repo}/git/blobs/${sha}`;
+  const blobResponse = await fetch(blobUrl);
+  const blobData = await blobResponse.json();
+  return atob(blobData.content);
+}
+
+function openTab(path, content, fileElement) {
+  const tabsContainer = document.getElementById('rz-ide-tabs');
+  const editorContainer = document.getElementById('rz-ide-editor');
+  
+  // Remove active states
+  document.querySelectorAll('.rz-tab').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.rz-code-view').forEach(view => view.classList.remove('active-code'));
+  document.querySelectorAll('.rz-tree-item').forEach(item => item.classList.remove('active'));
+  
+  fileElement.classList.add('active');
+  
+  // Create tab if not exists
+  let tab = document.querySelector(`[data-path="${path}"]`);
+  if(!tab) {
+    tab = document.createElement('div');
+    tab.className = 'rz-tab';
+    tab.dataset.path = path;
+    tab.textContent = path.split('/').pop();
+    tabsContainer.appendChild(tab);
+  }
+  
+  tab.classList.add('active');
+  
+  // Create editor view
+  let editorView = document.querySelector(`[data-editor-path="${path}"]`);
+  if(!editorView) {
+    editorView = document.createElement('div');
+    editorView.className = 'rz-code-view active-code';
+    editorView.dataset.editorPath = path;
+    editorView.innerHTML = highlightCode(content, detectLanguage(path));
+    editorContainer.appendChild(editorView);
+  } else {
+    editorView.classList.add('active-code');
+  }
+}
+
+function detectLanguage(path) {
+  const ext = path.split('.').pop()?.toLowerCase();
+  const langMap = {
+    'js': 'javascript', 'jsx': 'javascript', 'ts': 'typescript', 'tsx': 'typescript',
+    'html': 'html', 'css': 'css', 'scss': 'scss', 'json': 'json',
+    'py': 'python', 'md': 'markdown', 'txt': 'text', 'sh': 'bash'
+  };
+  return langMap[ext] || 'text';
+}
+
+function highlightCode(content, language) {
+  // Simple syntax highlighting
+  const lines = content.split('\n');
+  let highlighted = '';
+  
+  lines.forEach((line, i) => {
+    highlighted += `<div class="rz-code-line">
+      <span class="rz-line-num">${i+1}</span>
+      <span class="code-content">${escapeHtml(line)}</span>
+    </div>`;
+  });
+  
+  return highlighted;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 /* INITIATE BUTTON */
