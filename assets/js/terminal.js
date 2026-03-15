@@ -220,6 +220,11 @@ async function loadGitHubFileTree() {
   const response = await fetch(repoUrl);
   const data = await response.json();
   
+  // FILTER OUT PROBLEMATIC ITEMS
+  const cleanTree = data.tree.filter(item => 
+    !item.path.toLowerCase().startsWith('.github/ISSUE_TEMPLATE')
+  );
+  
   termBody.innerHTML = `
     <div class="rz-ide-container">
       <div class="rz-ide">
