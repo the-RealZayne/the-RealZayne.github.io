@@ -92,7 +92,7 @@ async function cmdSequence(commands) {
        text.includes("support") || text.includes("studio") || text.includes("ski") ||
        text.includes("social") || text.includes("hidden") || text.includes("robot") ||
        text.includes("snowboard") || text.includes("future") || text.includes("clear") ||
-       text.includes("easteregg")) {
+       text.includes("easteregg")) || text.includes("rzcode")) {
       // Command names get prompt styling
       line.innerHTML = `<span class="prompt">${text.trim()}</span>`;
     } else {
@@ -189,6 +189,72 @@ async function bootSequence(){
   helpLine.innerHTML = `Type <span class="help-highlight">'help'</span> to begin.`;
   output.appendChild(helpLine);
   termBody.scrollTop = termBody.scrollHeight;
+}
+
+/* RZCODE IDE VIEWER */
+async function loadRzCode() {
+  document.querySelector('.input-line').style.display = 'none';
+  output.innerHTML = '';
+  document.querySelector('.title').textContent = ':RZ-CODE VIEWER:';
+  
+  termBody.innerHTML = `
+    <div class="rz-ide-container">
+      <div class="rz-ide">
+        <div class="rz-ide-sidebar">
+          <div class="rz-sidebar-title">EXPLORER</div>
+          <div class="rz-file-item active" id="rz-file-1"><span>script.js</span></div>
+          <div class="rz-file-item" id="rz-file-2"><span>style.css</span></div>
+        </div>
+        <div class="rz-ide-main">
+          <div class="rz-ide-tabs">
+            <div class="rz-tab active" id="rz-tab-1">script.js</div>
+            <div class="rz-tab" id="rz-tab-2">style.css</div>
+          </div>
+          <div class="rz-ide-editor">
+            <div class="rz-code-view active-code" id="rz-code-1">
+              <div class="rz-code-line"><span class="rz-line-num">1</span><span class="kw">const</span> <span class="var">initApp</span> = <span class="kw">function</span>() {</div>
+              <div class="rz-code-line"><span class="rz-line-num">2</span>  <span class="obj">console</span>.<span class="func">log</span>(<span class="str">"System initialized flawlessly."</span>);</div>
+              <div class="rz-code-line"><span class="rz-line-num">3</span>};</div>
+              <div class="rz-code-line"><span class="rz-line-num">5</span><span class="func">initApp</span>();</div>
+            </div>
+            <div class="rz-code-view" id="rz-code-2">
+              <div class="rz-code-line"><span class="rz-line-num">1</span>.running {</div>
+              <div class="rz-code-line"><span class="rz-line-num">2</span> display:flex;</div>
+              <div class="rz-code-line"><span class="rz-line-num">5</span> background:#0f172a;</div>
+              <div class="rz-code-line"><span class="rz-line-num">6</span>}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  setTimeout(initRzCodeTabs, 100);
+}
+
+function initRzCodeTabs() {
+  const tabs = document.querySelectorAll('.rz-tab');
+  const codeViews = document.querySelectorAll('.rz-code-view');
+  const fileItems = document.querySelectorAll('.rz-file-item');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      codeViews.forEach(cv => cv.classList.remove('active-code'));
+      tab.classList.add('active');
+      codeViews[index].classList.add('active-code');
+    });
+  });
+
+  fileItems.forEach((fileItem, index) => {
+    fileItem.addEventListener('click', () => {
+      fileItems.forEach(fi => fi.classList.remove('active'));
+      tabs.forEach(t => t.classList.remove('active'));
+      codeViews.forEach(cv => cv.classList.remove('active-code'));
+      fileItem.classList.add('active');
+      tabs[index].classList.add('active');
+      codeViews[index].classList.add('active-code');
+    });
+  });
 }
 
 /* INITIATE BUTTON */
@@ -311,6 +377,12 @@ if(input && output && termBody){
         case "social":
           await cmdSequence([["Discord • Twitch • YouTube • SoundCloud"]]);
           break;
+
+          case "open rzcode":
+case "rzcode":
+  await cmdSequence([["Loading RZ Code IDE...", 800]]);
+  loadRzCode();
+  return;
 
         case "hidden":
           await cmdSequence([
