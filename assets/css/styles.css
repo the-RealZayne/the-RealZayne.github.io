@@ -286,3 +286,40 @@ div[style*="display: flex"][style*="gap: 12px"] img {
     height: 100%;
   }
 
+/* Responsive Daily.dev Cards */
+.devcard-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.devcard {
+  display: block;          /* Makes <a> behave like a block for centering */
+  margin: 0 auto;          /* Center horizontally */
+  max-width: 100%;         /* Never overflow container */
+}
+
+.devcard-wide {
+  display: block;          /* Visible by default */
+}
+
+.devcard-mobile {
+  display: none;           /* Hidden by default (mobile version) */
+}
+
+/* Mobile-first: show narrow card on small screens */
+@media (max-width: 767px) {  /* Typical mobile/tablet breakpoint; adjust if needed */
+  .devcard-wide {
+    display: none;
+  }
+  .devcard-mobile {
+    display: block;
+  }
+}
+
+/* Optional: on very wide screens, cap the wide card width so it doesn't stretch too much */
+@media (min-width: 1200px) {
+  .devcard-wide img {
+    max-width: 652px;      /* Matches your original wide width */
+  }
+}
+
