@@ -1,0 +1,133 @@
+name: Rotate GitHub Status
+
+on:
+  schedule:
+    # Default rotation every 30 minutes
+    - cron: "*/30 * * * *"
+
+    # Morning rotation (4:24–6:30am local → 09:24–11:30 UTC)
+    - cron: "*/15 9-11 * * *"
+
+    # 4:20 AM (local → 09:20 UTC)
+    - cron: "20 9 * * *"
+
+    # 4:20 PM (local → 21:20 UTC)
+    - cron: "20 21 * * *"
+
+    # Night mode every 30 min after 11:30 PM (local → 04:30–06:00 UTC)
+    - cron: "*/30 4-6 * * *"
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Determine current mode (420 / morning / night / default)
+        id: mode
+        run: |
+          HOUR=$(date -u +%H)
+          MIN=$(date -u +%M)
+          SEC=$(date -u +%S)
+
+          # 420 mode triggers EXACTLY 09:20 or 21:20 UTC
+          if [[ "$HOUR" == "09" && "$MIN" == "20" ]] || [[ "$HOUR" == "21" && "$MIN" == "20" ]]; then
+            echo "mode=420" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Morning mode: 09:24–11:30 UTC
+          if (( (HOUR==9 && MIN>=24) || (HOUR==10) || (HOUR==11 && MIN<=30) )); then
+            echo "mode=morning" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Night mode: After 11:30 PM local → 04:30–06:00 UTC
+          if (( (HOUR==4 && MIN>=30) || (HOUR==5) || (HOUR==6 && MIN<=0) )); then
+            echo "mode=night" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Default mode otherwise
+          echo "mode=default" >> $GITHUB_OUTPUT
+
+      - name: Select status
+        id: status
+        run: |
+          MODE="${{ steps.mode.outputs.mode }}"
+
+          if [[ "$MODE" == "magic" ]]; then
+            OPTIONS=("✨ Right on Time!"
+              "⏰ Perfect Timing!"
+              "🌟 Magic Moment Achieved"
+              "🎯 Nailed It!"
+              "🪄 Code Break Incoming"
+            )
+
+          elif [[ "$MODE" == "morning" ]]; then
+            OPTIONS=("🌞 Good morning, world!"
+              "☕ Hot chocolate + keyboard = best start"
+              "🌤️ Rise and code!"
+              "🔋 Hot chocolate loading… Motivation 12%"
+              "💻 Sipped hot chocolate, opened VS Code, ready to break things (and fix them later)"
+              "🔍 Still searching for that morning energy"
+              "❗ Error 404: Motivation not found"
+              "🔍 Error 404: Motivation not found"
+            )
+
+          elif [[ "$MODE" == "night" ]]; then
+            OPTIONS=(
+              "🚫 Error 503: Consciousness temporarily unavailable"
+              "🛌 Status: unconscious, drooling on keyboard, last commit message was 'fuxking works now zzzz'"
+              "🧟 I’m not dead, I’m just in a 10-hour debugger session and the keyboard started talking to me"
+              "🌫️ If I don’t reply it’s because I’m a background process now, running on 0.1% CPU.""😴 One more line before bed"
+              "💤 Zzz… code dreams incoming"
+              "🚫 Error 503: Brain offline for maintenance"
+              "🛌 Status: probably drooling on keyboard, last commit was 'it works now goodnight'"
+              "🪐 Dreamt I fixed the bug in my sleep… woke up and it was still broken"
+              "🌙 Sleep plan: code → more code → sleep → repeat until weekend"
+              "🧟 Not asleep, just in an infinite loop staring at logs"
+              "🌫️ If I don’t reply I’m probably a background process now"
+            )
+
+          else
+            OPTIONS=(
+              "📊 Current mood: 0% ██████████ 100% | Actual mood: 100% ██████████ 0%"
+              "⚠️ Error 503: Brain temporarily unavailable, try again after next debug"
+              "🖥️ Coding Servers""☕ Hot chocolate: because adulting is hard"
+              "😶‍🌫️ Keep going!"
+              "🚀 Currently 87% focus, 12% snacks, 1% hoping this works"
+              "🧠 brain.compile() → coffeeNotFoundException → hotChocolate спасает"
+              "📊 Current mood: 0% ██████████ 100% | Actual mood: who knows"
+              "⚠️ Error 503: Brain buffering, try again in 5 minutes"
+              "💥 Error 500: Internal Chaos Detected"
+              "🖥️ Coding like it’s 1999"
+              "🔧 Debugging level: expert procrastinator"
+            )
+          fi
+
+          RAND=$((RANDOM % ${#OPTIONS[@]}))
+          SELECTED="${OPTIONS[$RAND]}"
+
+          echo "selected=$SELECTED" >> $GITHUB_OUTPUT
+
+      - name: Update GitHub Status
+        env:
+          GITHUB_TOKEN: ${{ secrets.STATUS_TOKEN }}
+          RAW: ${{ steps.status.outputs.selected }}
+        run: |
+          EMOJI=$(echo "$RAW" | awk '{print $1}')
+          MESSAGE=$(echo "$RAW" | awk '{$1=""; print $0}')
+
+          gh api graphql -f query='
+            mutation ($emoji: String, $message: String) {
+              changeUserStatus(input: {
+                emoji: $emoji,
+                message: $message
+              }) {
+                status {
+                  emoji
+                  message
+                }
+              }
+            }
+          ' -F emoji="$EMOJI" -F message="$MESSAGE"
