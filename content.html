@@ -65,13 +65,29 @@
     </a>
 </div>
 
-<div id=”twitch-embed”></div>
-<script src=”https://embed.twitch.tv/embed/v1.js”></script>
-<script type=”text/javascript”>
-new Twitch.Embed(“twitch-embed”, {
-width: 854,
-height: 480,
-channel: “xtherealzaynex”,});
+<!-- Responsive Twitch Embed Container -->
+<div class="twitch-container">
+  <div id="twitch-embed"></div>
+</div>
+
+<!-- Load the Twitch Embed script -->
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+<!-- Initialize the embed -->
+<script type="text/javascript">
+  new Twitch.Embed("twitch-embed", {
+    width: "100%",
+    height: "100%",
+    channel: "xtherealzaynex",
+    // REQUIRED for GitHub Pages!
+    // Use your exact GitHub Pages domain (no https://, no trailing slash)
+    // If your site is https://yourusername.github.io, use that.
+    // If it's a custom domain like https://yourname.com, use "yourname.com"
+    parent: ["the-RealZayne.github.io"]  // ← CHANGE THIS to match your repo/site!
+    // Optional extras:
+    // layout: "video",       // hide chat if you only want video
+    // theme: "dark",         // or "light"
+  });
 </script>
             
             - <strong><a href="https://www.twitch.tv/xtherealzaynex">Twitch</a></strong>: I stream my gameplay live and love hanging out with the community while doing it. Streams can include gaming sessions, building maps in Roblox or Fortnite, creative projects, and sometimes even some live beatboxing. It's a chill place to relax, chat, and enjoy some fun moments together. Follow the stream and jump into chat when I'm live!<br><br>
