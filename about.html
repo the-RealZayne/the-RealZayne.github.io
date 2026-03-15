@@ -143,16 +143,21 @@
   <span id="version-display">Loading...</span>
 </div>
 
+<!-- VERSION DISPLAY -->
+<div style="position: fixed; bottom: 10px; left: 20px; color: #888; font-family: 'Orbitron', monospace; font-size: 12px; z-index: 1000; pointer-events: none; text-shadow: 0 0 5px rgba(255,69,0,0.3);">
+  <span id="version-display">Loading...</span>
+</div>
+
 <script>
-fetch('version.txt')
+fetch('VERSION')
   .then(response => response.text())
   .then(version => {
     document.getElementById('version-display').textContent = version.trim();
   })
   .catch(() => {
-    document.getElementById('version-display').textContent = 'V1.00';
+    document.getElementById('version-display').textContent = 'V1.0.0';
   });
 </script>
-    
+
 </body>
 </html>
