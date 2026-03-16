@@ -218,11 +218,16 @@ async function loadGitHubFileTree() {
   const repoUrl = `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.repo}/contents`;
   const response = await fetch(repoUrl);
   const data = await response.json();
-  
+
+  console.log("GitHub API response:", data);
+
+  console.log("Before filtering:", data);
   // FILTER OUT PROBLEMATIC ITEMS
   const cleanTree = data.filter(item => 
   !item.name?.toLowerCase().startsWith('.github')
 );
+
+  console.log("After filtering:", cleanTree);
   
   termBody.innerHTML = `
     <div class="rz-ide-container">
