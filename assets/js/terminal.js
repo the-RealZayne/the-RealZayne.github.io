@@ -7,6 +7,8 @@ const termBody = document.getElementById("term-body");
 const initBtn = document.getElementById("init-btn");
 const initScreen = document.getElementById("terminal-init");
 
+let globalVersion = 'v1.0.0';
+
 let historyCommands = [];
 let historyIndex = -1;
 
@@ -166,12 +168,13 @@ async function loginSequence(){
   output.appendChild(accessLine);
   termBody.scrollTop = termBody.scrollHeight;
   
+  /* VERSION */
   await new Promise(r=>setTimeout(r,900));
-}
+}let globalVersion = 'v1.0.0'; // fallback
 
 /* BOOT SEQUENCE */
 async function bootSequence(){
-  await typeLine("Booting REAL_ZAYNE_OS v1.00...");
+  await typeLine(`Booting REAL_ZAYNE_OS ${globalVersion}...`);
   await new Promise(r=>setTimeout(r,800));
 
   await loadingDots("Loading modules");
@@ -261,6 +264,16 @@ function initRzCodeTabs() {
 if(initBtn){
   initBtn.addEventListener("click",async()=>{
     initScreen.style.display="none";
+    
+    // Load version first
+    try {
+      const response = await fetch('version.txt');
+      const versionRaw = await response.text();
+      globalVersion = versionRaw.trim() || 'v1.0.0';
+    } catch(e) {
+      globalVersion = 'v1.0.0';
+    }
+    
     await loginSequence();
     await bootSequence();
   });
