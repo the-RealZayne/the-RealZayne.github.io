@@ -221,7 +221,7 @@ async function loadGitHubFileTree() {
   
   // FILTER OUT PROBLEMATIC ITEMS
   const cleanTree = data.tree.filter(item => 
-    !item.path.toLowerCase().startsWith('.github/ISSUE_TEMPLATE')
+    !item.path.toLowerCase().startsWith('.github')
   );
   
   termBody.innerHTML = `
@@ -279,7 +279,7 @@ function buildFileTree(treeItems) {
     
     const filename = parts[parts.length - 1];
     current[filename] = {
-      type: item.type === 'tree' ? 'folder' : 'file',
+      type: item.type === 'dir' ? 'folder' : 'file',
       path: item.path,
       sha: item.sha,
       url: item.url
