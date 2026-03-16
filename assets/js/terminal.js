@@ -170,7 +170,7 @@ async function loginSequence(){
   
   /* VERSION */
   await new Promise(r=>setTimeout(r,900));
-}let globalVersion = 'v1.0.0'; // fallback
+}
 
 /* BOOT SEQUENCE */
 async function bootSequence(){
