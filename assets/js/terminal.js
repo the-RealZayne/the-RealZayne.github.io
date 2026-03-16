@@ -123,7 +123,7 @@ function loadingDots(text,duration=2000){
 
     setTimeout(()=>{
       clearInterval(interval);
-      line.innerHTML=text+"... done";
+      line.innerHTML=text+"... Done";
       resolve();
     },duration);
   });
@@ -134,7 +134,7 @@ async function loginSequence(){
   await loadingDots("Connecting to Interweb");
   await new Promise(r=>setTimeout(r,900));
   
-  await loadingDots("Establishing therealzayne node");
+  await loadingDots("Establishing theRealZayne node");
   await new Promise(r=>setTimeout(r,800));
 
   await typeLine("");
@@ -301,7 +301,7 @@ if(input && output && termBody){
 
       const history=document.createElement("div");
       history.className="line";
-      history.innerHTML=`<span class="prompt">zayne@therealspace:~$</span> ${val}`;
+      history.innerHTML=`<span class="prompt"zaynes@therealspace:~$</span> ${val}`;
       output.appendChild(history);
 
       // ASYNC COMMAND RESPONSES
