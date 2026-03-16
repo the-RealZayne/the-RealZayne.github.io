@@ -75,13 +75,14 @@
 <span class="minimize"></span>
 <span class="maximize"></span>
 </div> -->
-
+  
+<!--
 <div class="title" id="terminal-version-title">:RZOS Loading...
-</div>
-
-  <!--      
-<div class="title">:RZOS V1.00:</div>
 </div> -->
+
+      
+<div class="title">:RZOS V1.0.0:</div>
+</div> 
 
 <div class="terminal-body" id="term-body">
 
@@ -185,6 +186,39 @@
 <div style="position: fixed; bottom: 10px; left: 20px; color: #888; font-family: 'Orbitron', monospace; font-size: 12px; z-index: 1000; pointer-events: none;">
   <span id="version-display">Loading...</span>
 </div>  
+
+<script>
+fetch('version.txt')
+  .then(response => response.text())
+  .then(versionRaw => {
+    const version = versionRaw.trim() || 'V1.0.0';
+
+    // Bottom-left fixed display
+    const versionDisplay = document.getElementById('version-display');
+    if (versionDisplay) {
+      versionDisplay.textContent = version;
+    }
+
+    // Terminal window title: find existing .title and replace only the version part
+    const titleEl = document.querySelector('.terminal-header .title');
+    if (titleEl) {
+      titleEl.textContent = `:RZO ${version}:`;
+    }
+  })
+  .catch(() => {
+    const fallback = 'V1.0.0';
+
+    const versionDisplay = document.getElementById('version-display');
+    if (versionDisplay) {
+      versionDisplay.textContent = fallback;
+    }
+
+    const titleEl = document.querySelector('.terminal-header .title');
+    if (titleEl) {
+      titleEl.textContent = `:RZO ${fallback}:`;
+    }
+  });
+</script>  
   
 <!--
 <script>
@@ -197,7 +231,8 @@ fetch('version.txt')
     document.getElementById('version-display').textContent = 'V1.00';
   });
 </script> -->
-
+  
+  <!--
 <script>
 fetch('version.txt')
   .then(response => response.text())
@@ -213,7 +248,7 @@ fetch('version.txt')
     // Terminal window title
     const titleEl = document.getElementById('terminal-version-title');
     if (titleEl) {
-      titleEl.textContent = `:RZO ${version}:`;
+      titleEl.textContent = `:RZOS ${version}:`;
     }
   })
   .catch(() => {
@@ -229,7 +264,7 @@ fetch('version.txt')
       titleEl.textContent = `:RZO ${fallback}:`;
     }
   });
-</script>
+</script> -->
 
 </body>
 </html>
