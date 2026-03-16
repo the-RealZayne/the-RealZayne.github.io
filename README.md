@@ -1,150 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collaborations | ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-</head>
-<body>
-
-    <!-- Updated Header: Hamburger LEFT, Logo, Theme toggle RIGHT -->
-    <header>
-        <div class="container">
-            <!-- Hamburger on LEFT -->
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-
-            <!-- Logo next to hamburger -->
-            <div class="logo">
-                <a href="index.html">༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</a>
-            </div>
-
-            <!-- Navigation dropdown (hidden until clicked) -->
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Me</a></li>
-                    <li><a href="gaming.html">Gaming</a></li>
-                    <li><a href="content.html">Content Creation</a></li>
-                    <li><a href="music.html">Music</a></li>
-                    <li><a href="community.html">Community</a></li>
-                    <li><a href="coding.html">Coding & Projects</a></li>
-                    <li><a href="collaborations.html">Collaborations</a></li>
-                    <li><a href="activities.html">Outdoor Activities</a></li>
-                    <li><a href="booking.html">Booking / Schedule</a></li>
-                    <li><a href="contribute.html">Contribute</a></li>
-                </ul>
-            </nav>
-
-            <!-- Theme toggle on RIGHT -->
-            <div class="theme-toggle">
-                <button id="theme-toggle"><i class="fas fa-moon"></i> Dark Mode</button>
-            </div>
-        </div>
-    </header>
-
-    <main class="container">
-        <h1>Skeleton</h1>
-
-        <p>
-            <strong>Im a Skeleton</strong> Add meat to my bones to make me look alive!
-        </p>
-    </main>
-
-    <!-- Footer -->
-    <footer style="text-align:center; padding:3rem 1rem; background:#0f0f0f; color:#aaa; margin-top:4rem;">
-        <p>© 2026 ༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻ | ZayneCreations ™</p>
-        <div style="margin:1.5rem 0;">
-            <a href="https://discord.gg/8J5F9KjkS6" target="_blank">
-                <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo" />
-            </a>
-            <a href="https://patreon.com/theRealZayne" target="_blank">
-                <img src="https://img.shields.io/static/v1?message=Patreon&logo=patreon&label=&color=F96854&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="patreon logo" />
-            </a>
-            <a href="https://www.twitch.tv/xtherealzaynex" target="_blank">
-                <img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&label=&color=9146FF&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="twitch logo" />
-            </a>
-            <a href="https://www.youtube.com/@theRealZayne" target="_blank">
-                <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="youtube logo" />
-            </a>
-        </div>
-        <p>Thanks for visiting!</p>
-
-        <!-- ANIMATED WEEKLY VISITOR COUNTER -->
-        <div class="flex justify-center items-center" style="margin: 1rem 0;">
-            <svg id="stats" width="180px" height="120px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <text x="50%" y="3%" fill="#888" font-size="10px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace"></text>
-                <text id="textStats" x="50%" y="97%" fill="#888" font-size="10px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">+0 this week, 0 total</text>
-                
-                <!-- Weekly bars container -->
-                <g id="weeklyBars" transform="scale(3)">
-                    <g class="day-bar" data-day="0" transform="translate(5,10)">
-                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Mon</text>
-                    </g>
-                    <g class="day-bar" data-day="1" transform="translate(13,10)">
-                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Tue</text>
-                    </g>
-                    <g class="day-bar" data-day="2" transform="translate(21,10)">
-                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Wed</text>
-                    </g>
-                    <g class="day-bar" data-day="3" transform="translate(29,10)">
-                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Thu</text>
-                    </g>
-                    <g class="day-bar" data-day="4" transform="translate(37,10)">
-                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Fri</text>
-                    </g>
-                    <g class="day-bar" data-day="5" transform="translate(45,10)">
-                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Sat</text>
-                    </g>
-                    <g class="day-bar" data-day="6" transform="translate(53,10)">
-                        <text class="day-number" y="4" fill="#888" font-size="4px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">0</text>
-                        <rect class="day-bar-rect" x="-2" y="6" width="4" height="2" rx="2" ry="2" fill="#64b064"/>
-                        <text class="day-label" y="25" fill="#888" font-size="3px" alignment-baseline="middle" text-anchor="middle" font-family="Consolas,Menlo,Monaco,'Courier New',monospace">Sun</text>
-                    </g>
-                </g>
-            </svg>
-        </div>
-    </footer>
-
-    <div align="center" style="margin-top:1rem;">
-        <img src="https://raw.githubusercontent.com/mayhemantt/mayhemantt/Update/svg/Bottom.svg" alt="Footer animation">
-    </div>
-
-    <script src="assets/js/script.js" defer></script>
-
-        <!-- VERSION DISPLAY -->
-<div style="position: fixed; bottom: 10px; left: 20px; color: #888; font-family: 'Orbitron', monospace; font-size: 12px; z-index: 1000; pointer-events: none;">
-  <span id="version-display">Loading...</span>
+<div>
+  <img style="100%" src="https://capsule-render.vercel.app/api?type=waving&height=100&section=header&reversal=false&fontSize=70&fontColor=FFFFFF&fontAlign=50&fontAlignY=50&stroke=-&descSize=20&descAlign=50&descAlignY=50&theme=tokyonight"  />
 </div>
 
-<script>
-fetch('version.txt')
-  .then(response => response.text())
-  .then(version => {
-    document.getElementById('version-display').textContent = version.trim();
-  })
-  .catch(() => {
-    document.getElementById('version-display').textContent = 'V1.00';
-  });
-</script>
-    
-</body>
-</html>
+###
+
+<p align="center">Welcome<br><br>Welcome to the official GitHub repository for theRealZayne! This repository serves as a hub for my creative endeavors, coding projects, and interactive portfolio. Here, you’ll get a glimpse of what I do, the content I produce, and how I’m building experiences that blend gaming, music, coding, and outdoor adventures.<br><br>What You’ll Find Here<br><br>1. Interactive Portfolio / Static Website<br>A GitHub Pages-powered interactive terminal where visitors can explore my work, content, and projects.<br><br>Features include:<br><br>Boot sequence and guest login simulation.<br>Slow typing terminal responses for immersive experience.<br>Commands showcasing gaming, music, coding, and outdoor adventures.<br>Hidden commands and easter eggs for fun exploration.<br><br>You can explore the live site here: https://the-realzayne.github.io<br><br>2. Coding Projects<br>Discord bots: Real-time stats, updates, and modifications for my gaming and creative projects.<br>Raspberry Pi projects: AI robot car, P4wnagotchi experiments, and other robotics tools.<br>Map Editing: Custom Fortnite, Roblox, and Minecraft maps with downloadable files (soon via Patreon).<br><br>3. Content & Media<br>Gaming highlights, live streams, and music production tutorials on YouTube and Twitch.<br>Music tracks, remixes, and collaborations available on SoundCloud.<br>Beatboxing and production content created in my mini home studio.<br><br>4. Community Engagement<br>Join my Discord server to chat, squad up for games, collaborate on music, or just hang out.<br>Follow updates on Twitch, YouTube, and Patreon for exclusive content.<br><br>5. Support & Contributions<br>Support via Patreon, Acorns, or other channels.<br>Contributions help expand my projects, produce more content, and fund experimental tech and outdoor adventures.<br><br>License<br><br>All projects, content, and music in this repository are © 2026 ZayneCreations™ or Open Source. Use and sharing require permission unless stated otherwise.</p>
+
+###
+
+<div>
+  <img style="100%" src="https://capsule-render.vercel.app/api?type=waving&height=100&section=footer&reversal=false&fontSize=70&fontColor=FFFFFF&fontAlign=50&fontAlignY=50&stroke=-&descSize=20&descAlign=50&descAlignY=50&theme=tokyonight"  />
+</div>
+
+###
+
+<div align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=the-RealZayne.the-RealZayne&right_color=darkviolet&left_text=Views"  />
+</div>
+
+###
