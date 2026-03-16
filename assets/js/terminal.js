@@ -220,9 +220,9 @@ async function loadGitHubFileTree() {
   const data = await response.json();
   
   // FILTER OUT PROBLEMATIC ITEMS
-  const cleanTree = data.tree.filter(item => 
-    !item.path.toLowerCase().startsWith('.github')
-  );
+  const cleanTree = data.filter(item => 
+  !item.name?.toLowerCase().startsWith('.github')
+);
   
   termBody.innerHTML = `
     <div class="rz-ide-container">
