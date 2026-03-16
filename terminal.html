@@ -202,7 +202,7 @@ fetch('version.txt')
     // Terminal window title: find existing .title and replace only the version part
     const titleEl = document.querySelector('.terminal-header .title');
     if (titleEl) {
-      titleEl.textContent = `:RZO ${version}:`;
+      titleEl.textContent = `:RZOS ${version}:`;
     }
   })
   .catch(() => {
@@ -215,7 +215,7 @@ fetch('version.txt')
 
     const titleEl = document.querySelector('.terminal-header .title');
     if (titleEl) {
-      titleEl.textContent = `:RZO ${fallback}:`;
+      titleEl.textContent = `:RZOS ${fallback}:`;
     }
   });
 </script>  
