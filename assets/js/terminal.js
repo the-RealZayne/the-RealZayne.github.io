@@ -215,8 +215,7 @@ async function loadRzCode() {
 }
 
 async function loadGitHubFileTree() {
-  const repoUrl = `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.repo}/git/trees/${GITHUB_REPO.branch}?recursive=1`;
-  
+  const repoUrl = `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.repo}/contents`;
   const response = await fetch(repoUrl);
   const data = await response.json();
   
@@ -263,7 +262,8 @@ function buildFileTree(treeItems) {
            !path.startsWith('.github/workflows') &&
            !path.includes('/node_modules/') &&
            item.type !== 'commit'; // Skip commit objects
-           item.path && item.sha; // Ensure basic properties exist
+           item.path && 
+           item.sha; // Ensure basic properties exist
   });
   
   // Build nested structure
@@ -370,7 +370,7 @@ async function fetchGitHubFile(path, sha) {
   const data = await response.json();
   
   if(data.content) {
-    return atob(data.content); // Decode base64
+    return atob(data.content.replace(/\n/g, "")); // Decode base64
   }
   
   // Fallback to git blobs API
@@ -392,7 +392,7 @@ function openTab(path, content, fileElement) {
   fileElement.classList.add('active');
   
   // Create tab if not exists
-  let tab = document.querySelector(`[data-path="${path}"]`);
+  let tab = document.querySelector(`.rz-tab[data-path="${path}"]`);
   if(!tab) {
     tab = document.createElement('div');
     tab.className = 'rz-tab';
