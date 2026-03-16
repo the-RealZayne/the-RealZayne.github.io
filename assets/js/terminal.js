@@ -117,9 +117,11 @@ let GITHUB_REPO={
 
 async function loadRzCode(){
 
-  document.querySelector('.input-line').style.display='none';
+  const inputLine = document.querySelector('.input-line');
+if (inputLine) inputLine.style.display='none';
   output.innerHTML='';
-  document.querySelector('.title').textContent=':RZ-CODE VIEWER:';
+  const titleEl = document.querySelector('.title');
+if (titleEl) titleEl.textContent=':RZ-CODE VIEWER:';
 
   const loadingDiv=document.createElement('div');
   loadingDiv.innerHTML='<div style="color:#94a3b8;padding:20px;">Loading GitHub repo...</div>';
