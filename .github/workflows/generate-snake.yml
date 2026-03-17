@@ -6,7 +6,7 @@ concurrency:
 
 on:
   schedule:
-    - cron: "0 18 * * *" # 18:00 (6 PM UTC)
+    - cron: "0 18 * * *"  # 18:00 (6 PM UTC)
   
   # allows to manually run the job at any time
   workflow_dispatch:
