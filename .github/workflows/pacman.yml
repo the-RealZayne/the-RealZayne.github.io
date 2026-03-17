@@ -1,5 +1,9 @@
 name: Generate pacman animation
 
+concurrency:
+  group: pacman-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   schedule: # execute every 12 hours
     - cron: "* */12 * * *"
