@@ -6,8 +6,8 @@ concurrency:
   
 on:
   schedule:
-    # Runs every hour, on the hour
-    - cron: "0 * * * *"
+    - cron: "0 12 * * *"  # runs at 12:00 UTC daily
+    
   workflow_dispatch:
 
 jobs:
