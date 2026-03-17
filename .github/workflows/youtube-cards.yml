@@ -1,4 +1,9 @@
 name: GitHub Readme YouTube Cards
+
+concurrency:
+  group: youtube-cards-${{ github.ref }}
+  cancel-in-progress: true
+  
 on:
   schedule:
     # Runs every hour, on the hour
