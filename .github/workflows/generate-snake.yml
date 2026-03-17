@@ -1,5 +1,9 @@
 name: generate animation
 
+concurrency:
+  group: generate-snake-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   # run automatically every 24 hours
   schedule:
