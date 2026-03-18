@@ -55,7 +55,7 @@ jobs:
         run: |
           MODE="${{ steps.mode.outputs.mode }}"
 
-          if [[ "$MODE" == "magic" ]]; then
+          if [[ "$MODE" == "420" ]]; then
             OPTIONS=("✨ Right on Time!"
               "⏰ Perfect Timing!"
               "🌟 Magic Moment Achieved"
