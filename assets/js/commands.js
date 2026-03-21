@@ -1,162 +1,163 @@
-// assets/js/commands.js
-
 export const commands = {
   "sys flush": [
-    ["[+] Initializing system flush sequence..."],
-    ["[+] Releasing cached resources..."],
-    ["[+] Flushing temporary memory blocks..."],
-    ["[+] Purging inactive system references..."],
-    ["[####------] 41%  clearing..."],
-    ["[##########] 100% complete"],
-    ["[!] System flush simulation finished."]
+    ["[+] Initializing system flush sequence...", 500],
+    ["[+] Releasing cached resources...", 350],
+    ["[+] Flushing temporary memory blocks...", 350],
+    ["[+] Purging inactive system references...", 350],
+    ["[####------] 41%  clearing...", 500],
+    ["[##########] 100% complete", 400],
+    ["[!] System flush simulation finished.", 700]
   ],
 
   "core sweep": [
-    ["[+] Scanning CPU cores..."],
-    ["[+] Core 0: nominal"],
-    ["[+] Core 1: nominal"],
-    ["[!] Core 3: anomaly detected"],
-    ["[+] Rebalancing thread load..."],
-    ["[##########] 100% complete"],
-    ["[OK] Core sweep finished."]
+    ["[+] Scanning CPU cores...", 400],
+    ["[+] Core 0: nominal", 200],
+    ["[+] Core 1: nominal", 200],
+    ["[!] Core 3: anomaly detected", 350],
+    ["[+] Rebalancing thread load...", 500],
+    ["[##########] 100% complete", 400],
+    ["[OK] Core sweep finished.", 600]
   ],
 
   "net breach": [
-    ["[+] Initializing local network probe..."],
-    ["[+] Enumerating connected nodes..."],
-    ["[+] Tracing gateway routes..."],
-    ["[+] Secure tunnel established"],
-    ["[#######---] 73%  mapping..."],
-    ["[##########] 100% complete"],
-    ["[!] Network breach simulation complete."]
+    ["[+] Initializing local network probe...", 450],
+    ["[+] Enumerating connected nodes...", 450],
+    ["[+] Tracing gateway routes...", 450],
+    ["[+] Secure tunnel established", 300],
+    ["[#######---] 73%  mapping...", 500],
+    ["[##########] 100% complete", 400],
+    ["[!] Network breach simulation complete.", 700]
   ],
 
   "mem purge": [
-    ["[+] Locating stale memory allocations..."],
-    ["[+] Reclaiming idle blocks..."],
-    ["[+] Compressing temporary buffers..."],
-    ["[+] Memory reclamation in progress..."],
-    ["[##########] 100% complete"],
-    ["[OK] Memory purge simulation finished."]
+    ["[+] Locating stale memory allocations...", 400],
+    ["[+] Reclaiming idle blocks...", 350],
+    ["[+] Compressing temporary buffers...", 350],
+    ["[+] Memory reclamation in progress...", 450],
+    ["[##########] 100% complete", 400],
+    ["[OK] Memory purge simulation finished.", 700]
   ],
 
   "root override": [
-    ["[+] Requesting elevated access..."],
-    ["[+] Verifying authorization token..."],
-    ["[+] Escalation path found"],
-    ["[+] Writing temporary admin permissions..."],
-    ["[##########] 100% complete"],
-    ["[!] Root override simulation active."]
+    ["[+] Requesting elevated access...", 450],
+    ["[+] Verifying authorization token...", 450],
+    ["[+] Escalation path found", 300],
+    ["[+] Writing temporary admin permissions...", 500],
+    ["[##########] 100% complete", 400],
+    ["[!] Root override simulation active.", 700]
   ],
 
   "trace lock": [
-    ["[+] Activating trace monitor..."],
-    ["[+] Monitoring inbound pings..."],
-    ["[+] Locking active route table..."],
-    ["[+] External trace packets isolated"],
-    ["[##########] 100% complete"],
-    ["[OK] Trace lock simulation finished."]
+    ["[+] Activating trace monitor...", 400],
+    ["[+] Monitoring inbound pings...", 350],
+    ["[+] Locking active route table...", 350],
+    ["[+] External trace packets isolated", 300],
+    ["[##########] 100% complete", 400],
+    ["[OK] Trace lock simulation finished.", 700]
   ],
 
   "pkg meltdown": [
-    ["[+] Opening package index..."],
-    ["[+] Resolving dependencies..."],
-    ["[!] Critical package mismatch detected"],
-    ["[+] Running rollback stub..."],
-    ["[##########] 100% complete"],
-    ["[OK] Package meltdown simulation aborted safely."]
+    ["[+] Opening package index...", 350],
+    ["[+] Resolving dependencies...", 350],
+    ["[!] Critical package mismatch detected", 400],
+    ["[+] Running rollback stub...", 500],
+    ["[##########] 100% complete", 400],
+    ["[OK] Package meltdown simulation aborted safely.", 700]
   ],
 
   "dark compile": [
-    ["[+] Fetching shadow build script..."],
-    ["[+] Preparing synthetic module graph..."],
-    ["[+] Compiling hidden artifacts..."],
-    ["[#######---] 69%  building..."],
-    ["[##########] 100% complete"],
-    ["[OK] Dark compile simulation finished."]
+    ["[+] Fetching shadow build script...", 400],
+    ["[+] Preparing synthetic module graph...", 400],
+    ["[+] Compiling hidden artifacts...", 500],
+    ["[#######---] 69%  building...", 500],
+    ["[##########] 100% complete", 400],
+    ["[OK] Dark compile simulation finished.", 700]
   ],
 
   "neural sync": [
-    ["[+] Initializing neural interface..."],
-    ["[+] Aligning signal streams..."],
-    ["[+] Synchronizing inference layers..."],
-    ["[#######---] 77%  syncing..."],
-    ["[##########] 100% complete"],
-    ["[OK] Neural sync complete."]
+    ["[+] Initializing neural interface...", 400],
+    ["[+] Aligning signal streams...", 350],
+    ["[+] Synchronizing inference layers...", 400],
+    ["[#######---] 77%  syncing...", 500],
+    ["[##########] 100% complete", 400],
+    ["[OK] Neural sync complete.", 700]
   ],
 
   "quantum fork": [
-    ["[+] Preparing multiverse fork..."],
-    ["[+] Splitting process timeline..."],
-    ["[+] Stabilizing parallel instance..."],
-    ["[!] Temporal drift detected"],
-    ["[##########] 100% complete"],
-    ["[OK] Quantum fork simulation finished."]
+    ["[+] Preparing multiverse fork...", 450],
+    ["[+] Splitting process timeline...", 450],
+    ["[+] Stabilizing parallel instance...", 450],
+    ["[!] Temporal drift detected", 400],
+    ["[##########] 100% complete", 400],
+    ["[OK] Quantum fork simulation finished.", 700]
   ],
 
   "net scan --deep": [
-    ["[+] Initializing deep network reconnaissance..."],
-    ["[+] Scanning subnet 192.168.0.0/24..."],
-    ["[+] Fingerprinting discovered hosts..."],
-    ["[#######---] 74%  mapping..."],
-    ["[##########] 100% complete"],
-    ["[OK] Deep scan simulation finished."]
+    ["[+] Initializing deep network reconnaissance...", 450],
+    ["[+] Scanning subnet 192.168.0.0/24...", 500],
+    ["[+] Fingerprinting discovered hosts...", 500],
+    ["[#######---] 74%  mapping...", 600],
+    ["[##########] 100% complete", 400],
+    ["[OK] Deep scan simulation finished.", 700]
   ],
 
   "auth brute --target": [
-    ["[+] Preparing credential test harness..."],
-    ["[+] Loading password dictionary..."],
-    ["[+] Running distributed attempt cycle..."],
-    ["[#######---] 71%  testing..."],
-    ["[##########] 100% complete"],
-    ["[OK] Authentication brute-force simulation finished."]
+    ["[+] Preparing credential test harness...", 450],
+    ["[+] Loading password dictionary...", 450],
+    ["[+] Running distributed attempt cycle...", 500],
+    ["[#######---] 71%  testing...", 600],
+    ["[##########] 100% complete", 400],
+    ["[OK] Authentication brute-force simulation finished.", 700]
   ],
 
   "shell inject --pid": [
-    ["[+] Attaching to target process..."],
-    ["[+] Resolving injection vector..."],
-    ["[+] Allocating remote workspace..."],
-    ["[+] Writing simulated payload..."],
-    ["[##########] 100% complete"],
-    ["[OK] Shell injection simulation finished."]
+    ["[+] Attaching to target process...", 400],
+    ["[+] Resolving injection vector...", 400],
+    ["[+] Allocating remote workspace...", 450],
+    ["[+] Writing simulated payload...", 500],
+    ["[##########] 100% complete", 400],
+    ["[OK] Shell injection simulation finished.", 700]
   ],
 
   "fs scrape --profile": [
-    ["[+] Enumerating profile directories..."],
-    ["[+] Searching for tagged documents..."],
-    ["[+] Compressing matched files..."],
-    ["[#######---] 68%  archiving..."],
-    ["[##########] 100% complete"],
-    ["[OK] File scrape simulation finished."]
+    ["[+] Enumerating profile directories...", 400],
+    ["[+] Searching for tagged documents...", 450],
+    ["[+] Compressing matched files...", 500],
+    ["[#######---] 68%  archiving...", 600],
+    ["[##########] 100% complete", 400],
+    ["[OK] File scrape simulation finished.", 700]
   ],
 
   "cam hijack --auto": [
-    ["[+] Scanning for camera endpoints..."],
-    ["[+] Identifying stream sources..."],
-    ["[+] Negotiating viewer session..."],
-    ["[+] Proxy stream engaged"],
-    ["[##########] 100% complete"],
-    ["[OK] Camera hijack simulation finished."]
+    ["[+] Scanning for camera endpoints...", 400],
+    ["[+] Identifying stream sources...", 450],
+    ["[+] Negotiating viewer session...", 450],
+    ["[+] Proxy stream engaged", 300],
+    ["[##########] 100% complete", 400],
+    ["[OK] Camera hijack simulation finished.", 700]
   ],
 
   "log wipe --stealth": [
-    ["[+] Locating log segments..."],
-    ["[+] Filtering current session traces..."],
-    ["[+] Rewriting cached entries..."],
-    ["[#######---] 75%  sanitizing..."],
-    ["[##########] 100% complete"],
-    ["[OK] Log wipe simulation finished."]
+    ["[+] Locating log segments...", 400],
+    ["[+] Filtering current session traces...", 450],
+    ["[+] Rewriting cached entries...", 450],
+    ["[#######---] 75%  sanitizing...", 600],
+    ["[##########] 100% complete", 400],
+    ["[OK] Log wipe simulation finished.", 700]
   ],
 
   "multi breach --all": [
-    ["[+] Launching composite operation suite..."],
-    ["[+] Module 1: reconnaissance... complete"],
-    ["[+] Module 2: credential test... complete"],
-    ["[+] Module 3: privilege escalation... complete"],
-    ["[+] Module 4: data transfer... complete"],
-    ["[#######---] 79%  finalizing..."],
-    ["[##########] 100% complete"],
-    ["[!] Multi breach simulation finished."]
+    ["[+] Launching composite operation suite...", 500],
+    ["Recon module", 1200, "progress"],
+    ["Credential test", 1200, "progress"],
+    ["Privilege escalation", 1200, "progress"],
+    ["Data transfer", 1200, "progress"],
+    ["[##########] 100% complete", 400],
+    ["[!] Multi breach simulation finished.", 800]
+  ],
+
+  "rzcode": [
+    ["Loading RZ Code IDE...", 800]
   ]
 };
 
@@ -174,12 +175,19 @@ export const commandAliases = {
   "net scan": "net scan --deep",
   "net scan --deep": "net scan --deep",
   "auth brute": "auth brute --target",
+  "auth brute --target": "auth brute --target",
   "shell inject": "shell inject --pid",
+  "shell inject --pid": "shell inject --pid",
   "fs scrape": "fs scrape --profile",
+  "fs scrape --profile": "fs scrape --profile",
   "cam hijack": "cam hijack --auto",
+  "cam hijack --auto": "cam hijack --auto",
   "log wipe": "log wipe --stealth",
+  "log wipe --stealth": "log wipe --stealth",
   "multi breach": "multi breach --all",
-  "multi breach --all": "multi breach --all"
+  "multi breach --all": "multi breach --all",
+  "rzcode": "rzcode",
+  "open rzcode": "rzcode"
 };
 
 export const hiddenCommands = [
