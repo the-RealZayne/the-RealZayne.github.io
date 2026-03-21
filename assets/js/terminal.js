@@ -1,5 +1,7 @@
 // assets/js/terminal.js
 
+import { commands, commandAliases } from "./commands.js";
+
 const input = document.getElementById("term-input");
 const output = document.getElementById("output-area");
 const termBody = document.getElementById("term-body");
@@ -7,26 +9,26 @@ const termBody = document.getElementById("term-body");
 const initBtn = document.getElementById("init-btn");
 const initScreen = document.getElementById("terminal-init");
 
-let globalVersion = 'v1.0.0';
+let globalVersion = "v1.0.0";
 
 let historyCommands = [];
 let historyIndex = -1;
 
 /* typing response */
-function typeResponse(text){
-  const resp=document.createElement("div");
-  resp.className="line typing";
+function typeResponse(text) {
+  const resp = document.createElement("div");
+  resp.className = "line typing";
   output.appendChild(resp);
 
-  let i=0;
+  let i = 0;
 
-  function type(){
-    if(i<text.length){
-      resp.innerHTML+=text[i];
-      termBody.scrollTop=termBody.scrollHeight;
+  function type() {
+    if (i < text.length) {
+      resp.innerHTML += text[i];
+      termBody.scrollTop = termBody.scrollHeight;
       i++;
-      setTimeout(type,12);
-    }else{
+      setTimeout(type, 12);
+    } else {
       resp.classList.remove("typing");
     }
   }
@@ -35,21 +37,21 @@ function typeResponse(text){
 }
 
 /* slow line typing */
-function typeLine(text,speed=55){
-  return new Promise(resolve=>{
-    const line=document.createElement("div");
-    line.className="line typing";
+function typeLine(text, speed = 55) {
+  return new Promise(resolve => {
+    const line = document.createElement("div");
+    line.className = "line typing";
     output.appendChild(line);
 
-    let i=0;
+    let i = 0;
 
-    function type(){
-      if(i<text.length){
-        line.innerHTML+=text[i];
-        termBody.scrollTop=termBody.scrollHeight;
+    function type() {
+      if (i < text.length) {
+        line.innerHTML += text[i];
+        termBody.scrollTop = termBody.scrollHeight;
         i++;
-        setTimeout(type,speed);
-      }else{
+        setTimeout(type, speed);
+      } else {
         line.classList.remove("typing");
         resolve();
       }
@@ -60,12 +62,13 @@ function typeLine(text,speed=55){
 }
 
 /* type into existing span element (no new line) */
-function typeLineToSpan(text, spanId, speed=55){
-  return new Promise(resolve=>{
+function typeLineToSpan(text, spanId, speed = 55) {
+  return new Promise(resolve => {
     const span = document.getElementById(spanId);
-    let i=0;
-    function type(){
-      if(i<text.length){
+    let i = 0;
+
+    function type() {
+      if (i < text.length) {
         span.innerHTML += text[i];
         termBody.scrollTop = termBody.scrollHeight;
         i++;
@@ -75,91 +78,126 @@ function typeLineToSpan(text, spanId, speed=55){
         resolve();
       }
     }
+
     type();
   });
 }
 
-/* FIXED ASYNC COMMAND SEQUENCE - creates styled elements directly */
-async function cmdSequence(commands) {
-  for(const [text, delay = 1500] of commands) {
+/* loading dots */
+function loadingDots(text, duration = 2000) {
+  return new Promise(resolve => {
+    const line = document.createElement("div");
+    line.className = "line";
+    output.appendChild(line);
+
+    let dots = 0;
+
+    const interval = setInterval(() => {
+      dots = (dots + 1) % 4;
+      line.innerHTML = text + ".".repeat(dots);
+    }, 400);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      line.innerHTML = text + "... Done";
+      resolve();
+    }, duration);
+  });
+}
+
+/* fake progress bar */
+function progressLine(label, duration = 1500) {
+  const line = document.createElement("div");
+  line.className = "line";
+  output.appendChild(line);
+
+  const start = Date.now();
+
+  return new Promise(resolve => {
+    const timer = setInterval(() => {
+      const elapsed = Date.now() - start;
+      const pct = Math.min(100, Math.floor((elapsed / duration) * 100));
+      const bars = Math.floor(pct / 10);
+
+      line.innerHTML = `${label} [${"#".repeat(bars)}${"-".repeat(10 - bars)}] ${pct}%`;
+      termBody.scrollTop = termBody.scrollHeight;
+
+      if (pct >= 100) {
+        clearInterval(timer);
+        resolve();
+      }
+    }, 80);
+  });
+}
+
+/* runner for commands.js */
+async function runFakeScript(commandName) {
+  const steps = commands[commandName];
+  if (!steps) return false;
+
+  for (const step of steps) {
+    const [text, delay = 300, kind = "line"] = step;
+
+    if (kind === "progress") {
+      await progressLine(text, delay);
+      continue;
+    }
+
     const line = document.createElement("div");
     line.className = "line typing";
     output.appendChild(line);
     termBody.scrollTop = termBody.scrollHeight;
-    
-    // Create styled content
-    if(text.includes("about") || text.includes("skills") || text.includes("gaming") || 
-       text.includes("music") || text.includes("outdoors") || text.includes("coding") ||
-       text.includes("content") || text.includes("community") || text.includes("collabs") ||
-       text.includes("support") || text.includes("studio") || text.includes("ski") ||
-       text.includes("social") || text.includes("hidden") || text.includes("robot") ||
-       text.includes("snowboard") || text.includes("future") || text.includes("clear") ||
-       text.includes("easteregg") || text.includes("rzcode")) {
-      // Command names get prompt styling
+
+    if (
+      text.includes("about") || text.includes("skills") || text.includes("gaming") ||
+      text.includes("music") || text.includes("outdoors") || text.includes("coding") ||
+      text.includes("content") || text.includes("community") || text.includes("collabs") ||
+      text.includes("support") || text.includes("studio") || text.includes("ski") ||
+      text.includes("social") || text.includes("hidden") || text.includes("robot") ||
+      text.includes("snowboard") || text.includes("future") || text.includes("clear") ||
+      text.includes("easteregg") || text.includes("rzcode")
+    ) {
       line.innerHTML = `<span class="prompt">${text.trim()}</span>`;
     } else {
       line.innerHTML = text;
     }
-    
-    // Typing animation effect
-    let visibleChars = line.textContent.length;
+
+    const visibleChars = line.textContent.length;
     await new Promise(r => setTimeout(r, visibleChars * 60));
     line.classList.remove("typing");
     await new Promise(r => setTimeout(r, delay));
   }
-}
 
-/* loading dots */
-function loadingDots(text,duration=2000){
-  return new Promise(resolve=>{
-    const line=document.createElement("div");
-    line.className="line";
-    output.appendChild(line);
-
-    let dots=0;
-
-    const interval=setInterval(()=>{
-      dots=(dots+1)%4;
-      line.innerHTML=text+".".repeat(dots);
-    },400);
-
-    setTimeout(()=>{
-      clearInterval(interval);
-      line.innerHTML=text+"... Done";
-      resolve();
-    },duration);
-  });
+  return true;
 }
 
 /* LOGIN SEQUENCE */
-async function loginSequence(){
+async function loginSequence() {
   await loadingDots("Connecting to Interweb");
-  await new Promise(r=>setTimeout(r,900));
-  
+  await new Promise(r => setTimeout(r, 900));
+
   await loadingDots("Establishing theRealZayne node");
-  await new Promise(r=>setTimeout(r,800));
+  await new Promise(r => setTimeout(r, 800));
 
   await typeLine("");
-  
-  // Stationary username prompt on SAME line
+
   const userPrompt = document.createElement("div");
   userPrompt.className = "line";
   userPrompt.innerHTML = '<span class="prompt">username: </span><span id="user-input" class="typing"></span>';
   output.appendChild(userPrompt);
   termBody.scrollTop = termBody.scrollHeight;
-  
+
   await typeLineToSpan("guest", "user-input", 200);
-  await new Promise(r=>setTimeout(r,1500));
-  
-  // Stationary password prompt on SAME line  
+  await new Promise(r => setTimeout(r, 1500));
+
   const passPrompt = document.createElement("div");
   passPrompt.className = "line";
   passPrompt.innerHTML = '<span class="prompt">password: </span><span id="pass-input" class="typing"></span>';
   output.appendChild(passPrompt);
   termBody.scrollTop = termBody.scrollHeight;
-  
+
   await typeLineToSpan("********", "pass-input", 200);
-  await new Promise(r=>setTimeout(r,2000));
+  await new Promise(r => setTimeout(r, 2000));
 
   await typeLine("");
   const accessLine = document.createElement("div");
@@ -167,15 +205,14 @@ async function loginSequence(){
   accessLine.textContent = "ACCESS GRANTED";
   output.appendChild(accessLine);
   termBody.scrollTop = termBody.scrollHeight;
-  
-  /* VERSION */
-  await new Promise(r=>setTimeout(r,900));
+
+  await new Promise(r => setTimeout(r, 900));
 }
 
 /* BOOT SEQUENCE */
-async function bootSequence(){
+async function bootSequence() {
   await typeLine(`Booting REAL_ZAYNE_OS ${globalVersion}...`);
-  await new Promise(r=>setTimeout(r,800));
+  await new Promise(r => setTimeout(r, 800));
 
   await loadingDots("Loading modules");
   await loadingDots("Initializing creative engine");
@@ -183,10 +220,10 @@ async function bootSequence(){
   await loadingDots("Connecting to community node");
 
   await typeLine("AI subsystem online");
-  await new Promise(r=>setTimeout(r,1000));
+  await new Promise(r => setTimeout(r, 1000));
   await typeLine("Terminal ready.");
 
-  await new Promise(r=>setTimeout(r,800));
+  await new Promise(r => setTimeout(r, 800));
   const helpLine = document.createElement("div");
   helpLine.className = "line";
   helpLine.innerHTML = `Type <span class="help-highlight">'help'</span> to begin.`;
@@ -196,10 +233,10 @@ async function bootSequence(){
 
 /* RZCODE IDE VIEWER */
 async function loadRzCode() {
-  document.querySelector('.input-line').style.display = 'none';
-  output.innerHTML = '';
-  document.querySelector('.title').textContent = ':RZCODE VIEWER:';
-  
+  document.querySelector(".input-line").style.display = "none";
+  output.innerHTML = "";
+  document.querySelector(".title").textContent = ":RZCODE VIEWER:";
+
   termBody.innerHTML = `
     <div class="rz-ide-container">
       <div class="rz-ide">
@@ -235,212 +272,115 @@ async function loadRzCode() {
 }
 
 function initRzCodeTabs() {
-  const tabs = document.querySelectorAll('.rz-tab');
-  const codeViews = document.querySelectorAll('.rz-code-view');
-  const fileItems = document.querySelectorAll('.rz-file-item');
+  const tabs = document.querySelectorAll(".rz-tab");
+  const codeViews = document.querySelectorAll(".rz-code-view");
+  const fileItems = document.querySelectorAll(".rz-file-item");
 
   tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      codeViews.forEach(cv => cv.classList.remove('active-code'));
-      tab.classList.add('active');
-      codeViews[index].classList.add('active-code');
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      codeViews.forEach(cv => cv.classList.remove("active-code"));
+      tab.classList.add("active");
+      codeViews[index].classList.add("active-code");
     });
   });
 
   fileItems.forEach((fileItem, index) => {
-    fileItem.addEventListener('click', () => {
-      fileItems.forEach(fi => fi.classList.remove('active'));
-      tabs.forEach(t => t.classList.remove('active'));
-      codeViews.forEach(cv => cv.classList.remove('active-code'));
-      fileItem.classList.add('active');
-      tabs[index].classList.add('active');
-      codeViews[index].classList.add('active-code');
+    fileItem.addEventListener("click", () => {
+      fileItems.forEach(fi => fi.classList.remove("active"));
+      tabs.forEach(t => t.classList.remove("active"));
+      codeViews.forEach(cv => cv.classList.remove("active-code"));
+      fileItem.classList.add("active");
+      tabs[index].classList.add("active");
+      codeViews[index].classList.add("active-code");
     });
   });
 }
 
 /* INITIATE BUTTON */
-if(initBtn){
-  initBtn.addEventListener("click",async()=>{
-    initScreen.style.display="none";
-    
-    // Load version first
+if (initBtn) {
+  initBtn.addEventListener("click", async () => {
+    initScreen.style.display = "none";
+
     try {
-      const response = await fetch('version.txt');
+      const response = await fetch("version.txt");
       const versionRaw = await response.text();
-      globalVersion = versionRaw.trim() || 'v1.0.0';
-    } catch(e) {
-      globalVersion = 'v1.0.0';
+      globalVersion = versionRaw.trim() || "v1.0.0";
+    } catch (e) {
+      globalVersion = "v1.0.0";
     }
-    
+
     await loginSequence();
     await bootSequence();
   });
 }
 
 /* COMMAND SYSTEM */
-if(input && output && termBody){
-  input.addEventListener("keydown", async function(e){
-    if(e.key==="ArrowUp"){
-      if(historyCommands.length>0){
+if (input && output && termBody) {
+  input.addEventListener("keydown", async function (e) {
+    if (e.key === "ArrowUp") {
+      if (historyCommands.length > 0) {
         historyIndex--;
-        if(historyIndex<0)historyIndex=0;
-        input.value=historyCommands[historyIndex];
+        if (historyIndex < 0) historyIndex = 0;
+        input.value = historyCommands[historyIndex];
       }
       return;
     }
 
-    if(e.key==="ArrowDown"){
-      if(historyCommands.length>0){
+    if (e.key === "ArrowDown") {
+      if (historyCommands.length > 0) {
         historyIndex++;
-        if(historyIndex>=historyCommands.length){
-          historyIndex=historyCommands.length;
-          input.value="";
-        }else{
-          input.value=historyCommands[historyIndex];
+        if (historyIndex >= historyCommands.length) {
+          historyIndex = historyCommands.length;
+          input.value = "";
+        } else {
+          input.value = historyCommands[historyIndex];
         }
       }
       return;
     }
 
-    if(e.key==="Enter"){
-      const val=input.value.trim().toLowerCase();
+    if (e.key === "Enter") {
+      const rawVal = input.value.trim().toLowerCase();
+      const val = commandAliases[rawVal] || rawVal;
 
-      if(val!==""){
-        historyCommands.push(val);
-        historyIndex=historyCommands.length;
+      if (rawVal !== "") {
+        historyCommands.push(rawVal);
+        historyIndex = historyCommands.length;
       }
 
-      const history=document.createElement("div");
-      history.className="line";
-      history.innerHTML=`<span class="prompt"zaynes@therealspace:~$</span> ${val}`;
+      const history = document.createElement("div");
+      history.className = "line";
+      history.innerHTML = `<span class="prompt">zaynes@therealspace:~$</span> ${rawVal}`;
       output.appendChild(history);
 
-      // ASYNC COMMAND RESPONSES
-      switch(val){
-        case "help":
-          await cmdSequence([
-            ["Available commands:", 500],
-            ["about", 150],
-            ["skills", 150],
-            ["gaming", 150],
-            ["music", 150],
-            ["outdoors", 150],
-            ["coding", 150],
-            ["content", 150],
-            ["community", 150],
-            ["collabs", 150],
-            ["support", 150],
-            ["studio", 150],
-            ["ski", 150],
-            ["social", 150],
-            ["clear", 1000]
-          ]);
-          break;
+      input.value = "";
 
-        case "about":
-          await cmdSequence([["Zayne — Gamer, Producer, Coder, Outdoor Enthusiast."]]);
-          break;
-
-        case "skills":
-          await cmdSequence([["HTML • CSS • JavaScript • Discord Bots • Music Production • Raspberry PI"]]);
-          break;
-
-        case "gaming":
-          await cmdSequence([["Fortnite/Development, GTA V, Roblox/Development, Minecraft/Development, Rainbow 6, Far Cry."]]);
-          break;
-
-        case "music":
-          await cmdSequence([["Beatboxing + Producing Hip-Hop / Phonk / Electronic."]]);
-          break;
-
-        case "outdoors":
-          await cmdSequence([["Skiing • Hiking • Fishing • Camping • Sports."]]);
-          break;
-
-        case "coding":
-          await cmdSequence([["Discord Bots, Raspberry PI/Robotics, Experimental Tools."]]);
-          break;
-
-        case "content":
-          await cmdSequence([["Gaming Videos, Ski Edits, Music Production."]]);
-          break;
-
-        case "community":
-          await cmdSequence([["Join the Discord server for Gaming, Coding, and Music."]]);
-          break;
-
-        case "collabs":
-          await cmdSequence([["Open to collabs for Music, Gaming Streamsing, and Dev."]]);
-          break;
-
-        case "support":
-          await cmdSequence([["Support through Patreon, Acorns Early or other platforms soon to come."]]);
-          break;
-
-        case "studio":
-          await cmdSequence([["Home Studio for Beatboxing, Recording and Music Creation."]]);
-          break;
-
-        case "ski":
-          await cmdSequence([["Mountains: Sunday River • Sugarloaf • Mt Abram • Lost Valley"]]);
-          break;
-
-        case "social":
-          await cmdSequence([["Discord • Twitch • YouTube • SoundCloud"]]);
-          break;
-
-        case "open rzcode":
-        case "rzcode":
-          await cmdSequence([["Loading RZ Code IDE...", 800]]);
-          loadRzCode();
-          return;
-
-        case "hidden":
-          await cmdSequence([
-            ["Hidden commands discovered:", 500],
-            ["robot", 200],
-            ["snowboard", 200],
-            ["future", 200],
-            ["easteregg", 1000]
-          ]);
-          break;
-
-        case "robot":
-          await cmdSequence([["Experimental Raspberry Pi AI Robot Car project."]]);
-          break;
-
-        case "snowboard":
-          await cmdSequence([["Snowboarding arc begins next winter. LETS GOOO!"]]);
-          break;
-
-        case "future":
-          await cmdSequence([["Future goals: Robotics, New Music Releases, Ski Edits, Epic Game Replays."]]);
-          break;
-
-        case "easteregg":
-          await cmdSequence([["You found the archive node. More secrets ahead."]]);
-          break;
-
-        case "clear":
-          output.innerHTML="";
-          input.value="";
-          return;
-
-        default:
-          await typeLine(`command not found dummy: ${val}`);
+      if (val === "clear") {
+        output.innerHTML = "";
+        termBody.scrollTop = termBody.scrollHeight;
+        return;
       }
 
-      input.value="";
-      termBody.scrollTop=termBody.scrollHeight;
+      if (val === "open rzcode" || val === "rzcode") {
+        await runFakeScript("rzcode");
+        loadRzCode();
+        return;
+      }
+
+      const handled = await runFakeScript(val);
+      if (!handled) {
+        await typeLine(`command not found dummy: ${rawVal}`);
+      }
+
+      termBody.scrollTop = termBody.scrollHeight;
     }
   });
 
-  termBody.addEventListener("click",()=>input.focus());
+  termBody.addEventListener("click", () => input.focus());
 }
 
-// 3D DOM viewer trigger
+/* 3D DOM viewer trigger */
 function runDom3DViewer() {
   const SHOW_SIDES = false;
   const COLOR_SURFACE = true;
@@ -468,15 +408,16 @@ function runDom3DViewer() {
   body.style.overflow = "visible";
   body.style.transformStyle = "preserve-3d";
   body.style.perspective = DISTANCE;
-  const perspectiveOriginX = (window.innerWidth / 2);
-  const perspectiveOriginY = (window.innerHeight / 2);
+
+  const perspectiveOriginX = window.innerWidth / 2;
+  const perspectiveOriginY = window.innerHeight / 2;
   body.style.perspectiveOrigin = body.style.transformOrigin = `${perspectiveOriginX}px ${perspectiveOriginY}px`;
 
   traverseDOM(body, 0, 0, 0);
 
-  document.addEventListener("mousemove", (event) => {
-    const rotationY = (MAX_ROTATION * (1 - event.clientY / window.innerHeight) - (MAX_ROTATION / 2));
-    const rotationX = (MAX_ROTATION * event.clientX / window.innerWidth - (MAX_ROTATION / 2));
+  document.addEventListener("mousemove", event => {
+    const rotationY = MAX_ROTATION * (1 - event.clientY / window.innerHeight) - MAX_ROTATION / 2;
+    const rotationX = MAX_ROTATION * event.clientX / window.innerWidth - MAX_ROTATION / 2;
     body.style.transform = `rotateX(${rotationY}deg) rotateY(${rotationX}deg)`;
   });
 
@@ -488,19 +429,19 @@ function runDom3DViewer() {
     const fragment = document.createDocumentFragment();
 
     const createFace = ({ width, height, transform, transformOrigin, top, left, right, bottom }) => {
-      const face = document.createElement('div');
-      face.className = 'dom-3d-side-face';
+      const face = document.createElement("div");
+      face.className = "dom-3d-side-face";
       Object.assign(face.style, {
         transformStyle: "preserve-3d",
-        backfaceVisibility: 'hidden',
-        position: 'absolute',
+        backfaceVisibility: "hidden",
+        position: "absolute",
         width: `${width}px`,
         height: `${height}px`,
         background: color,
         transform,
         transformOrigin,
-        overflow: 'hidden',
-        willChange: 'transform',
+        overflow: "hidden",
+        willChange: "transform",
         top,
         left,
         right,
@@ -513,17 +454,17 @@ function runDom3DViewer() {
       width,
       height: THICKNESS,
       transform: `rotateX(-270deg) translateY(${-THICKNESS}px)`,
-      transformOrigin: 'top',
-      top: '0px',
-      left: '0px',
+      transformOrigin: "top",
+      top: "0px",
+      left: "0px"
     });
 
     createFace({
       width: THICKNESS,
       height,
-      transform: 'rotateY(90deg)',
-      transformOrigin: 'left',
-      top: '0px',
+      transform: "rotateY(90deg)",
+      transformOrigin: "left",
+      top: "0px",
       left: `${width}px`
     });
 
@@ -531,18 +472,18 @@ function runDom3DViewer() {
       width,
       height: THICKNESS,
       transform: `rotateX(-90deg) translateY(${THICKNESS}px)`,
-      transformOrigin: 'bottom',
-      bottom: '0px',
-      left: '0px'
+      transformOrigin: "bottom",
+      bottom: "0px",
+      left: "0px"
     });
 
     createFace({
       width: THICKNESS,
       height,
       transform: `translateX(${-THICKNESS}px) rotateY(-90deg)`,
-      transformOrigin: 'right',
-      top: '0px',
-      left: '0px'
+      transformOrigin: "right",
+      top: "0px",
+      left: "0px"
     });
 
     element.appendChild(fragment);
@@ -551,7 +492,7 @@ function runDom3DViewer() {
   function traverseDOM(parentNode, depthLevel, offsetX, offsetY) {
     for (let children = parentNode.childNodes, childrenCount = children.length, i = 0; i < childrenCount; i++) {
       const childNode = children[i];
-      if (!(childNode.nodeType === 1 && !childNode.classList.contains('dom-3d-side-face'))) continue;
+      if (!(childNode.nodeType === 1 && !childNode.classList.contains("dom-3d-side-face"))) continue;
 
       const color = COLOR_RANDOM ? getRandomColor() : getColorByDepth(depthLevel, COLOR_HUE, -5);
       Object.assign(childNode.style, {
@@ -561,7 +502,7 @@ function runDom3DViewer() {
         isolation: "auto",
         transformStyle: "preserve-3d",
         backgroundColor: COLOR_SURFACE ? color : getComputedStyle(childNode).backgroundColor,
-        willChange: 'transform',
+        willChange: "transform"
       });
 
       let updatedOffsetX = offsetX;
@@ -576,40 +517,39 @@ function runDom3DViewer() {
   }
 }
 
-// Wire terminal header buttons
-document.addEventListener('DOMContentLoaded', () => {
-  const closeBtn = document.getElementById('btn-close');
-  const minimizeBtn = document.getElementById('btn-minimize');
-  const maximizeBtn = document.getElementById('btn-maximize');
+/* Wire terminal header buttons */
+document.addEventListener("DOMContentLoaded", () => {
+  const closeBtn = document.getElementById("btn-close");
+  const minimizeBtn = document.getElementById("btn-minimize");
+  const maximizeBtn = document.getElementById("btn-maximize");
 
   if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      runDom3DViewer(); // launch 3D DOM viewer
+    closeBtn.addEventListener("click", () => {
+      runDom3DViewer();
     });
   }
 
-  // Optional: behaviors for other buttons
   if (minimizeBtn) {
-    minimizeBtn.addEventListener('click', () => {
-      const term = document.querySelector('.terminal-window, .code-window');
-      if (term) term.style.display = 'none';
+    minimizeBtn.addEventListener("click", () => {
+      const term = document.querySelector(".terminal-window, .code-window");
+      if (term) term.style.display = "none";
     });
   }
 
   if (maximizeBtn) {
-    maximizeBtn.addEventListener('click', () => {
-      const term = document.querySelector('.terminal-window, .code-window');
+    maximizeBtn.addEventListener("click", () => {
+      const term = document.querySelector(".terminal-window, .code-window");
       if (!term) return;
-      if (term.dataset.maximized === '1') {
-        term.style.width = '';
-        term.style.maxWidth = '800px';
-        term.style.height = '';
-        term.dataset.maximized = '0';
+      if (term.dataset.maximized === "1") {
+        term.style.width = "";
+        term.style.maxWidth = "800px";
+        term.style.height = "";
+        term.dataset.maximized = "0";
       } else {
-        term.style.maxWidth = 'none';
-        term.style.width = '100vw';
-        term.style.height = '100vh';
-        term.dataset.maximized = '1';
+        term.style.maxWidth = "none";
+        term.style.width = "100vw";
+        term.style.height = "100vh";
+        term.dataset.maximized = "1";
       }
     });
   }
