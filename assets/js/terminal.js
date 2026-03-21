@@ -119,7 +119,7 @@ function progressLine(label, duration = 1500) {
       const pct = Math.min(100, Math.floor((elapsed / duration) * 100));
       const bars = Math.floor(pct / 10);
 
-      line.innerHTML = `${label} [${"#".repeat(bars)}${"-".repeat(10 - bars)}] ${pct}%`;
+      line.innerHTML = `${label} [${"█".repeat(bars)}${"-".repeat(10 - bars)}] ${pct}%`;
       termBody.scrollTop = termBody.scrollHeight;
 
       if (pct >= 100) {
