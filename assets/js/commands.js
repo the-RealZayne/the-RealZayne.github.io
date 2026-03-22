@@ -25,44 +25,122 @@ const glitchLines = [
 
 export const commands = {
   "sys flush": [
-  ["[+] Initializing system flush sequence...", 500],
-  ["[+] Verifying kernel state...", 350],
-  ["[OK] Kernel stable", 300],
+  // Step 1: dynamic text
+  [() => `[+] Initializing system flush sequence... v${globalVersion}`, 500],
+
+  // Step 2: glitching
+  [() => glitchText("[+] Verifying kernel state..."), 350],
+
+  // Step 3: dynamic kernel confirmation
+  [() => "[OK] Kernel stable", 300],
+
+  // Step 4: mapping memory regions
   ["[+] Mapping active memory regions...", 350],
-  ["[OK] Regions indexed: 248", 300],
+
+  // Step 5: dynamic number with glitch
+  [() => glitchText(`[OK] Regions indexed: ${Math.floor(Math.random() * 50) + 200}`), 300],
+
+  // Step 6: releasing cached resources
   ["[+] Releasing cached resources...", 350],
+
+  // Step 7: flushing memory blocks
   ["[+] Flushing temporary memory blocks...", 350],
-  ["[+] Purging inactive system references...", 350],
+
+  // Step 8: branching example
+  [() => {
+    if (Math.random() < 0.2) return "[!] Minor system error detected, retrying...";
+    return "[+] Purging inactive system references...";
+  }, 350],
+
+  // Step 9: clearing buffers
   ["[+] Clearing I/O buffers...", 350],
-  ["[+] Resetting virtual memory tables...", 400],
-  ["[####------] 41%  clearing...", 500],
-  ["[#######---] 73%  clearing...", 500],
-  ["[#########-] 92%  clearing...", 500],
-  ["[##########] 100% complete", 400],
-  ["[OK] Memory tables reset", 400],
-  ["[OK] Cache layers cleared", 350],
-  ["[!] System flush simulation finished.", 700]
-],
+
+  // Step 10: virtual memory reset with progress
+  [() => progressLine("[+] Resetting virtual memory tables", 1500), "progress"],
+
+  // Step 11–14: incremental progress simulation
+  [() => progressLine("[####------] 41%  clearing...", 500), "progress"],
+  [() => progressLine("[#######---] 73%  clearing...", 500), "progress"],
+  [() => progressLine("[#########-] 92%  clearing...", 500), "progress"],
+  [() => progressLine("[##########] 100% complete", 400), "progress"],
+
+  // Step 15–16: final dynamic confirmations
+  [() => "[OK] Memory tables reset", 400],
+  [() => "[OK] Cache layers cleared", 350],
+
+  // Step 17: glitch + branching end
+  [() => {
+    if (Math.random() < 0.1) return glitchText("[!] System flush encountered minor hiccup... retrying");
+    return "[!] System flush simulation finished.";
+  }, 700],
+];
 
 "core sweep": [
   ["[+] Scanning CPU cores...", 400],
-  ["[+] Detecting logical processors...", 300],
-  ["[OK] Threads mapped: 8", 300],
+
+  // dynamic thread count
+  [() => `[OK] Threads mapped: ${rand(4, 16)}`, 300],
+
   ["[+] Sampling core temperatures...", 350],
-  ["[OK] Thermal range nominal", 300],
-  ["[+] Core 0: nominal", 200],
-  ["[+] Core 1: nominal", 200],
-  ["[+] Core 2: nominal", 200],
-  ["[!] Core 3: anomaly detected", 350],
-  ["[+] Running diagnostic on Core 3...", 400],
-  ["[OK] Fault isolated to thread scheduler", 400],
+
+  // slight randomness in thermal state
+  [() => {
+    return chance(90)
+      ? "[OK] Thermal range nominal"
+      : "[WARN] Thermal variance detected";
+  }, 300],
+
+  // dynamic core reporting
+  [() => `[+] Core 0: ${chance(95) ? "nominal" : "spike"}`, 200],
+  [() => `[+] Core 1: ${chance(95) ? "nominal" : "spike"}`, 200],
+  [() => `[+] Core 2: ${chance(95) ? "nominal" : "spike"}`, 200],
+
+  // branching anomaly
+  [
+    () => {
+      if (chance(70)) {
+        return [
+          ["[!] Core 3: anomaly detected", 300],
+          ["[+] Running diagnostic on Core 3...", 400],
+          ["[OK] Fault isolated to thread scheduler", 400],
+        ];
+      } else {
+        return [
+          ["[OK] Core 3: nominal", 300]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
   ["[+] Rebalancing thread load...", 500],
   ["[+] Migrating active threads...", 400],
-  ["[#######---] 76% balancing...", 500],
-  ["[#########-] 95% balancing...", 500],
-  ["[##########] 100% complete", 400],
-  ["[OK] Scheduler stabilized", 400],
-  ["[OK] Core sweep finished.", 600]
+
+  // real progress bar (uses your system)
+  ["balancing threads", 1200, "progress"],
+
+  // optional glitch moment (handled globally by your engine, no need to force it)
+  [() => "[OK] Scheduler stabilized", 400],
+
+  // rare alternate ending
+  [
+    () => {
+      if (chance(10)) {
+        return [
+          ["[WARN] Minor instability detected post-balance", 400],
+          ["[+] Applying secondary stabilization...", 400],
+          ["[OK] Stability restored", 400],
+        ];
+      } else {
+        return [
+          ["[OK] Core sweep finished.", 600]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ]
 ],
 
 "net breach": [
@@ -101,42 +179,176 @@ export const commands = {
 "mem purge": [
   ["[+] Locating stale memory allocations...", 400],
   ["[+] Indexing heap segments...", 350],
-  ["[OK] Segments indexed: 142", 300],
+
+  // dynamic segment count
+  [() => `[OK] Segments indexed: ${rand(100, 300)}`, 300],
+
   ["[+] Analyzing fragmentation...", 350],
-  ["[OK] Fragmentation level: moderate", 300],
+
+  // branching fragmentation level
+  [
+    () => {
+      const levels = ["low", "moderate", "high", "critical"];
+      const level = pick(levels);
+
+      if (level === "critical") {
+        return [
+          [`[WARN] Fragmentation level: ${level}`, 300],
+          ["[+] Emergency defragmentation required...", 400],
+        ];
+      }
+
+      return [
+        [`[OK] Fragmentation level: ${level}`, 300]
+      ];
+    },
+    0,
+    "branch"
+  ],
+
   ["[+] Reclaiming idle blocks...", 350],
   ["[+] Compressing temporary buffers...", 350],
   ["[+] Clearing swap cache...", 350],
   ["[+] Rewriting memory pointers...", 400],
-  ["[+] Memory reclamation in progress...", 450],
-  ["[#######---] 78% reclaiming...", 500],
-  ["[#########-] 96% reclaiming...", 500],
-  ["[##########] 100% complete", 400],
-  ["[OK] Heap integrity restored", 400],
-  ["[OK] Memory purge simulation finished.", 700]
+
+  // real progress instead of fake bars
+  ["reclaiming memory", 1400, "progress"],
+
+  // optional instability branch
+  [
+    () => {
+      if (chance(15)) {
+        return [
+          ["[WARN] Minor pointer inconsistency detected", 300],
+          ["[+] Re-aligning memory pointers...", 400],
+          ["[OK] Alignment corrected", 300],
+        ];
+      }
+      return [
+        ["[OK] Memory reclamation stable", 300]
+      ];
+    },
+    0,
+    "branch"
+  ],
+
+  [() => "[OK] Heap integrity restored", 400],
+
+  // rare glitchy ending (your global glitch system will enhance this too)
+  [
+    () => {
+      if (chance(10)) {
+        return [
+          ["[ERR] Residual memory artifact detected...", 400],
+          ["[+] Purging artifact...", 400],
+          ["[OK] Artifact removed", 300],
+          ["[OK] Memory purge simulation finished.", 700],
+        ];
+      }
+      return [
+        ["[OK] Memory purge simulation finished.", 700]
+      ];
+    },
+    0,
+    "branch"
+  ]
 ],
 
 "root override": [
   ["[+] Requesting elevated access...", 450],
   ["[+] Verifying authorization token...", 450],
-  ["[OK] Token signature valid", 350],
+
+  // token validation (rare failure branch)
+  [
+    () => {
+      if (chance(10)) {
+        return [
+          ["[WARN] Token signature mismatch", 300],
+          ["[+] Attempting fallback validation...", 400],
+          ["[OK] Token signature valid (fallback)", 350],
+        ];
+      }
+      return [
+        ["[OK] Token signature valid", 350]
+      ];
+    },
+    0,
+    "branch"
+  ],
+
   ["[+] Scanning for escalation vectors...", 400],
-  ["[OK] Vector found: SUID binary exploit", 400],
+
+  // dynamic exploit selection
+  [() => {
+    const exploits = [
+      "SUID binary exploit",
+      "Kernel privilege escalation",
+      "DirtyPipe variant",
+      "LD_PRELOAD injection"
+    ];
+    return `[OK] Vector found: ${pick(exploits)}`;
+  }, 400],
+
   ["[+] Escalation path found", 300],
   ["[+] Injecting privilege escalation routine...", 500],
+
+  // progress phase (injection)
+  ["injecting escalation", 1200, "progress"],
+
   ["[+] Writing temporary admin permissions...", 500],
-  ["[OK] UID set to 0", 350],
+
+  // UID confirmation (tiny variation)
+  [() => `[OK] UID set to ${chance(95) ? 0 : "0 (delayed)"}`, 350],
+
   ["[+] Masking privilege change...", 400],
   ["[+] Cleaning escalation artifacts...", 400],
-  ["[##########] 100% complete", 400],
-  ["[OK] Root shell granted", 400],
+
+  // cleanup progress
+  ["cleaning traces", 1000, "progress"],
+
+  // possible detection branch
+  [
+    () => {
+      if (chance(15)) {
+        return [
+          ["[WARN] Security daemon detected unusual activity", 400],
+          ["[+] Spoofing process signature...", 400],
+          ["[OK] Detection bypassed", 350],
+        ];
+      }
+      return [
+        ["[OK] No detection vectors triggered", 300]
+      ];
+    },
+    0,
+    "branch"
+  ],
+
+  // final result
+  [
+    () => {
+      if (chance(5)) {
+        return [
+          ["[ERR] Root shell unstable...", 400],
+          ["[+] Reinitializing shell...", 400],
+          ["[OK] Root shell granted", 400],
+        ];
+      }
+      return [
+        ["[OK] Root shell granted", 400]
+      ];
+    },
+    0,
+    "branch"
+  ],
+
   ["[!] Root override simulation active.", 700]
 ],
 
 "trace lock": [
   ["[+] Activating trace monitor...", 400],
   ["[+] Monitoring inbound pings...", 350],
-  ["[+] Capturing packet signatures...", 350],
+  ["[+] Capturing packet signatures...",350],
   ["[OK] Suspicious activity detected", 350],
   ["[+] Isolating suspicious traffic...", 400],
   ["[+] Locking active route table...", 350],
@@ -146,170 +358,423 @@ export const commands = {
   ["[#######---] 82% isolating...", 500],
   ["[#########-] 97% isolating...", 500],
   ["[##########] 100% complete", 400],
-  ["[OK] Trace lock simulation finished.", 700]
+  ["[OK] Trace lock simulation finished.", 700] 
 ],
 
 "pkg meltdown": [
   ["[+] Opening package index...", 350],
   ["[+] Resolving dependencies...", 350],
-  ["[OK] Dependencies mapped", 300],
-  ["[!] Critical package mismatch detected", 400],
-  ["[+] Identifying conflict source...", 400],
-  ["[OK] Conflict: libc-core v2.31 vs v2.28", 400],
+
+  [() => `[OK] Dependencies mapped: ${rand(40,120)} packages`, 300],
+
+  [
+    () => {
+      if (chance(80)) {
+        return [
+          ["[!] Critical package mismatch detected", 400],
+          [() => `[OK] Conflict: libc-core v${rand(2,3)}.${rand(20,35)} vs v${rand(2,3)}.${rand(10,29)}`, 400],
+          [() => `[OK] Conflict depth: ${rand(2,6)} layers`, 350]
+        ];
+      } else {
+        return [
+          ["[OK] No major conflicts detected", 400],
+          ["[+] Minor inconsistencies auto-resolved", 350]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
   ["[+] Analyzing dependency tree...", 400],
-  ["[OK] Conflict depth: 4 layers", 350],
-  ["[+] Running rollback stub...", 500],
-  ["[+] Restoring previous stable state...", 450],
-  ["[+] Re-linking package binaries...", 400],
-  ["[##########] 100% complete", 400],
-  ["[OK] Environment stabilized", 400],
-  ["[OK] Package meltdown simulation aborted safely.", 700]
+
+  ["rolling back packages", 1400, "progress"],
+
+  [
+    () => {
+      if (chance(85)) {
+        return [
+          ["[OK] Environment stabilized", 400],
+          ["[OK] Package meltdown simulation aborted safely.", 700]
+        ];
+      } else {
+        return [
+          ["[WARN] Partial rollback failure", 400],
+          ["[+] Retrying stabilization...", 500],
+          ["[OK] Environment stabilized", 400]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ]
 ],
 
 "dark compile": [
   ["[+] Fetching shadow build script...", 400],
   ["[+] Preparing synthetic module graph...", 400],
-  ["[OK] Nodes linked: 64", 300],
+
+  [() => `[OK] Nodes linked: ${rand(32,128)}`, 300],
+
   ["[+] Allocating compile buffers...", 350],
-  ["[+] Compiling hidden artifacts...", 500],
+
+  [
+    () => {
+      if (chance(75)) {
+        return [
+          ["[+] Compiling hidden artifacts...", 500]
+        ];
+      } else {
+        return [
+          ["[WARN] Artifact corruption detected", 400],
+          ["[+] Rebuilding corrupted nodes...", 500],
+          ["[OK] Artifacts stabilized", 350]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
   ["[+] Obfuscating symbol tables...", 450],
-  ["[+] Encrypting output binary...", 400],
-  ["[#######---] 69%  building...", 500],
-  ["[#########-] 94%  building...", 500],
-  ["[##########] 100% complete", 400],
-  ["[OK] Binary sealed", 400],
-  ["[OK] Dark compile simulation finished.", 700]
+
+  [
+    () => {
+      if (chance(70)) {
+        return [
+          ["[+] Encrypting output binary...", 400]
+        ];
+      } else {
+        return [
+          ["[WARN] Encryption fallback engaged", 400],
+          ["[+] Switching cipher mode...", 400],
+          ["[+] Encrypting output binary...", 400]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
+  ["building binary", 1400, "progress"],
+
+  [
+    () => {
+      if (chance(85)) {
+        return [
+          ["[OK] Binary sealed", 400],
+          ["[OK] Dark compile simulation finished.", 700]
+        ];
+      } else {
+        return [
+          ["[WARN] Integrity mismatch detected", 400],
+          ["[+] Re-sealing binary...", 500],
+          ["[OK] Binary sealed", 400]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ]
 ],
 
 "neural sync": [
   ["[+] Initializing neural interface...", 400],
   ["[+] Mapping input/output channels...", 350],
-  ["[OK] Channels linked: 128", 300],
+
+  [() => `[OK] Channels linked: ${rand(64,256)}`, 300],
+
   ["[+] Calibrating signal latency...", 350],
-  ["[OK] Latency within threshold", 300],
+
+  [() => `[OK] Latency: ${rand(1,12)}ms`, 300],
+
   ["[+] Aligning signal streams...", 350],
-  ["[+] Synchronizing inference layers...", 400],
+
+  [
+    () => {
+      if (chance(80)) {
+        return [
+          ["[+] Synchronizing inference layers...", 400]
+        ];
+      } else {
+        return [
+          ["[WARN] Desync detected between layers", 400],
+          ["[+] Re-aligning neural pathways...", 500],
+          ["[OK] Layers stabilized", 350]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
   ["[+] Stabilizing feedback loop...", 400],
-  ["[+] Reinforcing neural weights...", 400],
-  ["[#######---] 77%  syncing...", 500],
-  ["[#########-] 96%  syncing...", 500],
-  ["[##########] 100% complete", 400],
-  ["[OK] Neural sync complete.", 700]
+
+  [
+    () => {
+      if (chance(70)) {
+        return [
+          ["[+] Reinforcing neural weights...", 400]
+        ];
+      } else {
+        return [
+          ["[WARN] Weight instability detected", 400],
+          ["[+] Rebalancing weight distribution...", 500],
+          ["[OK] Weights stabilized", 350]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
+  ["synchronizing neural matrix", 1400, "progress"],
+
+  [
+    () => {
+      if (chance(85)) {
+        return [
+          ["[OK] Neural sync complete.", 700]
+        ];
+      } else {
+        return [
+          ["[WARN] Residual drift detected", 400],
+          ["[+] Performing final correction...", 500],
+          ["[OK] Neural sync complete.", 700]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ]
 ],
 
 "quantum fork": [
   ["[+] Preparing multiverse fork...", 450],
   ["[+] Splitting process timeline...", 450],
-  ["[OK] Branch instances: 2", 350],
+
+  [() => `[OK] Branch instances: ${rand(2,5)}`, 350],
+
   ["[+] Allocating parallel state buffers...", 400],
-  ["[+] Stabilizing parallel instance...", 450],
-  ["[!] Temporal drift detected", 400],
-  ["[+] Correcting phase offset...", 400],
-  ["[OK] Timeline stabilized", 350],
-  ["[+] Synchronizing fork states...", 400],
-  ["[##########] 100% complete", 400],
+
+  [
+    () => {
+      if (chance(80)) {
+        return [["[OK] Parallel instances stable", 350]];
+      } else {
+        return [
+          ["[!] Temporal drift detected", 400],
+          ["[+] Correcting phase offset...", 400],
+          ["[OK] Timeline stabilized", 350]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
+  ["synchronizing timelines", 1400, "progress"],
+
   ["[OK] Quantum fork simulation finished.", 700]
 ],
 
 "net scan --deep": [
   ["[+] Initializing deep network reconnaissance...", 450],
-  ["[+] Scanning subnet 192.168.0.0/24...", 500],
-  ["[OK] Hosts discovered: 8", 350],
+
+  [() => `[+] Scanning subnet ${genIP().split('.').slice(0,3).join('.')}.0/24...`, 500],
+
+  [() => `[OK] Hosts discovered: ${rand(3,15)}`, 350],
+
   ["[+] Resolving MAC addresses...", 350],
   ["[OK] ARP table populated", 300],
-  ["[+] Fingerprinting discovered hosts...", 500],
-  ["[+] Identifying open services...", 450],
-  ["[+] Mapping service versions...", 400],
-  ["[#######---] 74%  mapping...", 600],
-  ["[#########-] 96%  mapping...", 500],
-  ["[##########] 100% complete", 400],
+
+  [
+    () => {
+      if (chance(70)) {
+        return [["[+] Fingerprinting discovered hosts...", 500]];
+      } else {
+        return [
+          ["[WARN] Host fingerprint mismatch", 400],
+          ["[+] Re-scanning anomalies...", 500]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
+  ["mapping services", 1400, "progress"],
+
   ["[OK] Deep scan simulation finished.", 700]
 ],
 
 "auth brute --target": [
   ["[+] Preparing credential test harness...", 450],
-  ["[+] Loading password dictionary...", 450],
-  ["[OK] Entries loaded: 1,234,567", 350],
+
+  [() => `[OK] Entries loaded: ${rand(500000,2000000).toLocaleString()}`, 350],
+
   ["[+] Initializing hash comparison engine...", 400],
-  ["[+] Running distributed attempt cycle...", 500],
   ["[+] Spawning worker threads...", 400],
-  ["[+] Monitoring response latency...", 400],
-  ["[#######---] 71%  testing...", 600],
-  ["[#########-] 95%  testing...", 500],
-  ["[##########] 100% complete", 400],
+
+  ["testing credentials", 1600, "progress"],
+
+  [
+    () => {
+      if (chance(60)) {
+        return [
+          ["[OK] Credential match found", 400],
+          [() => `user: ${pick(["admin","root","user"])}`, 250]
+        ];
+      } else {
+        return [["[OK] No valid credentials found", 400]];
+      }
+    },
+    0,
+    "branch"
+  ],
+
   ["[OK] Authentication brute-force simulation finished.", 700]
 ],
 
 "shell inject --pid": [
-  ["[+] Attaching to target process...", 400],
+  [() => `[+] Attaching to process ${genPID()}...`, 400],
+
   ["[OK] Process handle acquired", 350],
   ["[+] Resolving injection vector...", 400],
-  ["[+] Allocating remote workspace...", 450],
-  ["[OK] Memory region reserved", 350],
-  ["[+] Writing simulated payload...", 500],
-  ["[+] Verifying payload integrity...", 400],
-  ["[OK] Checksum valid", 300],
-  ["[+] Executing remote thread...", 400],
-  ["[##########] 100% complete", 400],
+
+  ["allocating memory", 1200, "progress"],
+
+  [
+    () => {
+      if (chance(80)) {
+        return [["[OK] Payload injected successfully", 400]];
+      } else {
+        return [
+          ["[WARN] Injection instability detected", 400],
+          ["[+] Retrying injection...", 500],
+          ["[OK] Payload injected successfully", 400]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
   ["[OK] Shell injection simulation finished.", 700]
 ],
 
 "fs scrape --profile": [
   ["[+] Enumerating profile directories...", 400],
-  ["[+] Searching for tagged documents...", 450],
-  ["[OK] Matches found: 12", 350],
+
+  [() => `[OK] Matches found: ${rand(5,40)}`, 350],
+
   ["[+] Indexing file metadata...", 400],
-  ["[+] Compressing matched files...", 500],
-  ["[+] Encrypting archive...", 450],
-  ["[+] Verifying archive integrity...", 400],
-  ["[OK] Archive checksum valid", 300],
-  ["[#######---] 68%  archiving...", 600],
-  ["[#########-] 95%  archiving...", 500],
-  ["[##########] 100% complete", 400],
+
+  [
+    () => {
+      if (chance(75)) {
+        return [["[+] Compressing matched files...", 500]];
+      } else {
+        return [
+          ["[WARN] File read error", 400],
+          ["[+] Skipping corrupted entries...", 400]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
+  ["archiving data", 1500, "progress"],
+
   ["[OK] File scrape simulation finished.", 700]
 ],
 
 "cam hijack --auto": [
   ["[+] Scanning for camera endpoints...", 400],
-  ["[+] Identifying stream sources...", 450],
-  ["[OK] Streams detected: 2", 350],
+
+  [() => `[OK] Streams detected: ${rand(1,5)}`, 350],
+
   ["[+] Attempting credential injection...", 400],
-  ["[OK] Access granted", 300],
-  ["[+] Negotiating viewer session...", 450],
-  ["[+] Injecting proxy stream...", 400],
-  ["[OK] Proxy stream engaged", 300],
-  ["[+] Stabilizing stream connection...", 400],
-  ["[#######---] 81% linking...", 500],
-  ["[##########] 100% complete", 400],
+
+  [
+    () => {
+      if (chance(85)) {
+        return [["[OK] Access granted", 300]];
+      } else {
+        return [
+          ["[WARN] Access denied", 300],
+          ["[+] Retrying with fallback creds...", 400],
+          ["[OK] Access granted", 300]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
+  ["linking stream", 1300, "progress"],
+
   ["[OK] Camera hijack simulation finished.", 700]
 ],
 
 "log wipe --stealth": [
   ["[+] Locating log segments...", 400],
-  ["[+] Filtering current session traces...", 450],
-  ["[OK] Entries matched: 37", 350],
+
+  [() => `[OK] Entries matched: ${rand(10,120)}`, 350],
+
   ["[+] Rewriting cached entries...", 450],
   ["[+] Obfuscating timestamps...", 400],
-  ["[+] Rebuilding log indexes...", 400],
-  ["[+] Injecting decoy entries...", 400],
-  ["[#######---] 75%  sanitizing...", 600],
-  ["[#########-] 97%  sanitizing...", 500],
-  ["[##########] 100% complete", 400],
-  ["[OK] Log wipe simulation finished.", 700]
+
+  ["sanitizing logs", 1400, "progress"],
+
+  [
+    () => {
+      if (chance(90)) {
+        return [["[OK] Log wipe simulation finished.", 700]];
+      } else {
+        return [
+          ["[WARN] Residual trace detected", 400],
+          ["[+] Performing deep scrub...", 500],
+          ["[OK] Logs sanitized", 400]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ]
 ],
 
 "multi breach --all": [
   ["[+] Launching composite operation suite...", 500],
   ["[+] Initializing modules...", 400],
   ["[+] Allocating shared resources...", 400],
-  ["Recon module", 1200, "progress"],
-  ["Credential test", 1200, "progress"],
-  ["Privilege escalation", 1200, "progress"],
-  ["Data transfer", 1200, "progress"],
-  ["[+] Aggregating results...", 400],
-  ["[OK] All modules completed successfully", 500],
+
+  ["network recon", 1200, "progress"],
+  ["credential testing", 1200, "progress"],
+  ["privilege escalation", 1200, "progress"],
+  ["data exfiltration", 1200, "progress"],
+
+  [
+    () => {
+      if (chance(80)) {
+        return [["[OK] All modules completed successfully", 500]];
+      } else {
+        return [
+          ["[WARN] One or more modules unstable", 500],
+          ["[+] Re-running failed modules...", 700],
+          ["[OK] All modules completed successfully", 500]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
   ["[+] Cleaning temporary artifacts...", 400],
-  ["[##########] 100% complete", 400],
+
+  ["finalizing operation", 1000, "progress"],
+
   ["[!] Multi breach simulation finished.", 800]
 ],
 
