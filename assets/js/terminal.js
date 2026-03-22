@@ -131,12 +131,16 @@ function progressLine(label, duration = 1500) {
 }
 
 /* runner for commands.js */
-async function runFakeScript(commandName) {
+/* NEW: runCommand supports functions in steps */
+async function runCommand(commandName) {
   const steps = commands[commandName];
   if (!steps) return false;
 
   for (const step of steps) {
-    const [text, delay = 300, kind = "line"] = step;
+    let [text, delay = 300, kind = "line"] = step;
+
+    // if text is a function, call it
+    if (typeof text === "function") text = text();
 
     if (kind === "progress") {
       await progressLine(text, delay);
@@ -148,14 +152,18 @@ async function runFakeScript(commandName) {
     output.appendChild(line);
     termBody.scrollTop = termBody.scrollHeight;
 
+    // old “special text” check (you can leave this)
     if (
-      text.includes("about") || text.includes("skills") || text.includes("gaming") ||
-      text.includes("music") || text.includes("outdoors") || text.includes("coding") ||
-      text.includes("content") || text.includes("community") || text.includes("collabs") ||
-      text.includes("support") || text.includes("studio") || text.includes("ski") ||
-      text.includes("social") || text.includes("hidden") || text.includes("robot") ||
-      text.includes("snowboard") || text.includes("future") || text.includes("clear") ||
-      text.includes("easteregg") || text.includes("rzcode")
+      typeof text === "string" &&
+      (
+        text.includes("about") || text.includes("skills") || text.includes("gaming") ||
+        text.includes("music") || text.includes("outdoors") || text.includes("coding") ||
+        text.includes("content") || text.includes("community") || text.includes("collabs") ||
+        text.includes("support") || text.includes("studio") || text.includes("ski") ||
+        text.includes("social") || text.includes("hidden") || text.includes("robot") ||
+        text.includes("snowboard") || text.includes("future") || text.includes("clear") ||
+        text.includes("easteregg") || text.includes("rzcode")
+      )
     ) {
       line.innerHTML = `<span class="prompt">${text.trim()}</span>`;
     } else {
@@ -363,12 +371,12 @@ if (input && output && termBody) {
       }
 
       if (val === "open rzcode" || val === "rzcode") {
-        await runFakeScript("rzcode");
+        await runCommand("rzcode");
         loadRzCode();
         return;
       }
 
-      const handled = await runFakeScript(val);
+      const handled = await runCommand(val);
       if (!handled) {
         await typeLine(`command not found dummy: ${rawVal}`);
       }
