@@ -583,7 +583,7 @@ export const commandAliases = {
   "net hack": "net hack",
   "force login": "force login",
   "inject shell": "inject shell",
-  "scrape data"": "scrape data"",
+  "scrape data": "scrape data",
   "camera hack": "camera hack",
   "full wipe": "full wipe",
   "breach all": "breach all",
