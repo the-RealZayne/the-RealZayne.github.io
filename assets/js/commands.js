@@ -1,3 +1,84 @@
+// ===== DYNAMIC UTILITIES =====
+
+const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+const chance = (percent) => Math.random() * 100 < percent;
+
+// fake generators
+const genIP = () => `${rand(10, 255)}.${rand(0,255)}.${rand(0,255)}.${rand(1,254)}`;
+const genID = () => Math.random().toString(16).slice(2, 10).toUpperCase();
+const genPID = () => rand(1000, 9999);
+const genPercent = () => `${rand(10,99)}%`;
+const genFiles = () => rand(50, 5000);
+
+// glitch pool (RARE)
+const glitchLines = [
+  "[??] signal interference detected...",
+  "[WARN] memory address undefined",
+  "[ERR] stack trace lost...",
+  "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒",
+  ">> reality.sys mismatch",
+  "!! unknown interrupt vector",
+];
+
+export async function runCommand(commandName, writeLine) {
+  const cmd = commands[commandName];
+  if (!cmd) return;
+
+  for (let step of cmd) {
+    let [text, delay = 300, type] = step;
+
+    // ===== DYNAMIC VALUES =====
+    if (typeof text === "function") {
+      text = text();
+    }
+
+    // ===== GLITCH INJECTION (VERY RARE) =====
+    if (chance(2)) {
+      await writeLine(pick(glitchLines));
+    }
+
+    // ===== BRANCHING SUPPORT =====
+    if (type === "branch") {
+      const result = text(); // returns array of steps
+      await runInline(result, writeLine);
+      continue;
+    }
+
+    // ===== PROGRESS TYPE =====
+    if (type === "progress") {
+      await runProgress(text, delay, writeLine);
+      continue;
+    }
+
+    await writeLine(text);
+    await sleep(delay);
+  }
+}
+
+// helper
+const sleep = (ms) => new Promise(res => setTimeout(res, ms));
+
+async function runInline(steps, writeLine) {
+  for (let s of steps) {
+    let [text, delay = 300] = s;
+    if (typeof text === "function") text = text();
+    await writeLine(text);
+    await sleep(delay);
+  }
+}
+
+async function runProgress(label, duration, writeLine) {
+  const steps = 10;
+  for (let i = 1; i <= steps; i++) {
+    const bar = "#".repeat(i) + "-".repeat(steps - i);
+    await writeLine(`[${bar}] ${i * 10}% ${label}...`);
+    await sleep(duration / steps);
+  }
+}
+
 export const commands = {
   "sys flush": [
   ["[+] Initializing system flush sequence...", 500],
@@ -42,19 +123,33 @@ export const commands = {
 
 "net breach": [
   ["[+] Initializing local network probe...", 450],
-  ["[+] Enumerating connected nodes...", 450],
-  ["[OK] Hosts discovered: 6", 350],
-  ["[+] Resolving hostnames...", 350],
-  ["[OK] Hostnames mapped", 300],
-  ["[+] Tracing gateway routes...", 450],
-  ["[OK] Gateway resolved: 192.168.0.1", 350],
+
+  [() => `[OK] Hosts discovered: ${rand(3,12)}`, 350],
+
+  [() => `[OK] Gateway resolved: ${genIP()}`, 350],
+
   ["[+] Attempting tunnel negotiation...", 450],
-  ["[OK] Secure tunnel established", 300],
-  ["[+] Mapping internal topology...", 450],
-  ["[+] Identifying exposed services...", 400],
-  ["[#######---] 73%  mapping...", 500],
-  ["[#########-] 94%  mapping...", 500],
-  ["[##########] 100% complete", 400],
+
+  [
+    () => {
+      if (chance(80)) {
+        return [
+          ["[OK] Secure tunnel established", 300]
+        ];
+      } else {
+        return [
+          ["[WARN] Tunnel handshake failed", 300],
+          ["[+] Retrying with fallback cipher...", 400],
+          ["[OK] Secure tunnel established", 300]
+        ];
+      }
+    },
+    0,
+    "branch"
+  ],
+
+  ["mapping", 900, "progress"],
+
   ["[OK] Entry points indexed", 400],
   ["[!] Network breach simulation complete.", 700]
 ],
