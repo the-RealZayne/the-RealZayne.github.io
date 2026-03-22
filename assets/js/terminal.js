@@ -349,40 +349,83 @@ if (input && output && termBody) {
     }
 
     if (e.key === "Enter") {
-      const rawVal = input.value.trim().toLowerCase();
-      const val = commandAliases[rawVal] || rawVal;
+  const rawVal = input.value.trim().toLowerCase();
+  const val = commandAliases[rawVal] || rawVal;
 
-      if (rawVal !== "") {
-        historyCommands.push(rawVal);
-        historyIndex = historyCommands.length;
-      }
+  if (rawVal !== "") {
+    historyCommands.push(rawVal);
+    historyIndex = historyCommands.length;
+  }
 
-      const history = document.createElement("div");
-      history.className = "line";
-      history.innerHTML = `<span class="prompt">zaynes@therealspace:~$</span> ${rawVal}`;
-      output.appendChild(history);
+  const history = document.createElement("div");
+  history.className = "line";
+  history.innerHTML = `<span class="prompt">zaynes@therealspace:~$</span> ${rawVal}`;
+  output.appendChild(history);
+  input.value = "";
 
-      input.value = "";
+  // SPECIAL CASES
+  if (val === "clear") {
+    output.innerHTML = "";
+    termBody.scrollTop = termBody.scrollHeight;
+    return;
+  }
 
-      if (val === "clear") {
-        output.innerHTML = "";
-        termBody.scrollTop = termBody.scrollHeight;
-        return;
-      }
+  if (val === "open rzcode" || val === "rzcode") {
+    await runCommand("rzcode");
+    loadRzCode();
+    return;
+  }
 
-      if (val === "open rzcode" || val === "rzcode") {
-        await runCommand("rzcode");
-        loadRzCode();
-        return;
-      }
+  // TRY HACKER COMMANDS FIRST (commands.js)
+  const hackerHandled = await runCommand(val);
+  if (hackerHandled) {
+    termBody.scrollTop = termBody.scrollHeight;
+    return;
+  }
 
-      const handled = await runCommand(val);
-      if (!handled) {
-        await typeLine(`command not found dummy: ${rawVal}`);
-      }
+  // PERSONAL COMMANDS FALLBACK
+  switch(val) {
+    case "help":
+      await typeLine("about | skills | gaming | music | outdoors | coding");
+      await typeLine("content | community | collabs | support | studio | ski | social");
+      await typeLine("Type 'hidden' for hacker commands...");
+      break;
+      
+    case "about":
+      await typeLine("Zayne — Gamer, Producer, Coder, Outdoor Enthusiast.");
+      break;
+      
+    case "skills":
+      await typeLine("HTML • CSS • JavaScript • Discord Bots • Music Production • Raspberry PI");
+      break;
+      
+    case "gaming":
+      await typeLine("Fortnite/Development, GTA V, Roblox/Development, Minecraft/Development");
+      break;
+      
+    case "music":
+      await typeLine("Beatboxing + Producing Hip-Hop / Phonk / Electronic.");
+      break;
+      
+    case "outdoors":
+      await typeLine("Skiing • Hiking • Fishing • Camping • Sports.");
+      break;
+      
+    case "coding":
+      await typeLine("Discord Bots, Raspberry PI/Robotics, Experimental Tools.");
+      break;
+      
+    case "hidden":
+      await typeLine("sys flush | net breach | virus installer | grade changer");
+      await typeLine("multi breach --all | root override | core sweep");
+      break;
+      
+    default:
+      await typeLine(`command not found dummy: ${rawVal}`);
+  }
 
-      termBody.scrollTop = termBody.scrollHeight;
-    }
+  termBody.scrollTop = termBody.scrollHeight;
+}
   });
 
   termBody.addEventListener("click", () => input.focus());
