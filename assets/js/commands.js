@@ -26,25 +26,25 @@ const glitchLines = [
 export const commands = {
   "sys flush": [
   // Step 1: dynamic text
-  [() => `[+] Initializing system flush sequence... v${globalVersion}`, 500],
+  [() => `[+] Initializing system flush sequence... v${globalVersion}`, 250],
 
   // Step 2: glitching
-  [() => glitchText("[+] Verifying kernel state..."), 350],
+  [() => glitchText("[+] Verifying kernel state..."), 250],
 
   // Step 3: dynamic kernel confirmation
-  [() => "[OK] Kernel stable", 300],
+  [() => "[OK] Kernel stable", 200],
 
   // Step 4: mapping memory regions
-  ["[+] Mapping active memory regions...", 350],
+  ["[+] Mapping active memory regions...", 250],
 
   // Step 5: dynamic number with glitch
   [() => glitchText(`[OK] Regions indexed: ${Math.floor(Math.random() * 50) + 200}`), 300],
 
   // Step 6: releasing cached resources
-  ["[+] Releasing cached resources...", 350],
+  ["[+] Releasing cached resources...", 250],
 
   // Step 7: flushing memory blocks
-  ["[+] Flushing temporary memory blocks...", 350],
+  ["[+] Flushing temporary memory blocks...", 250],
 
   // Step 8: branching example
   [() => {
@@ -53,7 +53,7 @@ export const commands = {
   }, 350],
 
   // Step 9: clearing buffers
-  ["[+] Clearing I/O buffers...", 350],
+  ["[+] Clearing I/O buffers...", 250],
 
   // Step 10: virtual memory reset with progress
   [() => progressLine("[+] Resetting virtual memory tables", 1500), "progress"],
@@ -65,8 +65,8 @@ export const commands = {
   [() => progressLine("[##########] 100% complete", 400), "progress"],
 
   // Step 15–16: final dynamic confirmations
-  [() => "[OK] Memory tables reset", 400],
-  [() => "[OK] Cache layers cleared", 350],
+  [() => "[OK] Memory tables reset", 200],
+  [() => "[OK] Cache layers cleared", 250],
 
   // Step 17: glitch + branching end
   [() => {
@@ -76,12 +76,12 @@ export const commands = {
 ],
 
 "core sweep": [
-  ["[+] Scanning CPU cores...", 400],
+  ["[+] Scanning CPU cores...", 200],
 
   // dynamic thread count
   [() => `[OK] Threads mapped: ${rand(4, 16)}`, 300],
 
-  ["[+] Sampling core temperatures...", 350],
+  ["[+] Sampling core temperatures...", 250],
 
   // slight randomness in thermal state
   [() => {
@@ -100,13 +100,13 @@ export const commands = {
     () => {
       if (chance(70)) {
         return [
-          ["[!] Core 3: anomaly detected", 300],
-          ["[+] Running diagnostic on Core 3...", 400],
-          ["[OK] Fault isolated to thread scheduler", 400],
+          ["[!] Core 3: anomaly detected", 200],
+          ["[+] Running diagnostic on Core 3...", 200],
+          ["[OK] Fault isolated to thread scheduler", 200],
         ];
       } else {
         return [
-          ["[OK] Core 3: nominal", 300]
+          ["[OK] Core 3: nominal", 200]
         ];
       }
     },
@@ -114,27 +114,27 @@ export const commands = {
     "branch"
   ],
 
-  ["[+] Rebalancing thread load...", 500],
-  ["[+] Migrating active threads...", 400],
+  ["[+] Rebalancing thread load...", 200],
+  ["[+] Migrating active threads...", 200],
 
   // real progress bar (uses your system)
   ["balancing threads", 1200, "progress"],
 
   // optional glitch moment (handled globally by your engine, no need to force it)
-  [() => "[OK] Scheduler stabilized", 400],
+  [() => "[OK] Scheduler stabilized", 200],
 
   // rare alternate ending
   [
     () => {
       if (chance(10)) {
         return [
-          ["[WARN] Minor instability detected post-balance", 400],
-          ["[+] Applying secondary stabilization...", 400],
-          ["[OK] Stability restored", 400],
+          ["[WARN] Minor instability detected post-balance", 200],
+          ["[+] Applying secondary stabilization...", 200],
+          ["[OK] Stability restored", 200],
         ];
       } else {
         return [
-          ["[OK] Core sweep finished.", 600]
+          ["[OK] Core sweep finished.", 200]
         ];
       }
     },
@@ -144,13 +144,13 @@ export const commands = {
 ],
 
 "net breach": [
-  ["[+] Initializing local network probe...", 450],
+  ["[+] Initializing local network probe...", 250],
 
-  [() => `[OK] Hosts discovered: ${rand(3,12)}`, 350],
+  [() => `[OK] Hosts discovered: ${rand(3,12)}`, 250],
 
-  [() => `[OK] Gateway resolved: ${genIP()}`, 350],
+  [() => `[OK] Gateway resolved: ${genIP()}`, 250],
 
-  ["[+] Attempting tunnel negotiation...", 450],
+  ["[+] Attempting tunnel negotiation...", 250],
 
   [
     () => {
@@ -160,9 +160,9 @@ export const commands = {
         ];
       } else {
         return [
-          ["[WARN] Tunnel handshake failed", 300],
-          ["[+] Retrying with fallback cipher...", 400],
-          ["[OK] Secure tunnel established", 300]
+          ["[WARN] Tunnel handshake failed", 200],
+          ["[+] Retrying with fallback cipher...", 200],
+          ["[OK] Secure tunnel established", 200]
         ];
       }
     },
@@ -172,18 +172,18 @@ export const commands = {
 
   ["mapping", 900, "progress"],
 
-  ["[OK] Entry points indexed", 400],
-  ["[!] Network breach simulation complete.", 700]
+  ["[OK] Entry points indexed", 200],
+  ["[!] Network breach simulation complete.", 200]
 ],
 
 "mem purge": [
-  ["[+] Locating stale memory allocations...", 400],
-  ["[+] Indexing heap segments...", 350],
+  ["[+] Locating stale memory allocations...", 200],
+  ["[+] Indexing heap segments...", 250],
 
   // dynamic segment count
-  [() => `[OK] Segments indexed: ${rand(100, 300)}`, 300],
+  [() => `[OK] Segments indexed: ${rand(100, 300)}`, 200],
 
-  ["[+] Analyzing fragmentation...", 350],
+  ["[+] Analyzing fragmentation...", 250],
 
   // branching fragmentation level
   [
@@ -193,23 +193,23 @@ export const commands = {
 
       if (level === "critical") {
         return [
-          [`[WARN] Fragmentation level: ${level}`, 300],
-          ["[+] Emergency defragmentation required...", 400],
+          [`[WARN] Fragmentation level: ${level}`, 200],
+          ["[+] Emergency defragmentation required...", 200],
         ];
       }
 
       return [
-        [`[OK] Fragmentation level: ${level}`, 300]
+        [`[OK] Fragmentation level: ${level}`, 200]
       ];
     },
     0,
     "branch"
   ],
 
-  ["[+] Reclaiming idle blocks...", 350],
-  ["[+] Compressing temporary buffers...", 350],
-  ["[+] Clearing swap cache...", 350],
-  ["[+] Rewriting memory pointers...", 400],
+  ["[+] Reclaiming idle blocks...", 250],
+  ["[+] Compressing temporary buffers...", 250],
+  ["[+] Clearing swap cache...", 250],
+  ["[+] Rewriting memory pointers...", 200],
 
   // real progress instead of fake bars
   ["reclaiming memory", 1400, "progress"],
@@ -219,34 +219,34 @@ export const commands = {
     () => {
       if (chance(15)) {
         return [
-          ["[WARN] Minor pointer inconsistency detected", 300],
-          ["[+] Re-aligning memory pointers...", 400],
-          ["[OK] Alignment corrected", 300],
+          ["[WARN] Minor pointer inconsistency detected", 200],
+          ["[+] Re-aligning memory pointers...", 200],
+          ["[OK] Alignment corrected", 200],
         ];
       }
       return [
-        ["[OK] Memory reclamation stable", 300]
+        ["[OK] Memory reclamation stable", 200]
       ];
     },
     0,
     "branch"
   ],
 
-  [() => "[OK] Heap integrity restored", 400],
+  [() => "[OK] Heap integrity restored", 200],
 
   // rare glitchy ending (your global glitch system will enhance this too)
   [
     () => {
       if (chance(10)) {
         return [
-          ["[ERR] Residual memory artifact detected...", 400],
-          ["[+] Purging artifact...", 400],
-          ["[OK] Artifact removed", 300],
-          ["[OK] Memory purge simulation finished.", 700],
+          ["[ERR] Residual memory artifact detected...", 200],
+          ["[+] Purging artifact...", 200],
+          ["[OK] Artifact removed", 200],
+          ["[OK] Memory purge simulation finished.", 200],
         ];
       }
       return [
-        ["[OK] Memory purge simulation finished.", 700]
+        ["[OK] Memory purge simulation finished.", 200]
       ];
     },
     0,
@@ -255,28 +255,28 @@ export const commands = {
 ],
 
 "root override": [
-  ["[+] Requesting elevated access...", 450],
-  ["[+] Verifying authorization token...", 450],
+  ["[+] Requesting elevated access...", 250],
+  ["[+] Verifying authorization token...", 250],
 
   // token validation (rare failure branch)
   [
     () => {
       if (chance(10)) {
         return [
-          ["[WARN] Token signature mismatch", 300],
-          ["[+] Attempting fallback validation...", 400],
-          ["[OK] Token signature valid (fallback)", 350],
+          ["[WARN] Token signature mismatch", 200],
+          ["[+] Attempting fallback validation...", 200],
+          ["[OK] Token signature valid (fallback)", 250],
         ];
       }
       return [
-        ["[OK] Token signature valid", 350]
+        ["[OK] Token signature valid", 250]
       ];
     },
     0,
     "branch"
   ],
 
-  ["[+] Scanning for escalation vectors...", 400],
+  ["[+] Scanning for escalation vectors...", 200],
 
   // dynamic exploit selection
   [() => {
@@ -289,19 +289,19 @@ export const commands = {
     return `[OK] Vector found: ${pick(exploits)}`;
   }, 400],
 
-  ["[+] Escalation path found", 300],
-  ["[+] Injecting privilege escalation routine...", 500],
+  ["[+] Escalation path found", 200],
+  ["[+] Injecting privilege escalation routine...", 200],
 
   // progress phase (injection)
   ["injecting escalation", 1200, "progress"],
 
-  ["[+] Writing temporary admin permissions...", 500],
+  ["[+] Writing temporary admin permissions...", 200],
 
   // UID confirmation (tiny variation)
-  [() => `[OK] UID set to ${chance(95) ? 0 : "0 (delayed)"}`, 350],
+  [() => `[OK] UID set to ${chance(95) ? 0 : "0 (delayed)"}`, 250],
 
-  ["[+] Masking privilege change...", 400],
-  ["[+] Cleaning escalation artifacts...", 400],
+  ["[+] Masking privilege change...", 200],
+  ["[+] Cleaning escalation artifacts...", 200],
 
   // cleanup progress
   ["cleaning traces", 1000, "progress"],
@@ -311,13 +311,13 @@ export const commands = {
     () => {
       if (chance(15)) {
         return [
-          ["[WARN] Security daemon detected unusual activity", 400],
-          ["[+] Spoofing process signature...", 400],
-          ["[OK] Detection bypassed", 350],
+          ["[WARN] Security daemon detected unusual activity", 200],
+          ["[+] Spoofing process signature...", 200],
+          ["[OK] Detection bypassed", 250],
         ];
       }
       return [
-        ["[OK] No detection vectors triggered", 300]
+        ["[OK] No detection vectors triggered", 200]
       ];
     },
     0,
@@ -329,56 +329,56 @@ export const commands = {
     () => {
       if (chance(5)) {
         return [
-          ["[ERR] Root shell unstable...", 400],
-          ["[+] Reinitializing shell...", 400],
-          ["[OK] Root shell granted", 400],
+          ["[ERR] Root shell unstable...", 200],
+          ["[+] Reinitializing shell...", 200],
+          ["[OK] Root shell granted", 200],
         ];
       }
       return [
-        ["[OK] Root shell granted", 400]
+        ["[OK] Root shell granted", 200]
       ];
     },
     0,
     "branch"
   ],
 
-  ["[!] Root override simulation active.", 700]
+  ["[!] Root override simulation active.", 200]
 ],
 
 "trace lock": [
-  ["[+] Activating trace monitor...", 400],
-  ["[+] Monitoring inbound pings...", 350],
-  ["[+] Capturing packet signatures...",350],
-  ["[OK] Suspicious activity detected", 350],
-  ["[+] Isolating suspicious traffic...", 400],
-  ["[+] Locking active route table...", 350],
-  ["[+] External trace packets isolated", 300],
-  ["[+] Null-routing hostile IPs...", 400],
-  ["[+] Sealing network interface...", 400],
-  ["[#######---] 82% isolating...", 500],
-  ["[#########-] 97% isolating...", 500],
-  ["[##########] 100% complete", 400],
-  ["[OK] Trace lock simulation finished.", 700] 
+  ["[+] Activating trace monitor...", 200],
+  ["[+] Monitoring inbound pings...", 250],
+  ["[+] Capturing packet signatures...",250],
+  ["[OK] Suspicious activity detected", 250],
+  ["[+] Isolating suspicious traffic...", 200],
+  ["[+] Locking active route table...", 250],
+  ["[+] External trace packets isolated", 200],
+  ["[+] Null-routing hostile IPs...", 200],
+  ["[+] Sealing network interface...", 200],
+  ["[#######---] 82% isolating...", 200],
+  ["[#########-] 97% isolating...", 200],
+  ["[##########] 100% complete", 200],
+  ["[OK] Trace lock simulation finished.", 200] 
 ],
 
 "pkg meltdown": [
-  ["[+] Opening package index...", 350],
-  ["[+] Resolving dependencies...", 350],
+  ["[+] Opening package index...", 250],
+  ["[+] Resolving dependencies...", 250],
 
-  [() => `[OK] Dependencies mapped: ${rand(40,120)} packages`, 300],
+  [() => `[OK] Dependencies mapped: ${rand(40,120)} packages`, 200],
 
   [
     () => {
       if (chance(80)) {
         return [
-          ["[!] Critical package mismatch detected", 400],
-          [() => `[OK] Conflict: libc-core v${rand(2,3)}.${rand(20,35)} vs v${rand(2,3)}.${rand(10,29)}`, 400],
-          [() => `[OK] Conflict depth: ${rand(2,6)} layers`, 350]
+          ["[!] Critical package mismatch detected", 200],
+          [() => `[OK] Conflict: libc-core v${rand(2,3)}.${rand(20,35)} vs v${rand(2,3)}.${rand(10,29)}`, 200],
+          [() => `[OK] Conflict depth: ${rand(2,6)} layers`, 250]
         ];
       } else {
         return [
-          ["[OK] No major conflicts detected", 400],
-          ["[+] Minor inconsistencies auto-resolved", 350]
+          ["[OK] No major conflicts detected", 200],
+          ["[+] Minor inconsistencies auto-resolved", 250]
         ];
       }
     },
@@ -386,7 +386,7 @@ export const commands = {
     "branch"
   ],
 
-  ["[+] Analyzing dependency tree...", 400],
+  ["[+] Analyzing dependency tree...", 200],
 
   ["rolling back packages", 1400, "progress"],
 
@@ -394,14 +394,14 @@ export const commands = {
     () => {
       if (chance(85)) {
         return [
-          ["[OK] Environment stabilized", 400],
-          ["[OK] Package meltdown simulation aborted safely.", 700]
+          ["[OK] Environment stabilized", 200],
+          ["[OK] Package meltdown simulation aborted safely.", 200]
         ];
       } else {
         return [
-          ["[WARN] Partial rollback failure", 400],
-          ["[+] Retrying stabilization...", 500],
-          ["[OK] Environment stabilized", 400]
+          ["[WARN] Partial rollback failure", 200],
+          ["[+] Retrying stabilization...", 200],
+          ["[OK] Environment stabilized", 200]
         ];
       }
     },
@@ -411,24 +411,24 @@ export const commands = {
 ],
 
 "dark compile": [
-  ["[+] Fetching shadow build script...", 400],
-  ["[+] Preparing synthetic module graph...", 400],
+  ["[+] Fetching shadow build script...", 200],
+  ["[+] Preparing synthetic module graph...", 200],
 
-  [() => `[OK] Nodes linked: ${rand(32,128)}`, 300],
+  [() => `[OK] Nodes linked: ${rand(32,128)}`, 200],
 
-  ["[+] Allocating compile buffers...", 350],
+  ["[+] Allocating compile buffers...", 200],
 
   [
     () => {
       if (chance(75)) {
         return [
-          ["[+] Compiling hidden artifacts...", 500]
+          ["[+] Compiling hidden artifacts...", 200]
         ];
       } else {
         return [
-          ["[WARN] Artifact corruption detected", 400],
-          ["[+] Rebuilding corrupted nodes...", 500],
-          ["[OK] Artifacts stabilized", 350]
+          ["[WARN] Artifact corruption detected", 200],
+          ["[+] Rebuilding corrupted nodes...", 200],
+          ["[OK] Artifacts stabilized", 250]
         ];
       }
     },
@@ -436,19 +436,19 @@ export const commands = {
     "branch"
   ],
 
-  ["[+] Obfuscating symbol tables...", 450],
+  ["[+] Obfuscating symbol tables...", 250],
 
   [
     () => {
       if (chance(70)) {
         return [
-          ["[+] Encrypting output binary...", 400]
+          ["[+] Encrypting output binary...", 200]
         ];
       } else {
         return [
-          ["[WARN] Encryption fallback engaged", 400],
-          ["[+] Switching cipher mode...", 400],
-          ["[+] Encrypting output binary...", 400]
+          ["[WARN] Encryption fallback engaged", 200],
+          ["[+] Switching cipher mode...", 200],
+          ["[+] Encrypting output binary...", 200]
         ];
       }
     },
@@ -462,14 +462,14 @@ export const commands = {
     () => {
       if (chance(85)) {
         return [
-          ["[OK] Binary sealed", 400],
-          ["[OK] Dark compile simulation finished.", 700]
+          ["[OK] Binary sealed", 200],
+          ["[OK] Dark compile simulation finished.", 200]
         ];
       } else {
         return [
-          ["[WARN] Integrity mismatch detected", 400],
-          ["[+] Re-sealing binary...", 500],
-          ["[OK] Binary sealed", 400]
+          ["[WARN] Integrity mismatch detected", 200],
+          ["[+] Re-sealing binary...", 200],
+          ["[OK] Binary sealed", 200]
         ];
       }
     },
@@ -479,28 +479,28 @@ export const commands = {
 ],
 
 "neural sync": [
-  ["[+] Initializing neural interface...", 400],
-  ["[+] Mapping input/output channels...", 350],
+  ["[+] Initializing neural interface...", 200],
+  ["[+] Mapping input/output channels...", 250],
 
-  [() => `[OK] Channels linked: ${rand(64,256)}`, 300],
+  [() => `[OK] Channels linked: ${rand(64,256)}`, 200],
 
-  ["[+] Calibrating signal latency...", 350],
+  ["[+] Calibrating signal latency...", 250],
 
-  [() => `[OK] Latency: ${rand(1,12)}ms`, 300],
+  [() => `[OK] Latency: ${rand(1,12)}ms`, 200],
 
-  ["[+] Aligning signal streams...", 350],
+  ["[+] Aligning signal streams...", 250],
 
   [
     () => {
       if (chance(80)) {
         return [
-          ["[+] Synchronizing inference layers...", 400]
+          ["[+] Synchronizing inference layers...", 200]
         ];
       } else {
         return [
-          ["[WARN] Desync detected between layers", 400],
-          ["[+] Re-aligning neural pathways...", 500],
-          ["[OK] Layers stabilized", 350]
+          ["[WARN] Desync detected between layers", 200],
+          ["[+] Re-aligning neural pathways...", 200],
+          ["[OK] Layers stabilized", 250]
         ];
       }
     },
@@ -508,19 +508,19 @@ export const commands = {
     "branch"
   ],
 
-  ["[+] Stabilizing feedback loop...", 400],
+  ["[+] Stabilizing feedback loop...", 200],
 
   [
     () => {
       if (chance(70)) {
         return [
-          ["[+] Reinforcing neural weights...", 400]
+          ["[+] Reinforcing neural weights...", 200]
         ];
       } else {
         return [
-          ["[WARN] Weight instability detected", 400],
-          ["[+] Rebalancing weight distribution...", 500],
-          ["[OK] Weights stabilized", 350]
+          ["[WARN] Weight instability detected", 200],
+          ["[+] Rebalancing weight distribution...", 200],
+          ["[OK] Weights stabilized", 250]
         ];
       }
     },
@@ -534,13 +534,13 @@ export const commands = {
     () => {
       if (chance(85)) {
         return [
-          ["[OK] Neural sync complete.", 700]
+          ["[OK] Neural sync complete.", 200]
         ];
       } else {
         return [
-          ["[WARN] Residual drift detected", 400],
-          ["[+] Performing final correction...", 500],
-          ["[OK] Neural sync complete.", 700]
+          ["[WARN] Residual drift detected", 200],
+          ["[+] Performing final correction...", 200],
+          ["[OK] Neural sync complete.", 200]
         ];
       }
     },
@@ -550,22 +550,22 @@ export const commands = {
 ],
 
 "quantum fork": [
-  ["[+] Preparing multiverse fork...", 450],
-  ["[+] Splitting process timeline...", 450],
+  ["[+] Preparing multiverse fork...", 250],
+  ["[+] Splitting process timeline...", 250],
 
-  [() => `[OK] Branch instances: ${rand(2,5)}`, 350],
+  [() => `[OK] Branch instances: ${rand(2,5)}`, 250],
 
-  ["[+] Allocating parallel state buffers...", 400],
+  ["[+] Allocating parallel state buffers...", 200],
 
   [
     () => {
       if (chance(80)) {
-        return [["[OK] Parallel instances stable", 350]];
+        return [["[OK] Parallel instances stable", 250]];
       } else {
         return [
-          ["[!] Temporal drift detected", 400],
-          ["[+] Correcting phase offset...", 400],
-          ["[OK] Timeline stabilized", 350]
+          ["[!] Temporal drift detected", 200],
+          ["[+] Correcting phase offset...", 200],
+          ["[OK] Timeline stabilized", 250]
         ];
       }
     },
@@ -575,27 +575,27 @@ export const commands = {
 
   ["synchronizing timelines", 1400, "progress"],
 
-  ["[OK] Quantum fork simulation finished.", 700]
+  ["[OK] Quantum fork simulation finished.", 200]
 ],
 
 "net scan --deep": [
-  ["[+] Initializing deep network reconnaissance...", 450],
+  ["[+] Initializing deep network reconnaissance...", 250],
 
-  [() => `[+] Scanning subnet ${genIP().split('.').slice(0,3).join('.')}.0/24...`, 500],
+  [() => `[+] Scanning subnet ${genIP().split('.').slice(0,3).join('.')}.0/24...`, 200],
 
-  [() => `[OK] Hosts discovered: ${rand(3,15)}`, 350],
+  [() => `[OK] Hosts discovered: ${rand(3,15)}`, 250],
 
-  ["[+] Resolving MAC addresses...", 350],
-  ["[OK] ARP table populated", 300],
+  ["[+] Resolving MAC addresses...", 250],
+  ["[OK] ARP table populated", 200],
 
   [
     () => {
       if (chance(70)) {
-        return [["[+] Fingerprinting discovered hosts...", 500]];
+        return [["[+] Fingerprinting discovered hosts...", 200]];
       } else {
         return [
-          ["[WARN] Host fingerprint mismatch", 400],
-          ["[+] Re-scanning anomalies...", 500]
+          ["[WARN] Host fingerprint mismatch", 200],
+          ["[+] Re-scanning anomalies...", 200]
         ];
       }
     },
@@ -605,16 +605,16 @@ export const commands = {
 
   ["mapping services", 1400, "progress"],
 
-  ["[OK] Deep scan simulation finished.", 700]
+  ["[OK] Deep scan simulation finished.", 200]
 ],
 
 "auth brute --target": [
-  ["[+] Preparing credential test harness...", 450],
+  ["[+] Preparing credential test harness...", 250],
 
-  [() => `[OK] Entries loaded: ${rand(500000,2000000).toLocaleString()}`, 350],
+  [() => `[OK] Entries loaded: ${rand(500000,2000000).toLocaleString()}`, 250],
 
-  ["[+] Initializing hash comparison engine...", 400],
-  ["[+] Spawning worker threads...", 400],
+  ["[+] Initializing hash comparison engine...", 200],
+  ["[+] Spawning worker threads...", 200],
 
   ["testing credentials", 1600, "progress"],
 
@@ -622,37 +622,37 @@ export const commands = {
     () => {
       if (chance(60)) {
         return [
-          ["[OK] Credential match found", 400],
+          ["[OK] Credential match found", 200],
           [() => `user: ${pick(["admin","root","user"])}`, 250]
         ];
       } else {
-        return [["[OK] No valid credentials found", 400]];
+        return [["[OK] No valid credentials found", 200]];
       }
     },
     0,
     "branch"
   ],
 
-  ["[OK] Authentication brute-force simulation finished.", 700]
+  ["[OK] Authentication brute-force simulation finished.", 200]
 ],
 
 "shell inject --pid": [
-  [() => `[+] Attaching to process ${genPID()}...`, 400],
+  [() => `[+] Attaching to process ${genPID()}...`, 200],
 
-  ["[OK] Process handle acquired", 350],
-  ["[+] Resolving injection vector...", 400],
+  ["[OK] Process handle acquired", 250],
+  ["[+] Resolving injection vector...", 200],
 
   ["allocating memory", 1200, "progress"],
 
   [
     () => {
       if (chance(80)) {
-        return [["[OK] Payload injected successfully", 400]];
+        return [["[OK] Payload injected successfully", 200]];
       } else {
         return [
-          ["[WARN] Injection instability detected", 400],
-          ["[+] Retrying injection...", 500],
-          ["[OK] Payload injected successfully", 400]
+          ["[WARN] Injection instability detected", 200],
+          ["[+] Retrying injection...", 200],
+          ["[OK] Payload injected successfully", 200]
         ];
       }
     },
@@ -660,24 +660,24 @@ export const commands = {
     "branch"
   ],
 
-  ["[OK] Shell injection simulation finished.", 700]
+  ["[OK] Shell injection simulation finished.", 200]
 ],
 
 "fs scrape --profile": [
-  ["[+] Enumerating profile directories...", 400],
+  ["[+] Enumerating profile directories...", 200],
 
-  [() => `[OK] Matches found: ${rand(5,40)}`, 350],
+  [() => `[OK] Matches found: ${rand(5,40)}`, 250],
 
-  ["[+] Indexing file metadata...", 400],
+  ["[+] Indexing file metadata...", 200],
 
   [
     () => {
       if (chance(75)) {
-        return [["[+] Compressing matched files...", 500]];
+        return [["[+] Compressing matched files...", 200]];
       } else {
         return [
           ["[WARN] File read error", 400],
-          ["[+] Skipping corrupted entries...", 400]
+          ["[+] Skipping corrupted entries...", 200]
         ];
       }
     },
@@ -687,24 +687,24 @@ export const commands = {
 
   ["archiving data", 1500, "progress"],
 
-  ["[OK] File scrape simulation finished.", 700]
+  ["[OK] File scrape simulation finished.", 200]
 ],
 
 "cam hijack --auto": [
-  ["[+] Scanning for camera endpoints...", 400],
+  ["[+] Scanning for camera endpoints...", 200],
 
-  [() => `[OK] Streams detected: ${rand(1,5)}`, 350],
+  [() => `[OK] Streams detected: ${rand(1,5)}`, 250],
 
-  ["[+] Attempting credential injection...", 400],
+  ["[+] Attempting credential injection...", 200],
 
   [
     () => {
       if (chance(85)) {
-        return [["[OK] Access granted", 300]];
+        return [["[OK] Access granted", 200]];
       } else {
         return [
           ["[WARN] Access denied", 300],
-          ["[+] Retrying with fallback creds...", 400],
+          ["[+] Retrying with fallback creds...", 200],
           ["[OK] Access granted", 300]
         ];
       }
@@ -715,28 +715,28 @@ export const commands = {
 
   ["linking stream", 1300, "progress"],
 
-  ["[OK] Camera hijack simulation finished.", 700]
+  ["[OK] Camera hijack simulation finished.", 200]
 ],
 
 "log wipe --stealth": [
-  ["[+] Locating log segments...", 400],
+  ["[+] Locating log segments...", 200],
 
-  [() => `[OK] Entries matched: ${rand(10,120)}`, 350],
+  [() => `[OK] Entries matched: ${rand(10,120)}`, 250],
 
-  ["[+] Rewriting cached entries...", 450],
-  ["[+] Obfuscating timestamps...", 400],
+  ["[+] Rewriting cached entries...", 250],
+  ["[+] Obfuscating timestamps...", 200],
 
   ["sanitizing logs", 1400, "progress"],
 
   [
     () => {
       if (chance(90)) {
-        return [["[OK] Log wipe simulation finished.", 700]];
+        return [["[OK] Log wipe simulation finished.", 200]];
       } else {
         return [
-          ["[WARN] Residual trace detected", 400],
-          ["[+] Performing deep scrub...", 500],
-          ["[OK] Logs sanitized", 400]
+          ["[WARN] Residual trace detected", 200],
+          ["[+] Performing deep scrub...", 200],
+          ["[OK] Logs sanitized", 200]
         ];
       }
     },
@@ -746,9 +746,9 @@ export const commands = {
 ],
 
 "multi breach --all": [
-  ["[+] Launching composite operation suite...", 500],
-  ["[+] Initializing modules...", 400],
-  ["[+] Allocating shared resources...", 400],
+  ["[+] Launching composite operation suite...", 200],
+  ["[+] Initializing modules...", 200],
+  ["[+] Allocating shared resources...", 200],
 
   ["network recon", 1200, "progress"],
   ["credential testing", 1200, "progress"],
@@ -758,12 +758,12 @@ export const commands = {
   [
     () => {
       if (chance(80)) {
-        return [["[OK] All modules completed successfully", 500]];
+        return [["[OK] All modules completed successfully", 200]];
       } else {
         return [
-          ["[WARN] One or more modules unstable", 500],
-          ["[+] Re-running failed modules...", 700],
-          ["[OK] All modules completed successfully", 500]
+          ["[WARN] One or more modules unstable", 200],
+          ["[+] Re-running failed modules...", 200],
+          ["[OK] All modules completed successfully", 200]
         ];
       }
     },
@@ -771,104 +771,104 @@ export const commands = {
     "branch"
   ],
 
-  ["[+] Cleaning temporary artifacts...", 400],
+  ["[+] Cleaning temporary artifacts...", 200],
 
   ["finalizing operation", 1000, "progress"],
 
-  ["[!] Multi breach simulation finished.", 800]
+  ["[!] Multi breach simulation finished.", 200]
 ],
 
   "virus installer": [
-  ["[+] Initializing payload installer...", 400],
-  ["[+] Verifying system compatibility...", 400],
+  ["[+] Initializing payload installer...", 200],
+  ["[+] Verifying system compatibility...", 200],
   ["[OK]  OS: detected", 250],
   ["[OK]  User: admin", 250],
-  ["[OK]  Privileges: elevated", 300],
+  ["[OK]  Privileges: elevated", 200],
 
-  ["[+] Downloading payload from secure node...", 500],
+  ["[+] Downloading payload from secure node...", 200],
   ["     -> node-17.darknet.local", 250],
-  ["     -> handshake: AES-256 / RSA-4096", 300],
-  ["[OK]  Connection established", 400],
-  ["[+]  Payload chunks: 128", 300],
-  ["[####------] 32%  receiving...", 350],
-  ["[##########] 100%  download complete", 500],
+  ["     -> handshake: AES-256 / RSA-4096", 200],
+  ["[OK]  Connection established", 200],
+  ["[+]  Payload chunks: 128", 200],
+  ["[####------] 32%  receiving...", 250],
+  ["[##########] 100%  download complete", 200],
 
-  ["[+] Decrypting payload...", 450],
+  ["[+] Decrypting payload...", 250],
   ["     key: ********-********-********", 250],
-  ["[OK]  Decryption successful", 450],
-  ["[+] Scanning for sandbox / VM environment...", 500],
-  ["[OK]  No sandbox artifacts detected", 350],
-  ["[OK]  Hardware fingerprint accepted", 350],
+  ["[OK]  Decryption successful", 250],
+  ["[+] Scanning for sandbox / VM environment...", 200],
+  ["[OK]  No sandbox artifacts detected", 250],
+  ["[OK]  Hardware fingerprint accepted", 250],
 
-  ["[+] Installing core modules...", 500],
+  ["[+] Installing core modules...", 200],
   ["     -> injector.core", 200],
   ["     -> persistence.daemon", 200],
   ["     -> keyscan.engine", 200],
   ["     -> exfiltrator.stealth", 200],
-  ["[OK]  Modules staged", 450],
+  ["[OK]  Modules staged", 250],
 
-  ["[+] Writing registry hooks...", 450],
-  ["[OK]  Run-on-boot registered", 350],
-  ["[OK]  Startup entry masked as \"System Audio Service\"", 500],
+  ["[+] Writing registry hooks...", 250],
+  ["[OK]  Run-on-boot registered", 200],
+  ["[OK]  Startup entry masked as \"System Audio Service\"", 200],
 
-  ["[+] Injecting into running processes...", 500],
-  ["     target: explorer.exe          [INJECTED]", 300],
-  ["     target: browser.exe           [INJECTED]", 300],
-  ["     target: systemd (pid 1)       [INJECTED]", 350],
+  ["[+] Injecting into running processes...", 200],
+  ["     target: explorer.exe          [INJECTED]", 200],
+  ["     target: browser.exe           [INJECTED]", 200],
+  ["     target: systemd (pid 1)       [INJECTED]", 250],
 
   ["[+] Enumerating files for encryption...", 500],
-  ["     /home/user/Documents          [4123 files]", 300],
-  ["     /home/user/Desktop            [238 files]", 300],
-  ["     /home/user/Pictures           [938 files]", 300],
+  ["     /home/user/Documents          [4123 files]", 200],
+  ["     /home/user/Desktop            [238 files]", 200],
+  ["     /home/user/Pictures           [938 files]", 200],
 
-  ["[+] Generating encryption keys...", 450],
-  ["[OK]  Public key stored remotely", 350],
-  ["[OK]  Local key destroyed", 350],
+  ["[+] Generating encryption keys...", 250],
+  ["[OK]  Public key stored remotely", 250],
+  ["[OK]  Local key destroyed", 250],
 
-  ["[+] Encrypting user data...", 500],
-  ["[##--------] 17%  processing...", 350],
-  ["[#####-----] 54%  processing...", 350],
-  ["[#########-] 93%  processing...", 350],
-  ["[##########] 100% complete", 500],
+  ["[+] Encrypting user data...", 200],
+  ["[##--------] 17%  processing...", 200],
+  ["[#####-----] 54%  processing...", 250],
+  ["[#########-] 93%  processing...", 250],
+  ["[##########] 100% complete", 200],
 
-  ["[+] Establishing command & control channel...", 500],
-  ["     -> beacon sent to 185.231.***.***", 300],
-  ["[OK]  C2 handshake acknowledged", 350],
-  ["[OK]  Host registered: ID=HX-9F2A-7C", 450],
+  ["[+] Establishing command & control channel...", 200],
+  ["     -> beacon sent to 185.231.***.***", 200],
+  ["[OK]  C2 handshake acknowledged", 250],
+  ["[OK]  Host registered: ID=HX-9F2A-7C", 250],
 
-  ["[!] Installation complete.", 500],
-  ["[!] All personal files have been encrypted.", 500],
-  ["[!] To recover your data, send 100.000000 BTC to the displayed wallet address.", 700],
-  ["wallet: bc1Q-XXXX-XXXX-XXXX-XXXX", 700],
-  ["Press ENTER to acknowledge and close this window...", 900]
+  ["[!] Installation complete.", 200],
+  ["[!] All personal files have been encrypted.", 200],
+  ["[!] To recover your data, send 100.000000 BTC to the displayed wallet address.", 200],
+  ["wallet: bc1Q-XXXX-XXXX-XXXX-XXXX", 200],
+  ["Press ENTER to acknowledge and close this window...", 200]
 ],
 
   "grade changer": [
-  ["$ db-connect --target gradebook.university.local --as admin", 500],
+  ["$ db-connect --target gradebook.university.local --as admin", 200],
 
-  ["[+] Resolving gradebook.university.local...", 400],
-  ["[OK]  Host found: 10.24.7.13", 350],
-  ["[+] Opening TLS tunnel...", 400],
-  ["[OK]  Handshake complete (TLS1.3, AES-256-GCM)", 450],
+  ["[+] Resolving gradebook.university.local...", 200],
+  ["[OK]  Host found: 10.24.7.13", 250],
+  ["[+] Opening TLS tunnel...", 200],
+  ["[OK]  Handshake complete (TLS1.3, AES-256-GCM)", 250],
 
-  ["[+] Probing authentication endpoints...", 500],
+  ["[+] Probing authentication endpoints...", 200],
   ["     /api/v1/auth/login           [FOUND]", 250],
   ["     /api/v1/auth/admin-login     [FOUND]", 250],
   ["     /api/v1/grades/export        [FOUND]", 250],
 
-  ["[+] Checking for misconfigured admin route...", 500],
-  ["     /api/v1/admin/grades         [EXPOSED]", 350],
-  ["[!]  Admin endpoint accessible without MFA", 450],
+  ["[+] Checking for misconfigured admin route...", 200],
+  ["     /api/v1/admin/grades         [EXPOSED]", 250],
+  ["[!]  Admin endpoint accessible without MFA", 250],
 
-  ["[+] Attempting SQLi on admin login...", 500],
-  ["     payload: ' OR 1=1-- ", 350],
-  ["[OK]  Bypass successful", 450],
-  ["[OK]  Session token: 9f27c1d9-*****-*****-*****", 450],
+  ["[+] Attempting SQLi on admin login...", 200],
+  ["     payload: ' OR 1=1-- ", 250],
+  ["[OK]  Bypass successful", 250],
+  ["[OK]  Session token: 9f27c1d9-*****-*****-*****", 250],
 
-  ["[+] Fetching student record...", 500],
+  ["[+] Fetching student record...", 200],
   ["     student_id: 20251847", 250],
   ["     name      : DOE, JANE", 250],
-  ["[OK]  Record loaded", 400],
+  ["[OK]  Record loaded", 200],
 
   ["Current grades:", 350],
   ["     MATH-201   : 67.3%   (D)", 200],
@@ -876,22 +876,22 @@ export const commands = {
   ["     HIST-150   : 81.0%   (B-)", 200],
   ["     PHYS-110   : 58.9%   (F)", 250],
 
-  ["[+] Cloning grade table → backup_grades_2026_03_20...", 500],
-  ["[OK]  Backup created (rows: 3,284)", 450],
+  ["[+] Cloning grade table → backup_grades_2026_03_20...", 200],
+  ["[OK]  Backup created (rows: 3,284)", 250],
 
-  ["[+] Elevating all failing and borderline grades...", 500],
-  ["     Rule 1: any grade < 60.0 → 92.0 (A-)", 350],
-  ["     Rule 2: any grade < 75.0 → 89.0 (B+)", 350],
+  ["[+] Elevating all failing and borderline grades...", 200],
+  ["     Rule 1: any grade < 60.0 → 92.0 (A-)", 200],
+  ["     Rule 2: any grade < 75.0 → 89.0 (B+)", 250],
 
-  ["Applying rules to student_id=20251847...", 500],
+  ["Applying rules to student_id=20251847...", 200],
   ["     MATH-201   : 67.3%  → 89.0%   (B+)", 250],
   ["     CS-210     : 72.5%  → 89.0%   (B+)", 250],
   ["     PHYS-110   : 58.9%  → 92.0%   (A-)", 300],
   ["[OK]  Local changes staged", 450],
 
-  ["[+] Patching database...", 500],
-  ["[#####-----] 51% writing rows...", 350],
-  ["[##########] 100% committed", 500],
+  ["[+] Patching database...", 200],
+  ["[#####-----] 51% writing rows...", 250],
+  ["[##########] 100% committed", 200],
 
   ["Updated grades:", 350],
   ["     MATH-201   : 89.0%   (B+)", 200],
@@ -899,154 +899,154 @@ export const commands = {
   ["     HIST-150   : 81.0%   (B-)", 200],
   ["     PHYS-110   : 92.0%   (A-)", 250],
 
-  ["[+] Invalidating audit logs for this session...", 500],
-  ["[OK]  Audit trail sanitized", 500],
-  ["[OK]  Disconnected from gradebook.university.local", 500],
+  ["[+] Invalidating audit logs for this session...", 200],
+  ["[OK]  Audit trail sanitized", 200],
+  ["[OK]  Disconnected from gradebook.university.local", 200],
 
-  ["[!] Grade adjustment simulation complete.", 600],
-  ["[!] Changes visible on student portal in ~5 minutes.", 700]
+  ["[!] Grade adjustment simulation complete.", 200],
+  ["[!] Changes visible on student portal in ~5 minutes.", 200]
 ],
 
   "net hack": [
-  ["$ net scan --deep", 400],
+  ["$ net scan --deep", 200],
 
-  ["[+] Initializing deep network reconnaissance...", 400],
-  ["[+] Scanning subnet: 192.168.0.0/24", 400],
+  ["[+] Initializing deep network reconnaissance...", 200],
+  ["[+] Scanning subnet: 192.168.0.0/24", 200],
   ["     host 192.168.0.1    →  open ports: 22, 80, 443", 250],
   ["     host 192.168.0.12   →  open ports: 445, 3389", 250],
   ["     host 192.168.0.23   →  open ports: 21, 8080", 250],
 
-  ["[+] Running fingerprinting on discovered hosts...", 400],
+  ["[+] Running fingerprinting on discovered hosts...", 200],
   ["     192.168.0.1   →  device: router (Linux)", 250],
   ["     192.168.0.12  →  device: workstation (Windows)", 250],
   ["     192.168.0.23  →  device: NAS (Custom OS)", 250],
 
-  ["[+] Exporting scan report to /tmp/netscan_$(date +%s).log", 400],
-  ["[OK] Scan complete. Hosts discovered: 8, vulnerabilities: 12 (simulated)", 500]
+  ["[+] Exporting scan report to /tmp/netscan_$(date +%s).log", 200],
+  ["[OK] Scan complete. Hosts discovered: 8, vulnerabilities: 12 (simulated)", 200]
 ],
 
   "force login": [
-  ["$ auth brute --target login.server.local", 400],
+  ["$ auth brute --target login.server.local", 200],
 
-  ["[+] Target: login.server.local:443", 400],
-  ["[+] Loading password dictionary: rockyou-supreme.txt (1,234,567 entries)", 500],
-  ["[+] Starting distributed attack using 16 worker threads...", 500],
+  ["[+] Target: login.server.local:443", 200],
+  ["[+] Loading password dictionary: rockyou-supreme.txt (1,234,567 entries)", 200],
+  ["[+] Starting distributed attack using 16 worker threads...", 200],
 
-  ["[>] Attempts: 1,000      Rate: 250 req/s   Status: RUNNING", 300],
-  ["[>] Attempts: 25,000     Rate: 260 req/s   Status: RUNNING", 300],
-  ["[>] Attempts: 100,000    Rate: 270 req/s   Status: RUNNING", 300],
+  ["[>] Attempts: 1,000      Rate: 250 req/s   Status: RUNNING", 200],
+  ["[>] Attempts: 25,000     Rate: 260 req/s   Status: RUNNING", 200],
+  ["[>] Attempts: 100,000    Rate: 270 req/s   Status: RUNNING", 200],
 
-  ["[!] Possible credential match detected:", 400],
+  ["[!] Possible credential match detected:", 200],
   ["     user: admin", 250],
-  ["     pass: winter2026!", 300],
+  ["     pass: winter2026!", 200],
 
-  ["[+] Verifying credentials...", 400],
-  ["[OK] Login successful. Session token: 7a9f3e0b-****-****-****-************", 500],
-  ["[+] Attack halted. Credentials harvested.", 500]
+  ["[+] Verifying credentials...", 200],
+  ["[OK] Login successful. Session token: 7a9f3e0b-****-****-****-************", 200],
+  ["[+] Attack halted. Credentials harvested.", 200]
 ],
 
   "inject shell": [
-  ["$ shell inject --pid 1342", 400],
+  ["$ shell inject --pid 1342", 200],
 
-  ["[+] Attaching to process 1342...", 400],
-  ["[OK]  Process: browser.exe (x64)", 400],
+  ["[+] Attaching to process 1342...", 200],
+  ["[OK]  Process: browser.exe (x64)", 200],
 
-  ["[+] Resolving injection vectors...", 400],
+  ["[+] Resolving injection vectors...", 200],
   ["     -> remote thread", 250],
   ["     -> shellcode stub", 250],
 
-  ["[+] Allocating remote memory...", 400],
-  ["[OK]  4096 bytes reserved at 0x7ffeDEAD0000", 450],
+  ["[+] Allocating remote memory...", 200],
+  ["[OK]  4096 bytes reserved at 0x7ffeDEAD0000", 250],
 
-  ["[+] Writing payload to remote process...", 400],
-  ["[OK]  4096/4096 bytes written", 450],
+  ["[+] Writing payload to remote process...", 200],
+  ["[OK]  4096/4096 bytes written", 250],
 
-  ["[+] Creating remote thread at 0x7ffeDEAD0100...", 400],
-  ["[OK]  Thread started (tid: 4928)", 450],
+  ["[+] Creating remote thread at 0x7ffeDEAD0100...", 200],
+  ["[OK]  Thread started (tid: 4928)", 250],
 
-  ["[!] Interactive shell established inside process 1342", 500],
-  ["type 'exit' to detach", 600]
+  ["[!] Interactive shell established inside process 1342", 200],
+  ["type 'exit' to detach", 200]
 ],
 
   "scrape data": [
-  ["$ fs scrape --profile student01", 400],
+  ["$ fs scrape --profile student01", 200],
 
-  ["[+] Enumerating home directory for user: student01", 400],
+  ["[+] Enumerating home directory for user: student01", 200],
   ["     /home/student01/Documents      [154 files]", 250],
   ["     /home/student01/Downloads      [89 files]", 250],
   ["     /home/student01/Desktop        [23 files]", 250],
 
   ["[+] Searching for sensitive patterns:", 400],
-  ["     keywords: \"password\", \"grades\", \"bank\", \"secret\"", 350],
+  ["     keywords: \"password\", \"grades\", \"bank\", \"secret\"", 250],
 
-  ["[OK]  Candidate files:", 400],
+  ["[OK]  Candidate files:", 200],
   ["     - passwords.txt", 250],
   ["     - grades_backup.xlsx", 250],
   ["     - bank_statement_2025.pdf", 250],
 
-  ["[+] Compressing and encrypting archive...", 400],
-  ["     archive: student01_data.enc", 300],
-  ["[OK]  Archive created (52.3 MB), key stored remotely (simulated)", 500]
+  ["[+] Compressing and encrypting archive...", 200],
+  ["     archive: student01_data.enc", 200],
+  ["[OK]  Archive created (52.3 MB), key stored remotely (simulated)", 200]
 ],
 
   "camera hack": [
-  ["$ cam hijack --auto", 400],
+  ["$ cam hijack --auto", 200],
 
-  ["[+] Scanning for RTSP/ONVIF endpoints...", 400],
+  ["[+] Scanning for RTSP/ONVIF endpoints...", 200],
   ["     192.168.0.15:554  →  CAMERA-LOBBY", 250],
   ["     192.168.0.16:554  →  CAMERA-HALL", 250],
 
-  ["[+] Attempting default credential login (admin/admin)...", 400],
+  ["[+] Attempting default credential login (admin/admin)...", 200],
   ["     CAMERA-LOBBY  →  [OK]", 250],
   ["     CAMERA-HALL   →  [OK]", 250],
 
-  ["[+] Forcing stream reroute to local viewer...", 400],
-  ["[OK]  Stream proxy active on localhost:8554", 450],
+  ["[+] Forcing stream reroute to local viewer...", 200],
+  ["[OK]  Stream proxy active on localhost:8554", 250],
 
-  ["[!] Live feeds hijacked (simulation only).", 500],
-  ["Press CTRL+C to release feeds.", 600]
+  ["[!] Live feeds hijacked (simulation only).", 200],
+  ["Press CTRL+C to release feeds.", 200]
 ],
 
   "full wipe": [
-  ["$ full wipe --stealth", 400],
+  ["$ full wipe --stealth", 200],
 
-  ["[+] Locating security logs...", 400],
+  ["[+] Locating security logs...", 200],
   ["     /var/log/auth.log", 250],
   ["     /var/log/syslog", 250],
   ["     /var/log/nginx/access.log", 250],
 
-  ["[+] Filtering entries related to this session...", 400],
-  ["     found: 37 entries", 300],
+  ["[+] Filtering entries related to this session...", 200],
+  ["     found: 37 entries", 200],
 
-  ["[+] Rewriting IPs, timestamps, and user agents...", 400],
-  ["[OK]  Obfuscation pass complete", 450],
+  ["[+] Rewriting IPs, timestamps, and user agents...", 200],
+  ["[OK]  Obfuscation pass complete", 250],
 
-  ["[+] Compacting and re-indexing logs...", 400],
-  ["[OK]  Log integrity checks passed (fake)", 450],
+  ["[+] Compacting and re-indexing logs...", 200],
+  ["[OK]  Log integrity checks passed (fake)", 250],
 
-  ["[!] Trace for current session effectively erased (simulated).", 600]
+  ["[!] Trace for current session effectively erased (simulated).", 200]
 ],
 
   "breach all": [
-  ["$ breach all --all", 400],
+  ["$ breach all --all", 200],
 
-  ["[+] Launching composite attack suite:", 400],
+  ["[+] Launching composite attack suite:", 200],
   ["     1) Network reconnaissance", 250],
   ["     2) Credential harvesting", 250],
   ["     3) Privilege escalation", 250],
   ["     4) Data exfiltration", 250],
 
-  ["[+] Running modules in parallel...", 500],
+  ["[+] Running modules in parallel...", 200],
 
-  ["[1] net-recon       → completed (hosts: 24)", 300],
-  ["[2] cred-harvest    → completed (valid creds: 3)", 300],
-  ["[3] priv-esc        → completed (root/admin gained)", 300],
-  ["[4] data-exfil      → completed (archive: 2.4 GB)", 300],
+  ["[1] net-recon       → completed (hosts: 24)", 200],
+  ["[2] cred-harvest    → completed (valid creds: 3)", 200],
+  ["[3] priv-esc        → completed (root/admin gained)", 200],
+  ["[4] data-exfil      → completed (archive: 2.4 GB)", 200],
 
-  ["[+] Uploading archive to remote node...", 500],
-  ["[##########] 100% complete", 500],
+  ["[+] Uploading archive to remote node...", 200],
+  ["[##########] 100% complete", 200],
 
-  ["[!] Breach simulation finished. Target fully compromised (in theory).", 700]
+  ["[!] Breach simulation finished. Target fully compromised (in theory).", 200]
 ],
 
   
