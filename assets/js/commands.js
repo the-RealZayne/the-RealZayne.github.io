@@ -23,62 +23,6 @@ const glitchLines = [
   "!! unknown interrupt vector",
 ];
 
-export async function runCommand(commandName, writeLine) {
-  const cmd = commands[commandName];
-  if (!cmd) return;
-
-  for (let step of cmd) {
-    let [text, delay = 300, type] = step;
-
-    // ===== DYNAMIC VALUES =====
-    if (typeof text === "function") {
-      text = text();
-    }
-
-    // ===== GLITCH INJECTION (VERY RARE) =====
-    if (chance(2)) {
-      await writeLine(pick(glitchLines));
-    }
-
-    // ===== BRANCHING SUPPORT =====
-    if (type === "branch") {
-      const result = text(); // returns array of steps
-      await runInline(result, writeLine);
-      continue;
-    }
-
-    // ===== PROGRESS TYPE =====
-    if (type === "progress") {
-      await runProgress(text, delay, writeLine);
-      continue;
-    }
-
-    await writeLine(text);
-    await sleep(delay);
-  }
-}
-
-// helper
-const sleep = (ms) => new Promise(res => setTimeout(res, ms));
-
-async function runInline(steps, writeLine) {
-  for (let s of steps) {
-    let [text, delay = 300] = s;
-    if (typeof text === "function") text = text();
-    await writeLine(text);
-    await sleep(delay);
-  }
-}
-
-async function runProgress(label, duration, writeLine) {
-  const steps = 10;
-  for (let i = 1; i <= steps; i++) {
-    const bar = "#".repeat(i) + "-".repeat(steps - i);
-    await writeLine(`[${bar}] ${i * 10}% ${label}...`);
-    await sleep(duration / steps);
-  }
-}
-
 export const commands = {
   "sys flush": [
   ["[+] Initializing system flush sequence...", 500],
@@ -646,6 +590,62 @@ export const commands = {
     ["Loading RZ Code IDE...", 800]
   ]
 };
+
+export async function runCommand(commandName, writeLine) {
+  const cmd = commands[commandName];
+  if (!cmd) return;
+
+  for (let step of cmd) {
+    let [text, delay = 300, type] = step;
+
+    // ===== DYNAMIC VALUES =====
+    if (typeof text === "function") {
+      text = text();
+    }
+
+    // ===== GLITCH INJECTION (VERY RARE) =====
+    if (chance(2)) {
+      await writeLine(pick(glitchLines));
+    }
+
+    // ===== BRANCHING SUPPORT =====
+    if (type === "branch") {
+      const result = text(); // returns array of steps
+      await runInline(result, writeLine);
+      continue;
+    }
+
+    // ===== PROGRESS TYPE =====
+    if (type === "progress") {
+      await runProgress(text, delay, writeLine);
+      continue;
+    }
+
+    await writeLine(text);
+    await sleep(delay);
+  }
+}
+
+// helper
+const sleep = (ms) => new Promise(res => setTimeout(res, ms));
+
+async function runInline(steps, writeLine) {
+  for (let s of steps) {
+    let [text, delay = 300] = s;
+    if (typeof text === "function") text = text();
+    await writeLine(text);
+    await sleep(delay);
+  }
+}
+
+async function runProgress(label, duration, writeLine) {
+  const steps = 10;
+  for (let i = 1; i <= steps; i++) {
+    const bar = "#".repeat(i) + "-".repeat(steps - i);
+    await writeLine(`[${bar}] ${i * 10}% ${label}...`);
+    await sleep(duration / steps);
+  }
+}
 
 export const commandAliases = {
   "sys flush": "sys flush",
