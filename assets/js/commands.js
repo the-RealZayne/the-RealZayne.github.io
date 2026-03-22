@@ -72,7 +72,7 @@ export const commands = {
   [() => {
     if (Math.random() < 0.1) return glitchText("[!] System flush encountered minor hiccup... retrying");
     return "[!] System flush simulation finished.";
-  }, 700],
+  }, 700]
 ];
 
 "core sweep": [
