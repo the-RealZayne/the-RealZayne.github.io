@@ -378,4 +378,92 @@ color:black;
   font-family: 'Fira Code', 'Consolas', monospace;
 }
 
+/* ===== DESKTOP MODE ===== */
+
+.desktop {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  overflow: hidden;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ICONS */
+.desktop-icons {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.icon {
+  width: 80px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.icon span {
+  display: block;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* TASKBAR */
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: rgba(20, 20, 20, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  border-top: 1px solid #000;
+}
+
+/* START BUTTON */
+.start-btn {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px 10px;
+}
+
+.start-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* CLOCK */
+.taskbar-time {
+  font-size: 13px;
+}
+
+/* START MENU */
+.start-menu {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 200px;
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid #000;
+  display: none;
+  flex-direction: column;
+}
+
+.start-menu.open {
+  display: flex;
+}
+
+.start-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.start-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+
 
