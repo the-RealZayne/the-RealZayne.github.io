@@ -57,6 +57,10 @@ const points = items.map((item, i) => {
   };
 });
 
+function isMobile() {
+  return window.matchMedia("(max-width: 768px)").matches;
+}
+
 function drawSquareImage(img, x, y, size) {
   ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
 }
@@ -76,16 +80,18 @@ function draw() {
 
   const centerX = width / 2;
   const centerY = height / 2;
+  const mobile = isMobile();
 
   if (!isSphereMode) {
     const img = images[activeIndex];
     if (img.complete) {
-      const zoom = Math.min(width, height) / 1.5;
+      const zoom = mobile ? Math.min(width, height) / 1.9 : Math.min(width, height) / 1.5;
       drawSquareImage(img, centerX, centerY, zoom);
     }
     playBtn.classList.add("active");
   } else {
-    const radius = Math.min(width, height) / 2.5;
+    const radius = mobile ? Math.min(width, height) / 3.1 : Math.min(width, height) / 2.5;
+    const baseSize = mobile ? 72 : 110;
     let depthSorted = [];
 
     points.forEach((p, i) => {
@@ -103,7 +109,7 @@ function draw() {
 
     depthSorted.forEach(p => {
       const scale = 0.5 + (p.z + 1) / 2;
-      const size = 110 * scale;
+      const size = baseSize * scale;
       const x2d = centerX + p.x * radius;
       const y2d = centerY + p.y * radius;
 
