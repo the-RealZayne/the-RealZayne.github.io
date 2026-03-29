@@ -22,6 +22,8 @@ const playBtn = document.getElementById("play-button");
 let width, height;
 let rotationX = 0;
 let rotationY = 0;
+let targetRotationX = 0;
+let targetRotationY = 0;
 
 let isDragging = false;
 let dragDistance = 0;
@@ -29,7 +31,7 @@ let lastX = 0;
 let lastY = 0;
 
 let activeIndex = 0;
-let isSphereMode = false; // NEW: toggles between zoomed and sphere
+let isSphereMode = false;
 
 // preload images
 const images = items.map(item => {
@@ -53,11 +55,7 @@ resize();
 const points = items.map((item, i) => {
   const phi = Math.acos(-1 + (2 * i) / items.length);
   const theta = Math.sqrt(items.length * Math.PI) * phi;
-  return {
-    x: Math.cos(theta) * Math.sin(phi),
-    y: Math.sin(theta) * Math.sin(phi),
-    z: Math.cos(phi)
-  };
+  return { x: Math.cos(theta) * Math.sin(phi), y: Math.sin(theta) * Math.sin(phi), z: Math.cos(phi) };
 });
 
 // ===== DRAW LOOP =====
@@ -74,7 +72,7 @@ function draw() {
       const zoom = Math.min(width, height) / 1.5;
       ctx.drawImage(img, centerX - zoom / 2, centerY - zoom / 2, zoom, zoom);
     }
-    playBtn.classList.add("active"); // always show play in zoomed
+    playBtn.classList.add("active");
   } else {
     // ---- SPHERE VIEW ----
     const radius = Math.min(width, height) / 2.5;
@@ -99,14 +97,18 @@ function draw() {
       const x2d = centerX + p.x * radius;
       const y2d = centerY + p.y * radius;
 
-      ctx.globalAlpha = 0.5 + scale * 0.5;
+      // ---- DIM BACK IMAGES ----
+      ctx.globalAlpha = 0.2 + 0.8 * scale; // closer images more visible, far images dimmer
 
       if (images[p.i].complete) {
         ctx.drawImage(images[p.i], x2d - size / 2, y2d - size / 2, size, size);
       }
     });
 
-    // show play button only when not dragging
+    // smooth rotation interpolation
+    rotationX += (targetRotationX - rotationX) * 0.1;
+    rotationY += (targetRotationY - rotationY) * 0.1;
+
     if (!isDragging && dragDistance < 5) {
       playBtn.classList.add("active");
     } else {
@@ -125,7 +127,7 @@ canvas.addEventListener("mousedown", e => {
   dragDistance = 0;
   lastX = e.clientX;
   lastY = e.clientY;
-  isSphereMode = true; // enter sphere mode on drag
+  isSphereMode = true;
 });
 
 window.addEventListener("mouseup", () => {
@@ -140,8 +142,8 @@ window.addEventListener("mousemove", e => {
 
   dragDistance += Math.abs(dx) + Math.abs(dy);
 
-  rotationY += dx * 0.005;
-  rotationX += dy * 0.005;
+  targetRotationY += dx * 0.005;
+  targetRotationX += dy * 0.005;
 
   lastX = e.clientX;
   lastY = e.clientY;
