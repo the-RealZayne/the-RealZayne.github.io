@@ -1,54 +1,15 @@
 #video-sphere {
-  width: 100%;
   height: 600px;
-  margin-top: 3rem;
   position: relative;
 }
 
-.video-sphere-container {
+#video-sphere canvas {
   width: 100%;
   height: 100%;
-  position: relative;
-}
-
-#video-sphere-canvas {
-  width: 100%;
-  height: 100%;
+  display: block;
   cursor: grab;
 }
 
-#video-sphere-canvas:active {
+#video-sphere canvas:active {
   cursor: grabbing;
-}
-
-/* overlay UI */
-.video-title {
-  position: absolute;
-  left: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: white;
-  opacity: 0;
-  transition: 0.4s;
-}
-
-.video-title.active {
-  opacity: 1;
-}
-
-.video-desc {
-  position: absolute;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 200px;
-  color: #aaa;
-  opacity: 0;
-  transition: 0.4s;
-}
-
-.video-desc.active {
-  opacity: 1;
 }
