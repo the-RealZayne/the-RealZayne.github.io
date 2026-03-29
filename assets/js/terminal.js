@@ -279,6 +279,77 @@ async function loadRzCode() {
   setTimeout(initRzCodeTabs, 100);
 }
 
+function loadDesktop() {
+  // Hide input
+  document.querySelector(".input-line").style.display = "none";
+
+  // Change title
+  document.querySelector(".title").textContent = ":RZOS DESKTOP:";
+
+  // Replace terminal body
+  termBody.innerHTML = `
+    <div class="desktop">
+
+      <!-- DESKTOP ICONS -->
+      <div class="desktop-icons">
+        <div class="icon">
+          🗑️
+          <span>Recycle Bin</span>
+        </div>
+
+        <div class="icon">
+          💻
+          <span>This PC</span>
+        </div>
+      </div>
+
+      <!-- TASKBAR -->
+      <div class="taskbar">
+        <div class="start-btn" id="start-btn">🪟</div>
+
+        <div class="taskbar-time" id="taskbar-time">00:00</div>
+      </div>
+
+      <!-- START MENU -->
+      <div class="start-menu" id="start-menu">
+        <div class="start-item">Programs</div>
+        <div class="start-item">Settings</div>
+        <div class="start-item">Shut Down</div>
+      </div>
+
+    </div>
+  `;
+
+  initDesktop();
+}
+
+function initDesktop() {
+  const clock = document.getElementById("taskbar-time");
+  const startBtn = document.getElementById("start-btn");
+  const startMenu = document.getElementById("start-menu");
+
+  function updateClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    clock.textContent = time;
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Toggle start menu
+  startBtn.addEventListener("click", () => {
+    startMenu.classList.toggle("open");
+  });
+
+  // Click outside closes menu
+  document.addEventListener("click", (e) => {
+    if (!startBtn.contains(e.target) && !startMenu.contains(e.target)) {
+      startMenu.classList.remove("open");
+    }
+  });
+}
+
 function initRzCodeTabs() {
   const tabs = document.querySelectorAll(".rz-tab");
   const codeViews = document.querySelectorAll(".rz-code-view");
@@ -375,6 +446,14 @@ if (input && output && termBody) {
     loadRzCode();
     return;
   }
+
+  if (val === "open-desktop") {
+  await runCommand("open-desktop");
+  await typeLine("[+] Launching desktop environment...");
+  await loadingDots("Rendering UI", 1200);
+  loadDesktop();
+  return;
+ }    
 
   // TRY HACKER COMMANDS FIRST (commands.js)
   const hackerHandled = await runCommand(val);
