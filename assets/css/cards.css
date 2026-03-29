@@ -1,11 +1,23 @@
-/* CARD WRAPPER */
+/* =========================
+   CARD CONTAINER (optional)
+========================= */
+.about-card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* =========================
+   CARD WRAPPER
+========================= */
 .wrap {
+    --card-bg: url("https://assets.codepen.io/4787486/trees.png");
+
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     width: 85vmin;
     height: 65vmin;
-    margin: 2rem auto;
     border: 8px solid;
     border-image: linear-gradient(
         -50deg,
@@ -22,7 +34,9 @@
     overflow: hidden;
 }
 
-/* OVERLAY */
+/* =========================
+   OVERLAY
+========================= */
 .overlay {
     position: relative;
     display: flex;
@@ -34,7 +48,9 @@
     z-index: 1;
 }
 
-/* LEFT PANEL */
+/* =========================
+   LEFT PANEL
+========================= */
 .overlay-content {
     display: flex;
     flex-direction: column;
@@ -52,19 +68,29 @@
     transition: 0.3s ease-in-out 0.2s;
 }
 
-/* IMAGE */
+.card-subtitle {
+    color: white;
+    margin-bottom: 2.5rem;
+}
+
+/* =========================
+   IMAGE (DYNAMIC)
+========================= */
 .image-content {
     position: absolute;
     top: 0;
     right: 0;
     width: 60vmin;
     height: 100%;
-    background-image: url("https://assets.codepen.io/4787486/trees.png");
+    background-image: var(--card-bg);
     background-size: cover;
+    background-position: center;
     transition: 0.3s ease-in-out;
 }
 
-/* TEXT PANEL */
+/* =========================
+   TEXT PANEL
+========================= */
 .text {
     display: grid;
     position: absolute;
@@ -73,12 +99,31 @@
     width: 60vmin;
     height: 100%;
     padding: 3vmin 4vmin;
-    background: #fff;
-    box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / 0.4);
+    background: #ffffff;
+    color: #111;
+    box-shadow: inset 1px 1px 15px rgba(0, 0, 0, 0.4);
     overflow-y: auto;
 }
 
-/* DOTS */
+/* FIX GLOBAL P TAG CONFLICT */
+.text p {
+    color: inherit;
+    line-height: 1.5;
+}
+
+/* =========================
+   DARK MODE SUPPORT
+   (matches your toggle)
+========================= */
+body.dark-mode .text {
+    background: #1a1a1a;
+    color: #e0e0e0;
+    box-shadow: inset 1px 1px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* =========================
+   DOTS
+========================= */
 .dots {
     position: absolute;
     bottom: 1rem;
@@ -92,9 +137,12 @@
     height: 1rem;
     background: yellow;
     border-radius: 50%;
+    transition: 0.3s ease-in-out;
 }
 
-/* HOVER EFFECT */
+/* =========================
+   HOVER EFFECT
+========================= */
 .wrap:hover .overlay {
     transform: translateX(-60vmin);
 }
@@ -116,7 +164,9 @@
     background: white;
 }
 
-/* ANIMATIONS */
+/* =========================
+   ANIMATIONS
+========================= */
 .animate {
     animation-duration: 0.7s;
     animation-fill-mode: backwards;
@@ -147,7 +197,9 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* DELAYS */
+/* =========================
+   DELAYS
+========================= */
 .delay-2 { animation-delay: 0.6s; }
 .delay-4 { animation-delay: 1.2s; }
 .delay-5 { animation-delay: 1.5s; }
