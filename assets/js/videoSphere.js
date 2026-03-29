@@ -57,6 +57,19 @@ const points = items.map((item, i) => {
   };
 });
 
+function drawSquareImage(img, x, y, size) {
+  ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
+}
+
+function drawCircularImage(img, x, y, size) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
+  ctx.restore();
+}
+
 function draw() {
   ctx.clearRect(0, 0, width, height);
   ctx.globalAlpha = 1;
@@ -68,13 +81,12 @@ function draw() {
     const img = images[activeIndex];
     if (img.complete) {
       const zoom = Math.min(width, height) / 1.5;
-      ctx.globalAlpha = 1;
-      ctx.drawImage(img, centerX - zoom / 2, centerY - zoom / 2, zoom, zoom);
+      drawSquareImage(img, centerX, centerY, zoom);
     }
     playBtn.classList.add("active");
   } else {
     const radius = Math.min(width, height) / 2.5;
-    const depthSorted = [];
+    let depthSorted = [];
 
     points.forEach((p, i) => {
       let y = p.y * Math.cos(rotationX) - p.z * Math.sin(rotationX);
@@ -98,7 +110,11 @@ function draw() {
       ctx.globalAlpha = Math.max(0, Math.pow((p.z + 1) / 2, 3));
 
       if (images[p.i].complete) {
-        ctx.drawImage(images[p.i], x2d - size / 2, y2d - size / 2, size, size);
+        if (p.i === activeIndex) {
+          drawSquareImage(images[p.i], x2d, y2d, size * 1.15);
+        } else {
+          drawCircularImage(images[p.i], x2d, y2d, size);
+        }
       }
     });
 
