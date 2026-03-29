@@ -430,33 +430,6 @@ function getExplorerContent() {
   `;
 }
 
-function initDesktop() {
-  const clock = document.getElementById("taskbar-time");
-  const startBtn = document.getElementById("start-btn");
-  const startMenu = document.getElementById("start-menu");
-
-  function updateClock() {
-    const now = new Date();
-    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    clock.textContent = time;
-  }
-
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  // Toggle start menu
-  startBtn.addEventListener("click", () => {
-    startMenu.classList.toggle("open");
-  });
-
-  // Click outside closes menu
-  document.addEventListener("click", (e) => {
-    if (!startBtn.contains(e.target) && !startMenu.contains(e.target)) {
-      startMenu.classList.remove("open");
-    }
-  });
-}
-
 function initRzCodeTabs() {
   const tabs = document.querySelectorAll(".rz-tab");
   const codeViews = document.querySelectorAll(".rz-code-view");
