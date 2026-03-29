@@ -1,0 +1,156 @@
+/* CARD WRAPPER */
+.wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 85vmin;
+    height: 65vmin;
+    margin: 2rem auto;
+    border: 8px solid;
+    border-image: linear-gradient(
+        -50deg,
+        green,
+        #00b300,
+        forestgreen,
+        green,
+        lightgreen,
+        #00e600,
+        green
+    ) 1;
+    transition: 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* OVERLAY */
+.overlay {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0.75rem;
+    background: #186218;
+    transition: 0.4s ease-in-out;
+    z-index: 1;
+}
+
+/* LEFT PANEL */
+.overlay-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15vmin;
+    height: 100%;
+    padding: 0.5rem 0 0 0.5rem;
+    border: 3px solid;
+    border-image: linear-gradient(
+        to bottom,
+        #aea724 5%,
+        forestgreen 35% 65%,
+        #aea724 95%
+    ) 0 0 0 100%;
+    transition: 0.3s ease-in-out 0.2s;
+}
+
+/* IMAGE */
+.image-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    background-image: url("https://assets.codepen.io/4787486/trees.png");
+    background-size: cover;
+    transition: 0.3s ease-in-out;
+}
+
+/* TEXT PANEL */
+.text {
+    display: grid;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    padding: 3vmin 4vmin;
+    background: #fff;
+    box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / 0.4);
+    overflow-y: auto;
+}
+
+/* DOTS */
+.dots {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 1rem;
+    height: 1rem;
+    background: yellow;
+    border-radius: 50%;
+}
+
+/* HOVER EFFECT */
+.wrap:hover .overlay {
+    transform: translateX(-60vmin);
+}
+
+.wrap:hover .image-content {
+    width: 30vmin;
+}
+
+.wrap:hover .overlay-content {
+    border: none;
+    transform: translateX(60vmin);
+}
+
+.wrap:hover .dots {
+    transform: translateX(1rem);
+}
+
+.wrap:hover .dot {
+    background: white;
+}
+
+/* ANIMATIONS */
+.animate {
+    animation-duration: 0.7s;
+    animation-fill-mode: backwards;
+}
+
+.pop { animation-name: pop; }
+.slide { animation-name: slide; }
+.slide-left { animation-name: slide-left; }
+.slide-up { animation-name: slide-up; }
+
+@keyframes pop {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide {
+    from { opacity: 0; transform: translateX(4em); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-left {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-up {
+    from { opacity: 0; transform: translateY(3em); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* DELAYS */
+.delay-2 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 1.2s; }
+.delay-5 { animation-delay: 1.5s; }
+.delay-6 { animation-delay: 1.8s; }
+.delay-7 { animation-delay: 2.1s; }
+.delay-8 { animation-delay: 2.4s; }
