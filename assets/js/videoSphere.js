@@ -15,21 +15,24 @@ const items = videos.map((id, i) => ({
 const canvas = document.getElementById("video-sphere-canvas");
 const ctx = canvas.getContext("2d");
 
+const playBtn = document.getElementById("play-button");
+
 let width, height;
 let rotationX = 0;
 let rotationY = 0;
 
 let isDragging = false;
+let dragDistance = 0;
 let lastX = 0;
 let lastY = 0;
 
-let images = [];
+let activeIndex = 0;
 
 // preload images
-items.forEach(item => {
+const images = items.map(item => {
   const img = new Image();
   img.src = item.image;
-  images.push(img);
+  return img;
 });
 
 function resize() {
@@ -53,7 +56,7 @@ const points = items.map((item, i) => {
   };
 });
 
-// ===== DRAW =====
+// ===== DRAW LOOP =====
 function draw() {
   ctx.clearRect(0, 0, width, height);
 
@@ -78,11 +81,13 @@ function draw() {
   // sort by depth
   depthSorted.sort((a, b) => b.z - a.z);
 
-  let activeIndex = depthSorted[0].i;
+  // front item
+  activeIndex = depthSorted[0].i;
 
+  // draw items
   depthSorted.forEach(p => {
-    const scale = 0.5 + (p.z + 1) / 2; // depth scale
-    const size = 100 * scale;
+    const scale = 0.5 + (p.z + 1) / 2;
+    const size = 110 * scale;
 
     const x2d = centerX + p.x * radius;
     const y2d = centerY + p.y * radius;
@@ -98,6 +103,13 @@ function draw() {
     );
   });
 
+  // PLAY BUTTON VISIBILITY
+  if (!isDragging && dragDistance < 5) {
+    playBtn.classList.add("active");
+  } else {
+    playBtn.classList.remove("active");
+  }
+
   requestAnimationFrame(draw);
 }
 
@@ -106,6 +118,7 @@ draw();
 // ===== DRAG CONTROLS =====
 canvas.addEventListener("mousedown", e => {
   isDragging = true;
+  dragDistance = 0;
   lastX = e.clientX;
   lastY = e.clientY;
 });
@@ -120,6 +133,8 @@ window.addEventListener("mousemove", e => {
   const dx = e.clientX - lastX;
   const dy = e.clientY - lastY;
 
+  dragDistance += Math.abs(dx) + Math.abs(dy);
+
   rotationY += dx * 0.005;
   rotationX += dy * 0.005;
 
@@ -127,27 +142,8 @@ window.addEventListener("mousemove", e => {
   lastY = e.clientY;
 });
 
-// ===== CLICK =====
-canvas.addEventListener("click", () => {
-  const front = getFrontItem();
-  window.open(front.link, "_blank");
+// ===== PLAY BUTTON CLICK =====
+playBtn.addEventListener("click", () => {
+  const video = items[activeIndex];
+  window.open(video.link, "_blank");
 });
-
-function getFrontItem() {
-  let best = -Infinity;
-  let index = 0;
-
-  points.forEach((p, i) => {
-    let y = p.y * Math.cos(rotationX) - p.z * Math.sin(rotationX);
-    let z = p.y * Math.sin(rotationX) + p.z * Math.cos(rotationX);
-    let x = p.x * Math.cos(rotationY) - z * Math.sin(rotationY);
-    z = p.x * Math.sin(rotationY) + z * Math.cos(rotationY);
-
-    if (z > best) {
-      best = z;
-      index = i;
-    }
-  });
-
-  return items[index];
-}
