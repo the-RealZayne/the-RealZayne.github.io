@@ -27,6 +27,10 @@ let isDragging = false;
 let dragDistance = 0;
 let lastX = 0;
 let lastY = 0;
+let lastTime = 0;
+
+let velocityX = 0;
+let velocityY = 0;
 
 let activeIndex = 0;
 let isSphereMode = false;
@@ -125,6 +129,15 @@ function draw() {
     });
 
     ctx.globalAlpha = 1;
+
+    if (!isDragging) {
+      targetRotationY += velocityY * 2.5;
+      targetRotationX += velocityX * 2.5;
+
+      velocityY *= 0.98;
+      velocityX *= 0.98;
+    }
+
     rotationX += (targetRotationX - rotationX) * 0.1;
     rotationY += (targetRotationY - rotationY) * 0.1;
 
@@ -144,6 +157,9 @@ canvas.addEventListener("pointerdown", e => {
   dragDistance = 0;
   lastX = e.clientX;
   lastY = e.clientY;
+  lastTime = performance.now();
+  velocityX = 0;
+  velocityY = 0;
   isSphereMode = true;
   canvas.setPointerCapture?.(e.pointerId);
 });
@@ -155,15 +171,22 @@ window.addEventListener("pointerup", () => {
 window.addEventListener("pointermove", e => {
   if (!isDragging || !isSphereMode) return;
 
+  const now = performance.now();
   const dx = e.clientX - lastX;
   const dy = e.clientY - lastY;
+  const dt = Math.max(now - lastTime, 1);
 
   dragDistance += Math.abs(dx) + Math.abs(dy);
+
+  velocityX = dy / dt;
+  velocityY = dx / dt;
+
   targetRotationY += dx * 0.005;
   targetRotationX += dy * 0.005;
 
   lastX = e.clientX;
   lastY = e.clientY;
+  lastTime = now;
 });
 
 playBtn.addEventListener("click", () => {
