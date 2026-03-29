@@ -284,45 +284,44 @@ function loadDesktop() {
   document.querySelector(".title").textContent = ":RZOS DESKTOP:";
 
   termBody.innerHTML = `
-    <div class="desktop">
+<div class="desktop">
 
-      <!-- DESKTOP ICONS -->
-      <div class="desktop-icons">
-        <div class="icon" data-app="explorer">
-          💻
-          <span>This PC</span>
-        </div>
+  <!-- ICON GRID -->
+  <div class="desktop-icons">
+    <div class="icon" data-app="explorer">💻<span>This PC</span></div>
+    <div class="icon" data-app="recycle">🗑️<span>Recycle Bin</span></div>
+  </div>
 
-        <div class="icon" data-app="recycle">
-          🗑️
-          <span>Recycle Bin</span>
-        </div>
-      </div>
-
-      <!-- START MENU -->
-      <div class="start-menu" id="start-menu">
-        <div class="start-app" data-app="explorer">File Explorer</div>
-        <div class="start-app" data-app="notepad">Notepad</div>
-      </div>
-
-      <!-- TASKBAR -->
-      <div class="taskbar">
-        <div class="taskbar-center">
-          <div class="task-icon" id="start-btn">🪟</div>
-          <div class="task-icon" data-app="explorer">📁</div>
-          <div class="task-icon" data-app="notepad">📝</div>
-        </div>
-
-        <div class="taskbar-right">
-          <span id="taskbar-time"></span>
-        </div>
-      </div>
-
-      <!-- WINDOWS CONTAINER -->
-      <div id="window-layer"></div>
-
+  <!-- START MENU -->
+  <div class="start-menu" id="start-menu">
+    <div class="start-grid">
+      <div class="start-item" data-app="explorer">📁 Explorer</div>
+      <div class="start-item" data-app="notepad">📝 Notepad</div>
     </div>
-  `;
+
+    <div class="start-recommended">
+      <p>Recommended</p>
+      <div class="rec-item">readme.txt</div>
+    </div>
+  </div>
+
+  <!-- TASKBAR -->
+  <div class="taskbar">
+    <div class="taskbar-inner">
+      <div class="task-icon" id="start-btn">🪟</div>
+      <div class="task-icon" data-app="explorer">📁</div>
+      <div class="task-icon" data-app="notepad">📝</div>
+    </div>
+
+    <div class="taskbar-right">
+      <span id="taskbar-time"></span>
+    </div>
+  </div>
+
+  <div id="window-layer"></div>
+
+</div>
+`;
 
   initDesktop();
 }
