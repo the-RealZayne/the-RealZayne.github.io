@@ -6,7 +6,7 @@ const videos = [
 ];
 
 const items = videos.map((id, i) => ({
-  image: `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
+  image: `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
   link: `https://www.youtube.com/watch?v=${id}`,
   title: `Video ${i + 1}`
 }));
@@ -14,7 +14,6 @@ const items = videos.map((id, i) => ({
 // ===== SETUP =====
 const canvas = document.getElementById("video-sphere-canvas");
 const ctx = canvas.getContext("2d");
-
 const playBtn = document.getElementById("play-button");
 
 let width, height;
@@ -35,12 +34,15 @@ const images = items.map(item => {
   return img;
 });
 
+// resize fix
 function resize() {
-  width = canvas.clientWidth;
-  height = canvas.clientHeight;
+  const rect = canvas.getBoundingClientRect();
+  width = rect.width;
+  height = rect.height;
   canvas.width = width;
   canvas.height = height;
 }
+
 window.addEventListener("resize", resize);
 resize();
 
@@ -67,24 +69,19 @@ function draw() {
   let depthSorted = [];
 
   points.forEach((p, i) => {
-    // rotate X
     let y = p.y * Math.cos(rotationX) - p.z * Math.sin(rotationX);
     let z = p.y * Math.sin(rotationX) + p.z * Math.cos(rotationX);
 
-    // rotate Y
     let x = p.x * Math.cos(rotationY) - z * Math.sin(rotationY);
     z = p.x * Math.sin(rotationY) + z * Math.cos(rotationY);
 
     depthSorted.push({ x, y, z, i });
   });
 
-  // sort by depth
   depthSorted.sort((a, b) => b.z - a.z);
 
-  // front item
   activeIndex = depthSorted[0].i;
 
-  // draw items
   depthSorted.forEach(p => {
     const scale = 0.5 + (p.z + 1) / 2;
     const size = 110 * scale;
@@ -94,16 +91,18 @@ function draw() {
 
     ctx.globalAlpha = 0.5 + scale * 0.5;
 
-    ctx.drawImage(
-      images[p.i],
-      x2d - size / 2,
-      y2d - size / 2,
-      size,
-      size
-    );
+    if (images[p.i].complete) {
+      ctx.drawImage(
+        images[p.i],
+        x2d - size / 2,
+        y2d - size / 2,
+        size,
+        size
+      );
+    }
   });
 
-  // PLAY BUTTON VISIBILITY
+  // show play button only when not dragging
   if (!isDragging && dragDistance < 5) {
     playBtn.classList.add("active");
   } else {
@@ -115,7 +114,7 @@ function draw() {
 
 draw();
 
-// ===== DRAG CONTROLS =====
+// ===== DRAG =====
 canvas.addEventListener("mousedown", e => {
   isDragging = true;
   dragDistance = 0;
@@ -142,7 +141,7 @@ window.addEventListener("mousemove", e => {
   lastY = e.clientY;
 });
 
-// ===== PLAY BUTTON CLICK =====
+// ===== PLAY BUTTON =====
 playBtn.addEventListener("click", () => {
   const video = items[activeIndex];
   window.open(video.link, "_blank");
