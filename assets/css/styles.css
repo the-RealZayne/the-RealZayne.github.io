@@ -321,46 +321,20 @@ div[style*="display: flex"][style*="gap: 12px"] img {
   .devcard-wide img {
     max-width: 652px;      /* Matches your original wide width */
   }
-}
-
-/* About Me - Desert hover effect */
-.nav-menu li:nth-child(2) {
-    position: relative;
-    display: inline-block;
-}
-
-.nav-menu li:nth-child(2)::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: radial-gradient(rgba(255, 69, 0, 0.3), transparent);
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    z-index: 1;
-    pointer-events: none;
-}
-
-.nav-menu li:nth-child(2):hover::before {
-    opacity: 0.6;
-}
-
+}/* About Me - Forest hover effect */
 .nav-menu li:nth-child(2) a {
     position: relative;
-    z-index: 2;
-    transition: all 0.5s ease;
+    color: transparent;
+    -webkit-text-stroke: 2px #FF4500;
+    text-shadow: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-block;
 }
 
-/* Desert-style text movement on hover */
-.nav-menu li:nth-child(2):hover a {
-    position: absolute;
-    left: 10px;
-    top: -5px;
-    letter-spacing: 2px;
-    text-shadow: 0 10px 25px rgba(255, 69, 0, 0.8);
-    transform: scale(1.1);
+.nav-menu li:nth-child(2) a:hover {
+    color: #FF4500;
+    -webkit-text-stroke: 2px transparent;
+    text-shadow: 0 10px 20px rgba(255, 69, 0, 0.6);
+    transform: scale(1.3);
 }
 
