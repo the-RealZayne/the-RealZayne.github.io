@@ -596,3 +596,113 @@ color:black;
   outline: none;
 }
 
+.desktop {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: url("https://wallpaperaccess.com/full/2637581.jpg") center/cover;
+}
+
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+}
+
+.icon {
+  width: 70px;
+  text-align: center;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+.icon span {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  backdrop-filter: blur(20px);
+  background: rgba(20,20,20,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.taskbar-inner {
+  display: flex;
+  gap: 12px;
+}
+
+.taskbar-right {
+  position: absolute;
+  right: 15px;
+  color: white;
+  font-size: 12px;
+}
+
+.start-menu {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  width: 500px;
+  background: rgba(30,30,30,0.85);
+  backdrop-filter: blur(30px);
+  border-radius: 16px;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+.start-menu.open {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+.start-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.start-item {
+  background: rgba(255,255,255,0.05);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.start-recommended {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.window {
+  position: absolute;
+  width: 400px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.window-header {
+  background: #2a2a2a;
+  padding: 8px;
+  cursor: grab;
+  display: flex;
+  justify-content: space-between;
+}
+
