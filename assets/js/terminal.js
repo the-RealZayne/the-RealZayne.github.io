@@ -279,6 +279,28 @@ async function loadRzCode() {
   setTimeout(initRzCodeTabs, 100);
 }
 
+const fileSystem = {
+  "This PC": {
+    "Desktop": {},
+    "Documents": {
+      "notes.txt": "These are your notes...",
+      "projects": {}
+    },
+    "Downloads": {
+      "installer.exe": "binary data..."
+    },
+    "Pictures": {
+      "wallpaper.jpg": "image data..."
+    },
+    "Music": {},
+    "Videos": {},
+    "System": {
+      "Control Panel": {},
+      "System32": {}
+    }
+  }
+};
+
 function loadDesktop() {
   document.querySelector(".input-line").style.display = "none";
   document.querySelector(".title").textContent = ":RZOS DESKTOP:";
@@ -307,16 +329,19 @@ function loadDesktop() {
 
   <!-- TASKBAR -->
   <div class="taskbar">
-    <div class="taskbar-inner">
-      <div class="task-icon" id="start-btn">🪟</div>
-      <div class="task-icon" data-app="explorer">📁</div>
-      <div class="task-icon" data-app="notepad">📝</div>
-    </div>
-
-    <div class="taskbar-right">
-      <span id="taskbar-time"></span>
-    </div>
+  <div class="taskbar-left">
+    <div class="task-icon" id="start-btn">🪟</div>
   </div>
+
+  <div class="taskbar-center">
+    <div class="task-icon" data-app="explorer">📁</div>
+    <div class="task-icon" data-app="terminal">💻</div>
+  </div>
+
+  <div class="taskbar-right">
+    <span id="taskbar-time"></span>
+  </div>
+</div>
 
   <div id="window-layer"></div>
 
@@ -361,9 +386,44 @@ function initDesktop() {
     let content = "";
 
     if (app === "explorer") {
-      content = getExplorerContent();
-    }
+  content = "";
+}
 
+    if (app === "terminal") {
+  content = `
+    <div class="mini-terminal">
+      <div class="mini-output"></div>
+      <input class="mini-input" placeholder="type command..." />
+    </div>
+  `;
+}
+
+    if (app === "terminal") {
+  const input = win.querySelector(".mini-input");
+  const output = win.querySelector(".mini-output");
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const cmd = input.value;
+      output.innerHTML += `<div>> ${cmd}</div>`;
+
+      if (cmd === "help") {
+        output.innerHTML += "<div>dir | echo | clear</div>";
+      } else if (cmd === "dir") {
+        output.innerHTML += "<div>Documents Downloads Pictures</div>";
+      } else if (cmd.startsWith("echo ")) {
+        output.innerHTML += `<div>${cmd.slice(5)}</div>`;
+      } else if (cmd === "clear") {
+        output.innerHTML = "";
+      } else {
+        output.innerHTML += "<div>Unknown command</div>";
+      }
+
+      input.value = "";
+    }
+  });
+}
+    
     if (app === "notepad") {
       content = `<textarea class="notepad"></textarea>`;
     }
@@ -390,6 +450,11 @@ function initDesktop() {
 
     windowLayer.appendChild(win);
   }
+
+  if (app === "explorer") {
+  const explorer = createExplorer();
+  win.querySelector(".window-body").appendChild(explorer);
+}
 
   // ICON CLICK
   document.querySelectorAll("[data-app]").forEach(el => {
@@ -418,15 +483,67 @@ function makeDraggable(win) {
   document.addEventListener("mouseup", () => dragging = false);
 }
 
-function getExplorerContent() {
-  return `
-    <div class="explorer">
-      <div class="folder">📁 Projects</div>
-      <div class="folder">📁 Music</div>
-      <div class="folder">📁 Games</div>
-      <div class="file">📄 readme.txt</div>
-    </div>
-  `;
+function createExplorer(startPath = ["This PC"]) {
+  let currentPath = [...startPath];
+
+  const container = document.createElement("div");
+  container.className = "explorer";
+
+  const pathBar = document.createElement("div");
+  pathBar.className = "explorer-path";
+
+  const content = document.createElement("div");
+  content.className = "explorer-content";
+
+  function getFolder(path) {
+    return path.reduce((acc, key) => acc[key], fileSystem);
+  }
+
+  function render() {
+    const folder = getFolder(currentPath);
+
+    pathBar.innerHTML = currentPath.join(" / ");
+    content.innerHTML = "";
+
+    // BACK BUTTON
+    if (currentPath.length > 1) {
+      const back = document.createElement("div");
+      back.className = "file folder";
+      back.textContent = "⬅ Back";
+      back.onclick = () => {
+        currentPath.pop();
+        render();
+      };
+      content.appendChild(back);
+    }
+
+    Object.keys(folder).forEach(name => {
+      const item = document.createElement("div");
+      item.className = "file";
+
+      const isFolder = typeof folder[name] === "object";
+
+      item.innerHTML = `${isFolder ? "📁" : "📄"} ${name}`;
+
+      item.onclick = () => {
+        if (isFolder) {
+          currentPath.push(name);
+          render();
+        } else {
+          alert(folder[name]); // open file
+        }
+      };
+
+      content.appendChild(item);
+    });
+  }
+
+  container.appendChild(pathBar);
+  container.appendChild(content);
+
+  render();
+
+  return container;
 }
 
 function initRzCodeTabs() {
