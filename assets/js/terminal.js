@@ -280,47 +280,154 @@ async function loadRzCode() {
 }
 
 function loadDesktop() {
-  // Hide input
   document.querySelector(".input-line").style.display = "none";
-
-  // Change title
   document.querySelector(".title").textContent = ":RZOS DESKTOP:";
 
-  // Replace terminal body
   termBody.innerHTML = `
     <div class="desktop">
 
       <!-- DESKTOP ICONS -->
       <div class="desktop-icons">
-        <div class="icon">
-          🗑️
-          <span>Recycle Bin</span>
-        </div>
-
-        <div class="icon">
+        <div class="icon" data-app="explorer">
           💻
           <span>This PC</span>
         </div>
-      </div>
 
-      <!-- TASKBAR -->
-      <div class="taskbar">
-        <div class="start-btn" id="start-btn">🪟</div>
-
-        <div class="taskbar-time" id="taskbar-time">00:00</div>
+        <div class="icon" data-app="recycle">
+          🗑️
+          <span>Recycle Bin</span>
+        </div>
       </div>
 
       <!-- START MENU -->
       <div class="start-menu" id="start-menu">
-        <div class="start-item">Programs</div>
-        <div class="start-item">Settings</div>
-        <div class="start-item">Shut Down</div>
+        <div class="start-app" data-app="explorer">File Explorer</div>
+        <div class="start-app" data-app="notepad">Notepad</div>
       </div>
+
+      <!-- TASKBAR -->
+      <div class="taskbar">
+        <div class="taskbar-center">
+          <div class="task-icon" id="start-btn">🪟</div>
+          <div class="task-icon" data-app="explorer">📁</div>
+          <div class="task-icon" data-app="notepad">📝</div>
+        </div>
+
+        <div class="taskbar-right">
+          <span id="taskbar-time"></span>
+        </div>
+      </div>
+
+      <!-- WINDOWS CONTAINER -->
+      <div id="window-layer"></div>
 
     </div>
   `;
 
   initDesktop();
+}
+
+function initDesktop() {
+  const clock = document.getElementById("taskbar-time");
+  const startBtn = document.getElementById("start-btn");
+  const startMenu = document.getElementById("start-menu");
+  const windowLayer = document.getElementById("window-layer");
+
+  let zIndex = 10;
+
+  function updateClock() {
+    const now = new Date();
+    clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // START MENU
+  startBtn.onclick = () => startMenu.classList.toggle("open");
+
+  document.addEventListener("click", (e) => {
+    if (!startBtn.contains(e.target) && !startMenu.contains(e.target)) {
+      startMenu.classList.remove("open");
+    }
+  });
+
+  // OPEN APP
+  function openApp(app) {
+    const win = document.createElement("div");
+    win.className = "window";
+    win.style.top = "100px";
+    win.style.left = "100px";
+    win.style.zIndex = zIndex++;
+
+    let content = "";
+
+    if (app === "explorer") {
+      content = getExplorerContent();
+    }
+
+    if (app === "notepad") {
+      content = `<textarea class="notepad"></textarea>`;
+    }
+
+    win.innerHTML = `
+      <div class="window-header">
+        <span>${app}</span>
+        <div class="window-controls">
+          <span class="close">✕</span>
+        </div>
+      </div>
+      <div class="window-body">${content}</div>
+    `;
+
+    // Close
+    win.querySelector(".close").onclick = () => win.remove();
+
+    // Focus
+    win.addEventListener("mousedown", () => {
+      win.style.zIndex = zIndex++;
+    });
+
+    makeDraggable(win);
+
+    windowLayer.appendChild(win);
+  }
+
+  // ICON CLICK
+  document.querySelectorAll("[data-app]").forEach(el => {
+    el.addEventListener("dblclick", () => openApp(el.dataset.app));
+    el.addEventListener("click", () => openApp(el.dataset.app));
+  });
+}
+
+function makeDraggable(win) {
+  const header = win.querySelector(".window-header");
+
+  let offsetX = 0, offsetY = 0, dragging = false;
+
+  header.addEventListener("mousedown", (e) => {
+    dragging = true;
+    offsetX = e.clientX - win.offsetLeft;
+    offsetY = e.clientY - win.offsetTop;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+    win.style.left = (e.clientX - offsetX) + "px";
+    win.style.top = (e.clientY - offsetY) + "px";
+  });
+
+  document.addEventListener("mouseup", () => dragging = false);
+}
+
+function getExplorerContent() {
+  return `
+    <div class="explorer">
+      <div class="folder">📁 Projects</div>
+      <div class="folder">📁 Music</div>
+      <div class="folder">📁 Games</div>
+      <div class="file">📄 readme.txt</div>
+    </div>
+  `;
 }
 
 function initDesktop() {
