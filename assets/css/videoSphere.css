@@ -59,3 +59,20 @@
 #play-button.active {
   transform: translate(-50%, -50%) scale(1);
 }
+
+@media (max-width: 768px) {
+  #video-sphere {
+    height: 420px;
+  }
+
+  #video-sphere-canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  #play-button {
+    width: 68px;
+    height: 68px;
+    font-size: 28px;
+  }
+}
