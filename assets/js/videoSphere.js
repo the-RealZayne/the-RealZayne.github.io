@@ -1,3 +1,5 @@
+const { mat4, vec3, quat } = glMatrix;
+
 // ===== YOUTUBE DATA =====
 const videos = [
   "59QBOO6m210","skD7r0yWOG4","PQdVTMZQtAk","zFjLSlTMV2k",
@@ -5,149 +7,171 @@ const videos = [
   "V1TzrETCBTo","tpwe69g_7Sg","u43VXCNzVsY"
 ];
 
-const items = videos.map((id, i) => ({
+const items = videos.map(id => ({
   image: `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
-  link: `https://www.youtube.com/watch?v=${id}`,
-  title: `Video ${i + 1}`
+  link: `https://www.youtube.com/watch?v=${id}`
 }));
 
-// ===== SETUP =====
-const canvas = document.getElementById("video-sphere-canvas");
-const ctx = canvas.getContext("2d");
+// ===== ARC BALL CONTROL (PORTED) =====
+class Arcball {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.orientation = quat.create();
+    this.pointerRotation = quat.create();
+    this.isDown = false;
 
-let width, height;
-let rotationX = 0;
-let rotationY = 0;
+    this.last = [0,0];
 
-let isDragging = false;
-let lastX = 0;
-let lastY = 0;
+    canvas.addEventListener("mousedown", e=>{
+      this.isDown = true;
+      this.last = [e.clientX, e.clientY];
+    });
 
-let images = [];
+    window.addEventListener("mouseup", ()=> this.isDown=false);
 
-// preload images
-items.forEach(item => {
-  const img = new Image();
-  img.src = item.image;
-  images.push(img);
-});
+    window.addEventListener("mousemove", e=>{
+      if(!this.isDown) return;
 
-function resize() {
-  width = canvas.clientWidth;
-  height = canvas.clientHeight;
-  canvas.width = width;
-  canvas.height = height;
-}
-window.addEventListener("resize", resize);
-resize();
+      let dx = e.clientX - this.last[0];
+      let dy = e.clientY - this.last[1];
 
-// ===== CREATE SPHERE POINTS =====
-const points = items.map((item, i) => {
-  const phi = Math.acos(-1 + (2 * i) / items.length);
-  const theta = Math.sqrt(items.length * Math.PI) * phi;
+      this.last = [e.clientX, e.clientY];
 
-  return {
-    x: Math.cos(theta) * Math.sin(phi),
-    y: Math.sin(theta) * Math.sin(phi),
-    z: Math.cos(phi)
-  };
-});
+      const rotX = quat.setAxisAngle(quat.create(), [1,0,0], dy*0.005);
+      const rotY = quat.setAxisAngle(quat.create(), [0,1,0], dx*0.005);
 
-// ===== DRAW =====
-function draw() {
-  ctx.clearRect(0, 0, width, height);
-
-  const radius = Math.min(width, height) / 2.5;
-  const centerX = width / 2;
-  const centerY = height / 2;
-
-  let depthSorted = [];
-
-  points.forEach((p, i) => {
-    // rotate X
-    let y = p.y * Math.cos(rotationX) - p.z * Math.sin(rotationX);
-    let z = p.y * Math.sin(rotationX) + p.z * Math.cos(rotationX);
-
-    // rotate Y
-    let x = p.x * Math.cos(rotationY) - z * Math.sin(rotationY);
-    z = p.x * Math.sin(rotationY) + z * Math.cos(rotationY);
-
-    depthSorted.push({ x, y, z, i });
-  });
-
-  // sort by depth
-  depthSorted.sort((a, b) => b.z - a.z);
-
-  let activeIndex = depthSorted[0].i;
-
-  depthSorted.forEach(p => {
-    const scale = 0.5 + (p.z + 1) / 2; // depth scale
-    const size = 100 * scale;
-
-    const x2d = centerX + p.x * radius;
-    const y2d = centerY + p.y * radius;
-
-    ctx.globalAlpha = 0.5 + scale * 0.5;
-
-    ctx.drawImage(
-      images[p.i],
-      x2d - size / 2,
-      y2d - size / 2,
-      size,
-      size
-    );
-  });
-
-  requestAnimationFrame(draw);
+      quat.multiply(this.orientation, rotX, this.orientation);
+      quat.multiply(this.orientation, rotY, this.orientation);
+    });
+  }
 }
 
-draw();
+// ===== MAIN SYSTEM =====
+class VideoSphere {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.gl = canvas.getContext("webgl");
 
-// ===== DRAG CONTROLS =====
-canvas.addEventListener("mousedown", e => {
-  isDragging = true;
-  lastX = e.clientX;
-  lastY = e.clientY;
-});
+    this.control = new Arcball(canvas);
 
-window.addEventListener("mouseup", () => {
-  isDragging = false;
-});
+    this.radius = 2;
+    this.points = [];
 
-window.addEventListener("mousemove", e => {
-  if (!isDragging) return;
+    this.initPoints();
+    this.initGL();
+    this.loadTextures();
 
-  const dx = e.clientX - lastX;
-  const dy = e.clientY - lastY;
+    requestAnimationFrame(()=>this.loop());
+  }
 
-  rotationY += dx * 0.005;
-  rotationX += dy * 0.005;
+  initPoints() {
+    const count = items.length;
 
-  lastX = e.clientX;
-  lastY = e.clientY;
-});
+    for(let i=0;i<count;i++){
+      const phi = Math.acos(-1 + (2*i)/count);
+      const theta = Math.sqrt(count*Math.PI)*phi;
 
-// ===== CLICK =====
-canvas.addEventListener("click", () => {
-  const front = getFrontItem();
-  window.open(front.link, "_blank");
-});
-
-function getFrontItem() {
-  let best = -Infinity;
-  let index = 0;
-
-  points.forEach((p, i) => {
-    let y = p.y * Math.cos(rotationX) - p.z * Math.sin(rotationX);
-    let z = p.y * Math.sin(rotationX) + p.z * Math.cos(rotationX);
-    let x = p.x * Math.cos(rotationY) - z * Math.sin(rotationY);
-    z = p.x * Math.sin(rotationY) + z * Math.cos(rotationY);
-
-    if (z > best) {
-      best = z;
-      index = i;
+      this.points.push([
+        Math.cos(theta)*Math.sin(phi),
+        Math.sin(theta)*Math.sin(phi),
+        Math.cos(phi)
+      ]);
     }
-  });
+  }
 
-  return items[index];
+  initGL() {
+    const gl = this.gl;
+
+    const vs = `
+    attribute vec3 position;
+    uniform mat4 matrix;
+    void main(){
+      gl_Position = matrix * vec4(position,1.0);
+      gl_PointSize = 120.0;
+    }`;
+
+    const fs = `
+    precision mediump float;
+    uniform sampler2D tex;
+    void main(){
+      gl_FragColor = texture2D(tex, gl_PointCoord);
+    }`;
+
+    const createShader = (type, src)=>{
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      return s;
+    };
+
+    const program = gl.createProgram();
+    gl.attachShader(program, createShader(gl.VERTEX_SHADER, vs));
+    gl.attachShader(program, createShader(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(program);
+
+    this.program = program;
+    gl.useProgram(program);
+
+    this.posLoc = gl.getAttribLocation(program, "position");
+    this.matrixLoc = gl.getUniformLocation(program, "matrix");
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.points.flat()), gl.STATIC_DRAW);
+
+    gl.enableVertexAttribArray(this.posLoc);
+    gl.vertexAttribPointer(this.posLoc, 3, gl.FLOAT, false, 0, 0);
+  }
+
+  loadTextures() {
+    const gl = this.gl;
+    this.textures = [];
+
+    items.forEach(item=>{
+      const tex = gl.createTexture();
+      const img = new Image();
+
+      img.crossOrigin = "anonymous";
+      img.src = item.image;
+
+      img.onload = ()=>{
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img);
+        gl.generateMipmap(gl.TEXTURE_2D);
+      };
+
+      this.textures.push(tex);
+    });
+  }
+
+  loop() {
+    const gl = this.gl;
+
+    gl.viewport(0,0,this.canvas.width,this.canvas.height);
+    gl.clearColor(0,0,0,1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    const proj = mat4.perspective(mat4.create(), Math.PI/4, this.canvas.width/this.canvas.height, 0.1, 100);
+    const view = mat4.lookAt(mat4.create(), [0,0,5], [0,0,0], [0,1,0]);
+
+    const model = mat4.fromQuat(mat4.create(), this.control.orientation);
+
+    const mvp = mat4.multiply(mat4.create(), proj, mat4.multiply(mat4.create(), view, model));
+
+    gl.uniformMatrix4fv(this.matrixLoc, false, mvp);
+
+    gl.drawArrays(gl.POINTS, 0, this.points.length);
+
+    requestAnimationFrame(()=>this.loop());
+  }
 }
+
+// ===== INIT =====
+window.addEventListener("load", ()=>{
+  const canvas = document.getElementById("video-sphere-canvas");
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+
+  new VideoSphere(canvas);
+});
