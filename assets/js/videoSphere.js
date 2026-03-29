@@ -97,8 +97,9 @@ function draw() {
       const x2d = centerX + p.x * radius;
       const y2d = centerY + p.y * radius;
 
-      // ---- DIM BACK IMAGES ----
-      ctx.globalAlpha = 0.2 + 0.8 * scale; // closer images more visible, far images dimmer
+      // ---- DIM BACK IMAGES MORE ----
+      // sharper curve: front images alpha ~1, back images almost invisible
+      ctx.globalAlpha = Math.max(0, Math.pow((p.z + 1) / 2, 3));
 
       if (images[p.i].complete) {
         ctx.drawImage(images[p.i], x2d - size / 2, y2d - size / 2, size, size);
