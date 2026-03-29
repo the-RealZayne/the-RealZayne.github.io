@@ -2,7 +2,8 @@
 const videos = [
   "59QBOO6m210","skD7r0yWOG4","PQdVTMZQtAk","zFjLSlTMV2k",
   "dS-MaUk6YBI","c2fs8Eg0Vcc","EhzNikz8P9E","ZKCXGo4AuKg",
-  "V1TzrETCBTo","tpwe69g_7Sg","u43VXCNzVsY","-29wYkTejEw","fKPsgA8qW4s","jtFthRSqRwQ","hruJF2vSTuI",
+  "V1TzrETCBTo","tpwe69g_7Sg","u43VXCNzVsY",
+  "-29wYkTejEw","fKPsgA8qW4s","jtFthRSqRwQ","hruJF2vSTuI",
   "CypAcwOHqHo","cwQ7_1hFYiE","rNAYWvSMP6o","Vp4glSVPT8o",
   "UtLyX72-688","l5ggH-YhuAw","OYlloiaBINo"
 ];
@@ -28,6 +29,7 @@ let lastX = 0;
 let lastY = 0;
 
 let activeIndex = 0;
+let isSphereMode = false; // NEW: toggles between zoomed and sphere
 
 // preload images
 const images = items.map(item => {
@@ -44,7 +46,6 @@ function resize() {
   canvas.width = width;
   canvas.height = height;
 }
-
 window.addEventListener("resize", resize);
 resize();
 
@@ -52,7 +53,6 @@ resize();
 const points = items.map((item, i) => {
   const phi = Math.acos(-1 + (2 * i) / items.length);
   const theta = Math.sqrt(items.length * Math.PI) * phi;
-
   return {
     x: Math.cos(theta) * Math.sin(phi),
     y: Math.sin(theta) * Math.sin(phi),
@@ -64,51 +64,54 @@ const points = items.map((item, i) => {
 function draw() {
   ctx.clearRect(0, 0, width, height);
 
-  const radius = Math.min(width, height) / 2.5;
   const centerX = width / 2;
   const centerY = height / 2;
 
-  let depthSorted = [];
-
-  points.forEach((p, i) => {
-    let y = p.y * Math.cos(rotationX) - p.z * Math.sin(rotationX);
-    let z = p.y * Math.sin(rotationX) + p.z * Math.cos(rotationX);
-
-    let x = p.x * Math.cos(rotationY) - z * Math.sin(rotationY);
-    z = p.x * Math.sin(rotationY) + z * Math.cos(rotationY);
-
-    depthSorted.push({ x, y, z, i });
-  });
-
-  depthSorted.sort((a, b) => b.z - a.z);
-
-  activeIndex = depthSorted[0].i;
-
-  depthSorted.forEach(p => {
-    const scale = 0.5 + (p.z + 1) / 2;
-    const size = 110 * scale;
-
-    const x2d = centerX + p.x * radius;
-    const y2d = centerY + p.y * radius;
-
-    ctx.globalAlpha = 0.5 + scale * 0.5;
-
-    if (images[p.i].complete) {
-      ctx.drawImage(
-        images[p.i],
-        x2d - size / 2,
-        y2d - size / 2,
-        size,
-        size
-      );
+  if (!isSphereMode) {
+    // ---- ZOOMED-IN VIEW ----
+    const img = images[activeIndex];
+    if (img.complete) {
+      const zoom = Math.min(width, height) / 1.5;
+      ctx.drawImage(img, centerX - zoom / 2, centerY - zoom / 2, zoom, zoom);
     }
-  });
-
-  // show play button only when not dragging
-  if (!isDragging && dragDistance < 5) {
-    playBtn.classList.add("active");
+    playBtn.classList.add("active"); // always show play in zoomed
   } else {
-    playBtn.classList.remove("active");
+    // ---- SPHERE VIEW ----
+    const radius = Math.min(width, height) / 2.5;
+    let depthSorted = [];
+
+    points.forEach((p, i) => {
+      let y = p.y * Math.cos(rotationX) - p.z * Math.sin(rotationX);
+      let z = p.y * Math.sin(rotationX) + p.z * Math.cos(rotationX);
+
+      let x = p.x * Math.cos(rotationY) - z * Math.sin(rotationY);
+      z = p.x * Math.sin(rotationY) + z * Math.cos(rotationY);
+
+      depthSorted.push({ x, y, z, i });
+    });
+
+    depthSorted.sort((a, b) => b.z - a.z);
+    activeIndex = depthSorted[0].i;
+
+    depthSorted.forEach(p => {
+      const scale = 0.5 + (p.z + 1) / 2;
+      const size = 110 * scale;
+      const x2d = centerX + p.x * radius;
+      const y2d = centerY + p.y * radius;
+
+      ctx.globalAlpha = 0.5 + scale * 0.5;
+
+      if (images[p.i].complete) {
+        ctx.drawImage(images[p.i], x2d - size / 2, y2d - size / 2, size, size);
+      }
+    });
+
+    // show play button only when not dragging
+    if (!isDragging && dragDistance < 5) {
+      playBtn.classList.add("active");
+    } else {
+      playBtn.classList.remove("active");
+    }
   }
 
   requestAnimationFrame(draw);
@@ -122,6 +125,7 @@ canvas.addEventListener("mousedown", e => {
   dragDistance = 0;
   lastX = e.clientX;
   lastY = e.clientY;
+  isSphereMode = true; // enter sphere mode on drag
 });
 
 window.addEventListener("mouseup", () => {
@@ -129,7 +133,7 @@ window.addEventListener("mouseup", () => {
 });
 
 window.addEventListener("mousemove", e => {
-  if (!isDragging) return;
+  if (!isDragging || !isSphereMode) return;
 
   const dx = e.clientX - lastX;
   const dy = e.clientY - lastY;
