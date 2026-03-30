@@ -294,9 +294,12 @@ const fileSystem = {
     },
     "Music": {},
     "Videos": {},
-    "System": {
-      "Control Panel": {},
-      "System32": {}
+    "Local Disk (C:)": {
+      "Program Files": {},
+      "Users": {},
+      "Windows": {
+        "System32": {}
+      }
     }
   }
 };
@@ -308,43 +311,35 @@ function loadDesktop() {
   termBody.innerHTML = `
 <div class="desktop">
 
-  <!-- ICON GRID -->
   <div class="desktop-icons">
     <div class="icon" data-app="explorer">💻<span>This PC</span></div>
     <div class="icon" data-app="recycle">🗑️<span>Recycle Bin</span></div>
   </div>
 
-  <!-- START MENU -->
   <div class="start-menu" id="start-menu">
     <div class="start-grid">
       <div class="start-item" data-app="explorer">📁 Explorer</div>
+      <div class="start-item" data-app="terminal">💻 Terminal</div>
       <div class="start-item" data-app="notepad">📝 Notepad</div>
     </div>
+  </div>
 
-    <div class="start-recommended">
-      <p>Recommended</p>
-      <div class="rec-item">readme.txt</div>
+  <div class="taskbar">
+    <div class="taskbar-left">
+      <div class="task-icon" id="start-btn">🪟</div>
+    </div>
+
+    <div class="taskbar-center">
+      <div class="task-icon" data-app="explorer">📁</div>
+      <div class="task-icon" data-app="terminal">💻</div>
+    </div>
+
+    <div class="taskbar-right">
+      <span id="taskbar-time"></span>
     </div>
   </div>
 
-  <!-- TASKBAR -->
-  <div class="taskbar">
-  <div class="taskbar-left">
-    <div class="task-icon" id="start-btn">🪟</div>
-  </div>
-
-  <div class="taskbar-center">
-    <div class="task-icon" data-app="explorer">📁</div>
-    <div class="task-icon" data-app="terminal">💻</div>
-  </div>
-
-  <div class="taskbar-right">
-    <span id="taskbar-time"></span>
-  </div>
-</div>
-
   <div id="window-layer"></div>
-
 </div>
 `;
 
@@ -359,23 +354,19 @@ function initDesktop() {
 
   let zIndex = 10;
 
-  function updateClock() {
+  setInterval(() => {
     const now = new Date();
     clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
+  }, 1000);
 
-  // START MENU
   startBtn.onclick = () => startMenu.classList.toggle("open");
 
-  document.addEventListener("click", (e) => {
+  document.onclick = (e) => {
     if (!startBtn.contains(e.target) && !startMenu.contains(e.target)) {
       startMenu.classList.remove("open");
     }
-  });
+  };
 
-  // OPEN APP
   function openApp(app) {
     const win = document.createElement("div");
     win.className = "window";
@@ -386,44 +377,18 @@ function initDesktop() {
     let content = "";
 
     if (app === "explorer") {
-  content = "";
-}
-
-    if (app === "terminal") {
-  content = `
-    <div class="mini-terminal">
-      <div class="mini-output"></div>
-      <input class="mini-input" placeholder="type command..." />
-    </div>
-  `;
-}
-
-    if (app === "terminal") {
-  const input = win.querySelector(".mini-input");
-  const output = win.querySelector(".mini-output");
-
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      const cmd = input.value;
-      output.innerHTML += `<div>> ${cmd}</div>`;
-
-      if (cmd === "help") {
-        output.innerHTML += "<div>dir | echo | clear</div>";
-      } else if (cmd === "dir") {
-        output.innerHTML += "<div>Documents Downloads Pictures</div>";
-      } else if (cmd.startsWith("echo ")) {
-        output.innerHTML += `<div>${cmd.slice(5)}</div>`;
-      } else if (cmd === "clear") {
-        output.innerHTML = "";
-      } else {
-        output.innerHTML += "<div>Unknown command</div>";
-      }
-
-      input.value = "";
+      content = `<div class="explorer-container"></div>`;
     }
-  });
-}
-    
+
+    if (app === "terminal") {
+      content = `
+        <div class="mini-terminal">
+          <div class="mini-output"></div>
+          <input class="mini-input" placeholder="type command..." />
+        </div>
+      `;
+    }
+
     if (app === "notepad") {
       content = `<textarea class="notepad"></textarea>`;
     }
@@ -438,112 +403,53 @@ function initDesktop() {
       <div class="window-body">${content}</div>
     `;
 
-    // Close
     win.querySelector(".close").onclick = () => win.remove();
 
-    // Focus
     win.addEventListener("mousedown", () => {
       win.style.zIndex = zIndex++;
     });
 
     makeDraggable(win);
-
     windowLayer.appendChild(win);
-  }
 
-  if (app === "explorer") {
-  const explorer = createExplorer();
-  win.querySelector(".window-body").appendChild(explorer);
-}
+    // ✅ INIT APPS AFTER RENDER
 
-  // ICON CLICK
-  document.querySelectorAll("[data-app]").forEach(el => {
-    el.addEventListener("dblclick", () => openApp(el.dataset.app));
-    el.addEventListener("click", () => openApp(el.dataset.app));
-  });
-}
-
-function makeDraggable(win) {
-  const header = win.querySelector(".window-header");
-
-  let offsetX = 0, offsetY = 0, dragging = false;
-
-  header.addEventListener("mousedown", (e) => {
-    dragging = true;
-    offsetX = e.clientX - win.offsetLeft;
-    offsetY = e.clientY - win.offsetTop;
-  });
-
-  document.addEventListener("mousemove", (e) => {
-    if (!dragging) return;
-    win.style.left = (e.clientX - offsetX) + "px";
-    win.style.top = (e.clientY - offsetY) + "px";
-  });
-
-  document.addEventListener("mouseup", () => dragging = false);
-}
-
-function createExplorer(startPath = ["This PC"]) {
-  let currentPath = [...startPath];
-
-  const container = document.createElement("div");
-  container.className = "explorer";
-
-  const pathBar = document.createElement("div");
-  pathBar.className = "explorer-path";
-
-  const content = document.createElement("div");
-  content.className = "explorer-content";
-
-  function getFolder(path) {
-    return path.reduce((acc, key) => acc[key], fileSystem);
-  }
-
-  function render() {
-    const folder = getFolder(currentPath);
-
-    pathBar.innerHTML = currentPath.join(" / ");
-    content.innerHTML = "";
-
-    // BACK BUTTON
-    if (currentPath.length > 1) {
-      const back = document.createElement("div");
-      back.className = "file folder";
-      back.textContent = "⬅ Back";
-      back.onclick = () => {
-        currentPath.pop();
-        render();
-      };
-      content.appendChild(back);
+    if (app === "explorer") {
+      const explorer = createExplorer();
+      win.querySelector(".explorer-container").appendChild(explorer);
     }
 
-    Object.keys(folder).forEach(name => {
-      const item = document.createElement("div");
-      item.className = "file";
+    if (app === "terminal") {
+      const input = win.querySelector(".mini-input");
+      const output = win.querySelector(".mini-output");
 
-      const isFolder = typeof folder[name] === "object";
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const cmd = input.value;
 
-      item.innerHTML = `${isFolder ? "📁" : "📄"} ${name}`;
+          output.innerHTML += `<div>> ${cmd}</div>`;
 
-      item.onclick = () => {
-        if (isFolder) {
-          currentPath.push(name);
-          render();
-        } else {
-          alert(folder[name]); // open file
+          if (cmd === "help") {
+            output.innerHTML += "<div>dir | echo | clear</div>";
+          } else if (cmd === "dir") {
+            output.innerHTML += "<div>Documents Downloads Pictures</div>";
+          } else if (cmd.startsWith("echo ")) {
+            output.innerHTML += `<div>${cmd.slice(5)}</div>`;
+          } else if (cmd === "clear") {
+            output.innerHTML = "";
+          } else {
+            output.innerHTML += "<div>Unknown command</div>";
+          }
+
+          input.value = "";
         }
-      };
-
-      content.appendChild(item);
-    });
+      });
+    }
   }
 
-  container.appendChild(pathBar);
-  container.appendChild(content);
-
-  render();
-
-  return container;
+  document.querySelectorAll("[data-app]").forEach(el => {
+    el.addEventListener("dblclick", () => openApp(el.dataset.app));
+  });
 }
 
 function initRzCodeTabs() {
