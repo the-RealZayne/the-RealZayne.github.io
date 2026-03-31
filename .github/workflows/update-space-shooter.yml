@@ -1,0 +1,29 @@
+name: Update Space Shooter Game
+
+on:
+  schedule:
+    - cron: '0 0 * * *'      # Daily at midnight UTC
+  workflow_dispatch:         # Allows manual trigger from GitHub
+
+permissions:
+  contents: write            # Needed to commit & push the GIF
+
+jobs:
+  update-game:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 2       # Required for the amend feature to work
+
+      - name: Generate Space Shooter GIF
+        uses: czl9707/gh-space-shooter@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          output-path: 'game.gif'        # ← Change if you want a different name/folder
+          strategy: 'random'             # Options: random (default), column, row
+          # fps: 40                      # Optional: default is 40, you can lower to 30 for smaller file
+          # no-amend: false              # Default: amends previous commit to avoid bloat
+          # commit-message: 'Update Space Shooter game'   # Optional custom message
