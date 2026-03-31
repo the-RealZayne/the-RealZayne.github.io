@@ -346,6 +346,26 @@ function loadDesktop() {
   initDesktop();
 }
 
+function makeDraggable(win) {
+  const header = win.querySelector(".window-header");
+
+  let offsetX = 0, offsetY = 0, dragging = false;
+
+  header.addEventListener("mousedown", (e) => {
+    dragging = true;
+    offsetX = e.clientX - win.offsetLeft;
+    offsetY = e.clientY - win.offsetTop;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+    win.style.left = (e.clientX - offsetX) + "px";
+    win.style.top = (e.clientY - offsetY) + "px";
+  });
+
+  document.addEventListener("mouseup", () => dragging = false);
+}
+
 function initDesktop() {
   const clock = document.getElementById("taskbar-time");
   const startBtn = document.getElementById("start-btn");
@@ -354,14 +374,17 @@ function initDesktop() {
 
   let zIndex = 10;
 
-  setInterval(() => {
-    const now = new Date();
-    clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }, 1000);
+  function updateClock() {
+  const now = new Date();
+  clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+setInterval(updateClock, 1000);
+updateClock();
 
   startBtn.onclick = () => startMenu.classList.toggle("open");
 
-  document.onclick = (e) => {
+  document.addEventListener("click", (e) => {
     if (!startBtn.contains(e.target) && !startMenu.contains(e.target)) {
       startMenu.classList.remove("open");
     }
@@ -448,8 +471,13 @@ function initDesktop() {
   }
 
   document.querySelectorAll("[data-app]").forEach(el => {
-    el.addEventListener("dblclick", () => openApp(el.dataset.app));
+  el.addEventListener("dblclick", () => openApp(el.dataset.app));
+  el.addEventListener("click", () => {
+    if (el.closest(".taskbar")) {
+      openApp(el.dataset.app);
+    }
   });
+});
 }
 
 function initRzCodeTabs() {
