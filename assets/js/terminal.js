@@ -384,11 +384,11 @@ updateClock();
 
   startBtn.onclick = () => startMenu.classList.toggle("open");
 
-  document.addEventListener("click"), (e) => {
-    if (!startBtn.contains(e.target) && !startMenu.contains(e.target)) {
-      startMenu.classList.remove("open");
-    }
-  };
+  document.addEventListener("click", (e) => {
+  if (!startBtn.contains(e.target) && !startMenu.contains(e.target)) {
+    startMenu.classList.remove("open");
+  }
+});
 
   function openApp(app) {
     const win = document.createElement("div");
