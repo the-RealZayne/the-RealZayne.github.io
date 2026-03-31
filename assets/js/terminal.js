@@ -399,15 +399,6 @@ updateClock();
 
     let content = "";
 
-    if (app === "macos") {
-  content = `
-    <iframe 
-      src="https://macos-inky.vercel.app/" 
-      class="app-frame">
-    </iframe>
-  `;
-}
-
     if (app === "explorer") {
       content = `<div class="explorer-container"></div>`;
     }
