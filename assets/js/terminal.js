@@ -506,6 +506,34 @@ function initRzCodeTabs() {
   });
 }
 
+/* MAC OS */
+function loadMacOS() {
+  document.querySelector(".title").textContent = ":MACOS ENVIRONMENT:";
+
+  termBody.innerHTML = `
+    <div class="macos-wrapper">
+      <iframe 
+        src="https://macos-inky.vercel.app/" 
+        class="macos-frame">
+      </iframe>
+    </div>
+  `;
+}
+
+/* WINDOWS 11 */
+function loadWindows() {
+  document.querySelector(".title").textContent = ":WINDOWS 11 ENVIRONMENT:";
+
+  termBody.innerHTML = `
+    <div class="windows-wrapper">
+      <iframe 
+        src="https://windows11-psi-nine.vercel.app/" 
+        class="windows-frame">
+      </iframe>
+    </div>
+  `;
+}
+
 /* INITIATE BUTTON */
 if (initBtn) {
   initBtn.addEventListener("click", async () => {
@@ -583,7 +611,25 @@ if (input && output && termBody) {
   await loadingDots("Rendering UI", 1200);
   loadDesktop();
   return;
- }    
+ }
+
+ if (val === "open-windows") {
+  await typeLine("[+] Switching to Windows 11...");
+  await loadingDots("Saving session", 800);
+  await loadingDots("Booting Windows 11 kernel", 1400);
+
+  loadWindows();
+  return;
+}
+
+if (val === "open-macos") {
+  await typeLine("[+] Switching to macOS...");
+  await loadingDots("Saving session", 800);
+  await loadingDots("Launching macOS Ventura", 1400);
+
+  loadMacOS();
+  return;
+}     
 
   // TRY HACKER COMMANDS FIRST (commands.js)
   const hackerHandled = await runCommand(val);
