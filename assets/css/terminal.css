@@ -705,3 +705,17 @@ color:black;
   display: flex;
   justify-content: space-between;
 }
+
+.macos-wrapper,
+.windows-wrapper {
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+.macos-frame,
+.windows-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
