@@ -534,6 +534,48 @@ function loadWindows() {
   `;
 }
 
+/* WINDOWS XP */
+function loadWinxp() {
+  document.querySelector(".title").textContent = ":WINDOWS XP ENVIRONMENT:";
+
+  termBody.innerHTML = `
+    <div class="winxp-wrapper">
+      <iframe 
+        src="https://windows11-psi-nine.vercel.app/" 
+        class="winxp-frame">
+      </iframe>
+    </div>
+  `;
+}
+
+/* WIN 11 */
+function loadWin11() {
+  document.querySelector(".title").textContent = ":WIN11 ENVIRONMENT:";
+
+  termBody.innerHTML = `
+    <div class="win11-wrapper">
+      <iframe 
+        src="https://windows11-psi-nine.vercel.app/" 
+        class="win11-frame">
+      </iframe>
+    </div>
+  `;
+}
+
+/* Ubuntu */
+function loadUbuntu() {
+  document.querySelector(".title").textContent = ":UBUNTU ENVIRONMENT:";
+
+  termBody.innerHTML = `
+    <div class="ubuntu-wrapper">
+      <iframe 
+        src="https://windows11-psi-nine.vercel.app/" 
+        class="windows-frame">
+      </iframe>
+    </div>
+  `;
+}
+
 /* INITIATE BUTTON */
 if (initBtn) {
   initBtn.addEventListener("click", async () => {
@@ -629,7 +671,34 @@ if (val === "open-macos") {
 
   loadMacOS();
   return;
+}
+
+if (val === "open-win11") {
+  await typeLine("[+] Switching to Windows 11...");
+  await loadingDots("Saving session", 800);
+  await loadingDots("Launching Windows 11", 1400);
+
+  loadMacOS();
+  return;
 }     
+
+if (val === "open-winxp") {
+  await typeLine("[+] Switching to Windows XP...");
+  await loadingDots("Saving session", 800);
+  await loadingDots("Launching Windows XP", 1400);
+
+  loadMacOS();
+  return;
+}     
+
+if (val === "open-ubuntu") {
+  await typeLine("[+] Switching to Ubuntu...");
+  await loadingDots("Saving session", 800);
+  await loadingDots("Launching Ubuntu", 1400);
+
+  loadMacOS();
+  return;
+}          
 
   // TRY HACKER COMMANDS FIRST (commands.js)
   const hackerHandled = await runCommand(val);
