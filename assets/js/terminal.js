@@ -576,6 +576,20 @@ function loadUbuntu() {
   `;
 }
 
+/* YT Web TV */
+function loadTV() {
+  document.querySelector(".title").textContent = ":LIVE TV:";
+
+  termBody.innerHTML = `
+    <div class="tv-wrapper">
+      <iframe 
+        src="https://channelsurfer.tv/" 
+        class="tv-frame">
+      </iframe>
+    </div>
+  `;
+}
+
 /* INITIATE BUTTON */
 if (initBtn) {
   initBtn.addEventListener("click", async () => {
@@ -698,7 +712,15 @@ if (val === "open-ubuntu") {
 
   loadMacOS();
   return;
-}          
+} 
+
+if (val === "view-tv") {
+  await typeLine("[+] Launching TV interface...");
+  await loadingDots("Connecting to broadcast network", 1200);
+
+  loadTV();
+  return;
+}      
 
   // TRY HACKER COMMANDS FIRST (commands.js)
   const hackerHandled = await runCommand(val);
