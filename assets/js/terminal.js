@@ -590,6 +590,28 @@ function loadTV() {
   `;
 }
 
+function loadWebApp(title, url) {
+  document.querySelector(".title").textContent = `:${title}:`;
+
+  termBody.innerHTML = `
+    <div class="webapp-wrapper">
+      <iframe 
+        src="${url}" 
+        class="webapp-frame"
+        onload="this.dataset.loaded = true"
+      ></iframe>
+    </div>
+  `;
+
+  // fallback after delay
+  setTimeout(() => {
+    const frame = document.querySelector(".webapp-frame");
+    if (!frame || !frame.dataset.loaded) {
+      window.open(url, "_blank");
+    }
+  }, 2000);
+}
+
 /* INITIATE BUTTON */
 if (initBtn) {
   initBtn.addEventListener("click", async () => {
@@ -719,6 +741,172 @@ if (val === "view-tv") {
   await loadingDots("Connecting to broadcast network", 1200);
 
   loadTV();
+  return;
+}
+
+if (val === "open-win93") {
+  await typeLine("[+] Booting Windows 93...");
+  await loadingDots("Loading retro kernel", 1200);
+
+  loadWebApp("WINDOWS 93", "https://windows93.net/");
+  return;
+}
+
+if (val === "view-floor") {
+  await typeLine("[+] Loading interactive environment...");
+  await loadingDots("Rendering floor 796", 1200);
+
+  loadWebApp("FLOOR 796", "https://floor796.com/");
+  return;
+}
+
+if (val === "open-vscode") {
+  await typeLine("[+] Launching VSCode...");
+  await loadingDots("Initializing dev environment", 1200);
+
+  loadWebApp("VSCODE", "https://emupedia.net/emupedia-app-vscode/");
+  return;
+}
+
+if (val === "operating-system") {
+  await typeLine("[+] Booting EmuOS...");
+  await loadingDots("Mounting virtual disk", 1400);
+
+  loadWebApp("EMU OS", "https://emupedia.net/beta/emuos/");
+  return;
+}
+
+if (val === "play-mc") {
+  await typeLine("[+] Launching Minecraft...");
+  await loadingDots("Loading world", 1500);
+
+  loadWebApp("MINECRAFT", "https://eaglercraft.com/play/?version=1.8.8");
+  return;
+}
+
+if (val === "view-lost") {
+  await typeLine("[+] Connecting to LostGamer...");
+  await loadingDots("Dropping into unknown location", 1200);
+
+  loadWebApp("LOST GAMER", "https://lostgamer.io/");
+  return;
+}
+
+if (val === "make-music") {
+  await typeLine("[+] Launching music studio...");
+  await loadingDots("Loading instruments", 1200);
+
+  loadWebApp("MUSIC STUDIO", "https://signalmidi.app/edit");
+  return;
+}
+
+if (val === "open-car") {
+  await typeLine("[+] Starting engine...");
+  await loadingDots("Loading 3D environment", 1200);
+
+  loadWebApp("CAR EXPERIENCE", "https://bruno-simon.com/");
+  return;
+}
+
+if (val === "view-world") {
+  await typeLine("[+] Generating world...");
+  await loadingDots("Rendering terrain", 1400);
+
+  loadWebApp("INFINITE WORLD", "https://infinite-world.vercel.app/");
+  return;
+}
+
+if (val === "black-hole") {
+  await typeLine("[+] Initializing gravitational field...");
+  await loadingDots("Simulating singularity", 1300);
+
+  loadWebApp("BLACK HOLE", "https://webgl-black-hole.vercel.app/");
+  return;
+}
+
+if (val === "dont-trip") {
+  await typeLine("[+] Entering deep sea environment...");
+  await loadingDots("Stabilizing visuals", 1200);
+
+  loadWebApp("AQUARIUM", "https://www.aquarium.ru/en");
+  return;
+}
+
+if (val === "tiny-town") {
+  await typeLine("[+] Generating procedural city...");
+  await loadingDots("Spawning buildings", 1200);
+
+  loadWebApp("TINY TOWN", "https://demos.littleworkshop.fr/infinitown");
+  return;
+}
+
+if (val === "gun-game") {
+  await typeLine("[+] Launching FPS engine...");
+  await loadingDots("Connecting to server", 1500);
+
+  loadWebApp("KRUNKER", "https://krunker.io/?game=NY:1nwgj");
+  return;
+}
+
+if (val === "read-story") {
+  await typeLine("[+] Opening narrative engine...");
+  await loadingDots("Loading story", 1000);
+
+  loadWebApp("STORY MODE", "https://cabbi.bo/");
+  return;
+}
+
+if (val === "open-record") {
+  await typeLine("[+] Loading audio experience...");
+  await loadingDots("Spinning record", 1200);
+
+  loadWebApp("RECORD PLAYER", "https://www.overthetinyhills.com/");
+  return;
+}
+
+if (val === "run-jelly") {
+  await typeLine("[+] Launching physics engine...");
+  await loadingDots("Warping reality", 1200);
+
+  loadWebApp("JELLY MARIO", "https://jellymar.io/");
+  return;
+}
+
+if (val === "view-2020") {
+  await typeLine("[+] Loading archived chaos...");
+  await loadingDots("Replaying 2020", 1300);
+
+  loadWebApp("2020 EXPERIENCE", "https://spite.github.io/fuck-2020/");
+  return;
+}
+
+if (val === "apps") {
+  await typeLine("┌───────────────────────────────┐");
+  await typeLine("│      SYSTEM COMMAND INDEX     │");
+  await typeLine("└───────────────────────────────┘");
+
+  await typeLine("");
+  await typeLine("> OS:");
+  await typeLine("  open-desktop | open-macos | open-windows | open-win93 | operating-system");
+
+  await typeLine("");
+  await typeLine("> Games:");
+  await typeLine("  play-mc | gun-game | run-jelly | tiny-town");
+
+  await typeLine("");
+  await typeLine("> Experiences:");
+  await typeLine("  black-hole | dont-trip | view-floor | view-2020 | open-car");
+
+  await typeLine("");
+  await typeLine("> Tools:");
+  await typeLine("  make-music | open-vscode | open-record");
+
+  await typeLine("");
+  await typeLine("> Media:");
+  await typeLine("  view-tv | view-lost | read-story");
+
+  await typeLine("");
+  await typeLine("[Use any command to launch]");
   return;
 }      
 
