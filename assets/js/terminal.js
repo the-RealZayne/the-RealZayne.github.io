@@ -576,6 +576,20 @@ function loadUbuntu() {
   `;
 }
 
+/* PC-folio */
+function loadPC-folio() {
+  document.querySelector(".title").textContent = ":PC-folio:";
+
+  termBody.innerHTML = `
+    <div class="pc-folio-wrapper">
+      <iframe 
+        src="https://3d-pc.vercel.app/" 
+        class="pc-folio-frame">
+      </iframe>
+    </div>
+  `;
+}
+
 /* YT Web TV */
 function loadTV() {
   document.querySelector(".title").textContent = ":LIVE TV:";
