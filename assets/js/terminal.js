@@ -570,21 +570,21 @@ function loadUbuntu() {
     <div class="ubuntu-wrapper">
       <iframe 
         src="https://windows11-psi-nine.vercel.app/" 
-        class="windows-frame">
+        class="ubuntu-frame">
       </iframe>
     </div>
   `;
 }
 
 /* PC-folio */
-function loadPC-folio() {
+function loadPCfolio() {
   document.querySelector(".title").textContent = ":PC-folio:";
 
   termBody.innerHTML = `
-    <div class="pc-folio-wrapper">
+    <div class="pcfolio-wrapper">
       <iframe 
         src="https://3d-pc.vercel.app/" 
-        class="pc-folio-frame">
+        class="pcfolio-frame">
       </iframe>
     </div>
   `;
