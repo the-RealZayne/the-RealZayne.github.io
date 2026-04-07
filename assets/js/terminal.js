@@ -590,6 +590,20 @@ function loadPCfolio() {
   `;
 }
 
+/* VSCode */
+function loadVSCode() {
+  document.querySelector(".title").textContent = ":VSCode:";
+
+  termBody.innerHTML = `
+    <div class="vscode-wrapper">
+      <iframe 
+        src="https://emupedia.net/emupedia-app-vscode/" 
+        class="vscode-frame">
+      </iframe>
+    </div>
+  `;
+}
+
 /* YT Web TV */
 function loadTV() {
   document.querySelector(".title").textContent = ":LIVE TV:";
@@ -723,6 +737,14 @@ if (val === "open-macos") {
   return;
 }
 
+if (val === "open-pcfolio") {
+  await typeLine("[+] Traveling through the Inter-Web...");
+  await loadingDots("Initializing 3D environment", 1200);
+
+  loadPCfolio();
+  return;
+}
+
 if (val === "open-win11") {
   await typeLine("[+] Switching to Windows 11...");
   await loadingDots("Saving session", 800);
@@ -778,7 +800,7 @@ if (val === "open-vscode") {
   await typeLine("[+] Launching VSCode...");
   await loadingDots("Initializing dev environment", 1200);
 
-  loadWebApp("VSCODE", "https://emupedia.net/emupedia-app-vscode/");
+  loadVSCode();
   return;
 }
 
@@ -898,6 +920,10 @@ if (val === "apps") {
   await typeLine("┌───────────────────────────────┐");
   await typeLine("│      SYSTEM COMMAND INDEX     │");
   await typeLine("└───────────────────────────────┘");
+
+  await typeLine("");
+  await typeLine("> About:");
+  await typeLine("  open-pcfolio");
 
   await typeLine("");
   await typeLine("> OS:");
