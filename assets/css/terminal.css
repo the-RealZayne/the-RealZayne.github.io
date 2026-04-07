@@ -743,3 +743,15 @@ color:black;
   height: 100%;
   border: none;
 }
+
+.pcfolio-wrapper {
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+.pcfolio-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
