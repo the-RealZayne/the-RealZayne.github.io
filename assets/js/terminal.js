@@ -506,6 +506,21 @@ function initRzCodeTabs() {
   });
 }
 
+/* OPEN IN NEW WINDOW */
+function openInNewWindow(title, url, width = 1200, height = 800) {
+  const newWin = window.open(
+    url,
+    title.toLowerCase().replace(/\s+/g, '_'),
+    `width=${width},height=${height},menubar=no,toolbar=no,location=no,status=no,resizable=yes,scrollbars=yes`
+  );
+
+  if (newWin) {
+    newWin.focus();
+  } else {
+    console.warn("⚠️ Popup blocked! Please allow popups for this site and try again.");
+  }
+}
+
 /* MAC OS */
 function loadMacOS() {
   document.querySelector(".title").textContent = ":MACOS ENVIRONMENT:";
@@ -585,20 +600,6 @@ function loadPCfolio() {
       <iframe 
         src="https://3d-pc.vercel.app/" 
         class="pcfolio-frame">
-      </iframe>
-    </div>
-  `;
-}
-
-/* PC-folio FULL */
-function loadPCfolioF() {
-  document.querySelector(".title").textContent = ":PC-folio-Full:";
-
-  termBody.innerHTML = `
-    <div class="pcfoliof-wrapper">
-      <iframe 
-        src="https://3d-pc.vercel.app/" 
-        class="pcfoliof-frame">
       </iframe>
     </div>
   `;
@@ -764,7 +765,7 @@ if (val === "open-pcfolio-full") {
   await typeLine("[+] Leaving this webpage...");
   await loadingDots("Initializing 3D environment", 1200);
 
-  loadWebApp("PC folio Full", "https://3d-pc.vercel.app/");
+  openInNewWindow("PC folio Full", "https://3d-pc.vercel.app/");
   return;
 }
 
