@@ -590,6 +590,20 @@ function loadPCfolio() {
   `;
 }
 
+/* PC-folio FULL */
+function loadPCfolioF() {
+  document.querySelector(".title").textContent = ":PC-folio-Full:";
+
+  termBody.innerHTML = `
+    <div class="pcfoliof-wrapper">
+      <iframe 
+        src="https://3d-pc.vercel.app/" 
+        class="pcfoliof-frame">
+      </iframe>
+    </div>
+  `;
+}
+
 /* VSCode */
 function loadVSCode() {
   document.querySelector(".title").textContent = ":VSCode:";
