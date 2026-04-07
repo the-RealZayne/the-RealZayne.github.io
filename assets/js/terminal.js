@@ -764,7 +764,7 @@ if (val === "open-pcfolio-full") {
   await typeLine("[+] Leaving this webpage...");
   await loadingDots("Initializing 3D environment", 1200);
 
-  loadPCfolioF("PC folio Full", "https://3d-pc.vercel.app/");
+  loadWebApp("PC folio Full", "https://3d-pc.vercel.app/");
   return;
 }
 
