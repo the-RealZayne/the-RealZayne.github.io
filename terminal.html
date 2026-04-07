@@ -11,6 +11,21 @@
 
 </head>
 
+  <script>
+const baseName = "༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻";
+const pageName = document.title || "Home";
+
+let fullTitle = `${baseName} - ${pageName}   `;
+let index = 0;
+
+function scrollTitle() {
+  document.title = fullTitle.substring(index) + fullTitle.substring(0, index);
+  index = (index + 1) % fullTitle.length;
+}
+
+setInterval(scrollTitle, 200);
+</script>
+
 <body>
 
 <header>
