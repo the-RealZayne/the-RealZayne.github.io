@@ -745,6 +745,15 @@ if (val === "open-pcfolio") {
   return;
 }
 
+if (val === "open-pcfolio-full") {
+  await typeLine("[+] Traveling through the Inter-Web...");
+  await typeLine("[+] Leaving this webpage...");
+  await loadingDots("Initializing 3D environment", 1200);
+
+  loadPCfolioF("PC folio Full", "https://3d-pc.vercel.app/");
+  return;
+}
+
 if (val === "open-win11") {
   await typeLine("[+] Switching to Windows 11...");
   await loadingDots("Saving session", 800);
