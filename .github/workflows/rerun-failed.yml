@@ -1,0 +1,28 @@
+name: Rerun Failed Workflows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rerun-failed:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get failed workflow runs
+        id: get_runs
+        run: |
+          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/runs?status=completed \
+          > runs.json
+
+          jq '.workflow_runs[] | select(.conclusion=="failure") | .id' runs.json > failed_ids.txt
+
+      - name: Re-run failed workflows
+        run: |
+          while read run_id; do
+            echo "Re-running workflow run ID: $run_id"
+            curl -X POST \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github+json" \
+              https://api.github.com/repos/${{ github.repository }}/actions/runs/$run_id/rerun
+          done < failed_ids.txt
