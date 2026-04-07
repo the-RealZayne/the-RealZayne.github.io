@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
+  <script>
+const baseName = document.title || "Home";
+const pageName = "THIS TEXT MOVES";
+
+let fullTitle = `${baseName} - ${pageName}   `;
+let index = 0;
+
+function scrollTitle() {
+  document.title = fullTitle.substring(index) + fullTitle.substring(0, index);
+  index = (index + 1) % fullTitle.length;
+}
+
+setInterval(scrollTitle, 250);
+</script>
+    
 <body>
 
     <!-- Updated Header: Hamburger LEFT, Logo, Theme toggle RIGHT -->
