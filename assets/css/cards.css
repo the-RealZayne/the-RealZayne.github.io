@@ -288,7 +288,7 @@ body.dark-mode .text {
 
 /* ---------- ACTIVITIES ---------- */
 .activities-page .wrap {
-    --card-bg: url("YOUR_IMAGE_HERE");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/activities/water.jpg");
 }
 .activities-page .overlay {
     background: #2e4d2c;
