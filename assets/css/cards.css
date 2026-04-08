@@ -277,7 +277,7 @@ body.dark-mode .text {
 
 /* ---------- COLLABORATIONS ---------- */
 .collab-page .wrap {
-    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/main/images/profile/content.jpg");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/profile/logo.jpg");
 }
 .collab-page .overlay {
     background: #1a1a3a;
