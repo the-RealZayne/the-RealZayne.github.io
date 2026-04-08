@@ -229,7 +229,7 @@ body.dark-mode .text {
 
 /* ---------- GAMING ---------- */
 .gaming-page .wrap {
-    --card-bg: url("YOUR_IMAGE_HERE");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/gaming/gaming.jpg");
 }
 .gaming-page .overlay {
     background: #1a1a3a;
@@ -237,7 +237,7 @@ body.dark-mode .text {
 
 /* ---------- CONTENT ---------- */
 .content-page .wrap {
-    --card-bg: url("YOUR_IMAGE_HERE");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/content/content.jpeg");
 }
 .content-page .overlay {
     background: #3a1a1a;
@@ -245,7 +245,7 @@ body.dark-mode .text {
 
 /* ---------- MUSIC ---------- */
 .music-page .wrap {
-    --card-bg: url("YOUR_IMAGE_HERE");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/music/music.png");
 }
 .music-page .overlay {
     background: #2d1a3a;
@@ -253,7 +253,7 @@ body.dark-mode .text {
 
 /* ---------- COMMUNITY ---------- */
 .community-page .wrap {
-    --card-bg: url("YOUR_IMAGE_HERE");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/social/community.png");
 }
 .community-page .overlay {
     background: #1a3a2d;
@@ -261,7 +261,7 @@ body.dark-mode .text {
 
 /* ---------- CODING ---------- */
 .coding-page .wrap {
-    --card-bg: url("YOUR_IMAGE_HERE");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/coding/coding.jpg");
 }
 .coding-page .overlay {
     background: #0f2027;
@@ -269,7 +269,7 @@ body.dark-mode .text {
 
 /* ---------- PROJECTS ---------- */
 .projects-page .wrap {
-    --card-bg: url("YOUR_IMAGE_HERE");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/projects/projects.png");
 }
 .projects-page .overlay {
     background: #2a2a2a;
@@ -277,7 +277,7 @@ body.dark-mode .text {
 
 /* ---------- COLLABORATIONS ---------- */
 .collab-page .wrap {
-    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/profile/logo.jpg");
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/social/music-collab.jpg");
 }
 .collab-page .overlay {
     background: #1a1a3a;
