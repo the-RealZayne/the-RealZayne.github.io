@@ -206,3 +206,106 @@ body.dark-mode .text {
 .delay-6 { animation-delay: 1.8s; }
 .delay-7 { animation-delay: 2.1s; }
 .delay-8 { animation-delay: 2.4s; }
+
+/* =========================
+   PAGE-SPECIFIC THEMES
+========================= */
+
+/* ---------- HOME ---------- */
+.home-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.home-page .overlay {
+    background: #1e1e1e;
+}
+
+/* ---------- ABOUT ---------- */
+.about-page .wrap {
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/refs/heads/main/images/profile/logo.jpg");
+}
+.about-page .overlay {
+    background: #186218;
+}
+
+/* ---------- GAMING ---------- */
+.gaming-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.gaming-page .overlay {
+    background: #1a1a3a;
+}
+
+/* ---------- CONTENT ---------- */
+.content-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.content-page .overlay {
+    background: #3a1a1a;
+}
+
+/* ---------- MUSIC ---------- */
+.music-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.music-page .overlay {
+    background: #2d1a3a;
+}
+
+/* ---------- COMMUNITY ---------- */
+.community-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.community-page .overlay {
+    background: #1a3a2d;
+}
+
+/* ---------- CODING ---------- */
+.coding-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.coding-page .overlay {
+    background: #0f2027;
+}
+
+/* ---------- PROJECTS ---------- */
+.projects-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.projects-page .overlay {
+    background: #2a2a2a;
+}
+
+/* ---------- COLLABORATIONS ---------- */
+.collab-page .wrap {
+    --card-bg: url("https://raw.githubusercontent.com/the-RealZayne/the-RealZayne.github.io/main/images/profile/content.jpg");
+}
+.collab-page .overlay {
+    background: #1a1a3a;
+}
+.collab-page .dot {
+    background: cyan;
+}
+
+/* ---------- ACTIVITIES ---------- */
+.activities-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.activities-page .overlay {
+    background: #2e4d2c;
+}
+
+/* ---------- BOOKING ---------- */
+.booking-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.booking-page .overlay {
+    background: #3a2d1a;
+}
+
+/* ---------- CONTRIBUTE ---------- */
+.contribute-page .wrap {
+    --card-bg: url("YOUR_IMAGE_HERE");
+}
+.contribute-page .overlay {
+    background: #2a1a3a;
+}
