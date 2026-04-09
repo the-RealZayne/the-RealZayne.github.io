@@ -11,21 +11,6 @@
 
 </head>
 
-  <script>
-const baseName = document.title || "Home";
-const pageName = "TERMINAL . . . . . . . . .Have Fun Hacking !";
-
-let fullTitle = `${baseName} - ${pageName}   `;
-let index = 0;
-
-function scrollTitle() {
-  document.title = fullTitle.substring(index) + fullTitle.substring(0, index);
-  index = (index + 1) % fullTitle.length;
-}
-
-setInterval(scrollTitle, 250);
-</script>
-
 <body>
 
 <header>
@@ -243,6 +228,108 @@ fetch('version.txt')
     }
   });
 </script>  
+
+  <script>
+const baseName = "༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻";
+const pageName = "TERMINAL . . . . . . . . . Have Fun Hacking !";
+
+let fullTitle = `${baseName} - ${pageName}   `;
+let index = 0;
+let isInterrupting = false;
+
+// 🔁 Normal scrolling title
+function scrollTitle() {
+  if (isInterrupting) return;
+
+  document.title =
+    fullTitle.substring(index) + fullTitle.substring(0, index);
+
+  index = (index + 1) % fullTitle.length;
+}
+
+setInterval(scrollTitle, 250);
+
+// 🚨 Hack-style interrupt messages
+const alerts = [
+  "🚨 SECURITY BREACH DETECTED",
+  "🦠 VIRUS INJECTION ACTIVE",
+  "⚠️ FIREWALL COMPROMISED",
+  "🔓 ROOT ACCESS GRANTED",
+  "💀 SYSTEM OVERRIDE",
+  "📡 SIGNAL INTERCEPTION",
+  "🧠 AI CORE MANIPULATION",
+  "⚡ MEMORY CORRUPTION",
+  "🔗 BACKDOOR INSTALLED",
+  "👁️ UNAUTHORIZED ACCESS"
+];
+
+// 🛡️ Norton-style logs
+const detected = [
+  "🛡️ Norton: Trojan.Win32 detected",
+  "🛡️ Norton: Malware.Injector found",
+  "🛡️ Norton: Keylogger detected",
+  "🛡️ Norton: Suspicious script found",
+  "🛡️ Norton: Worm detected"
+];
+
+const removed = [
+  "🧹 Virus removed successfully",
+  "🧹 Threat neutralized",
+  "🧹 Malware quarantined",
+  "🧹 Infection cleaned",
+  "🧹 System restored"
+];
+
+const failed = [
+  "❌ Unable to remove virus",
+  "❌ Threat persists",
+  "❌ Removal failed",
+  "❌ System compromised",
+  "❌ Access denied"
+];
+
+// 🎲 Random helper
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// 💥 Interrupt sequence
+function triggerHackEvent() {
+  isInterrupting = true;
+
+  let sequence = [
+    randomItem(alerts),
+    randomItem(detected),
+    randomItem(removed),
+    randomItem(failed)
+  ];
+
+  let i = 0;
+
+  let flash = setInterval(() => {
+    document.title = sequence[i % sequence.length];
+    i++;
+  }, 300);
+
+  // ⏱️ stop after a few seconds
+  setTimeout(() => {
+    clearInterval(flash);
+    isInterrupting = false;
+  }, 3000);
+}
+
+// 🎲 Random intervals (every 5–12 seconds)
+function randomInterval() {
+  const time = Math.random() * 7000 + 5000;
+  setTimeout(() => {
+    triggerHackEvent();
+    randomInterval();
+  }, time);
+}
+
+// start random events
+randomInterval();
+</script>
   
 <!--
 <script>
