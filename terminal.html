@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>༺TᕼᕮᖇᕮᗩᒪᘔᗩYᑎᕮ༻</title>
 
+  <!-- ASCII CSS -->
+  <style>
+#ascii-display {
+  position: fixed;
+  top: 80px;
+  right: 40px;
+  color: #00ff00;
+  font-family: monospace;
+  font-size: 10px;
+  pointer-events: none;
+  opacity: 0.8;
+  white-space: pre;
+  transition: transform 0.1s linear;
+}
+</style>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/terminal.css">
@@ -27,6 +43,8 @@ setInterval(scrollTitle, 250);
 </script>
 
 <body>
+
+  <pre id="ascii-display"></pre>
 
 <header>
 <div class="container">
@@ -205,6 +223,75 @@ setInterval(scrollTitle, 250);
 
 <script src="assets/js/script.js" defer></script>
 <script type="module" src="assets/js/terminal.js"></script>
+
+  <!-- ASCII -->
+  <script>
+const frames = [
+`[ ACCESSING... ]
+> █░░░░░░░░░ 10%`,
+
+`[ ACCESSING... ]
+> ██░░░░░░░░ 20%`,
+
+`[ ACCESSING... ]
+> ███░░░░░░░ 30%`,
+
+`[ ACCESSING... ]
+> ████░░░░░░ 40%`,
+
+`[ ACCESSING... ]
+> █████░░░░░ 50%`,
+
+`[ ACCESSING... ]
+> ██████░░░░ 60%`,
+
+`[ ACCESSING... ]
+> ███████░░░ 70%`,
+
+`[ ACCESSING... ]
+> ████████░░ 80%`,
+
+`[ ACCESSING... ]
+> █████████░ 90%`,
+
+`[ ACCESS GRANTED ]
+> ██████████ 100%`
+];
+
+const display = document.getElementById("ascii-display");
+
+// fallback so it doesn't break if page is short
+let maxScroll = document.body.scrollHeight - window.innerHeight;
+if (maxScroll <= 0) maxScroll = 1;
+
+window.addEventListener("scroll", () => {
+  const scrollTop = window.scrollY;
+
+  // progress-based frame switching
+  const progress = scrollTop / maxScroll;
+  const frameIndex = Math.floor(progress * (frames.length - 1));
+  display.textContent = frames[frameIndex];
+
+  // movement effect (parallax feel)
+  const speed = scrollTop * 0.05;
+  display.style.transform = `translateY(${speed}px)`;
+});
+
+// glitch effect
+function glitchText(text) {
+  const chars = "!<>-_\\/[]{}—=+*^?#________";
+  return text
+    .split("")
+    .map(c => (Math.random() > 0.85 ? chars[Math.floor(Math.random() * chars.length)] : c))
+    .join("");
+}
+
+// apply glitch without permanently corrupting base frames
+setInterval(() => {
+  const currentFrame = display.textContent;
+  display.textContent = glitchText(currentFrame);
+}, 120);
+</script>
   
         <!-- VERSION DISPLAY -->
 <div style="position: fixed; bottom: 10px; left: 20px; color: #888; font-family: 'Orbitron', monospace; font-size: 12px; z-index: 1000; pointer-events: none;">
