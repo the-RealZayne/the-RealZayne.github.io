@@ -235,100 +235,106 @@ const pageName = "TERMINAL . . . . . . . . . Have Fun Hacking !";
 
 let fullTitle = `${baseName} - ${pageName}   `;
 let index = 0;
-let isInterrupting = false;
+let isEventActive = false;
 
-// 🔁 Normal scrolling title
+// 🌀 Smooth scrolling title
 function scrollTitle() {
-  if (isInterrupting) return;
+  if (isEventActive) return;
 
   document.title =
     fullTitle.substring(index) + fullTitle.substring(0, index);
-
   index = (index + 1) % fullTitle.length;
 }
+let scrollInterval = setInterval(scrollTitle, 180);
 
-setInterval(scrollTitle, 250);
+// 🎲 Helpers
+function randomItem(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function rand(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
 
-// 🚨 Hack-style interrupt messages
-const alerts = [
+// 🚨 Events
+const alertMessages = [
   "🚨 SECURITY BREACH DETECTED",
   "🦠 VIRUS INJECTION ACTIVE",
   "⚠️ FIREWALL COMPROMISED",
   "🔓 ROOT ACCESS GRANTED",
   "💀 SYSTEM OVERRIDE",
-  "📡 SIGNAL INTERCEPTION",
-  "🧠 AI CORE MANIPULATION",
-  "⚡ MEMORY CORRUPTION",
   "🔗 BACKDOOR INSTALLED",
   "👁️ UNAUTHORIZED ACCESS"
 ];
 
-// 🛡️ Norton-style logs
-const detected = [
-  "🛡️ Norton: Trojan.Win32 detected",
-  "🛡️ Norton: Malware.Injector found",
-  "🛡️ Norton: Keylogger detected",
-  "🛡️ Norton: Suspicious script found",
-  "🛡️ Norton: Worm detected"
+const virusDetected = [
+  "🛡️ Norton: Trojan detected",
+  "🛡️ Norton: Keylogger found",
+  "🛡️ Norton: Malware injection",
+  "🛡️ Norton: Suspicious script",
+  "🛡️ Norton: Malware signature found"
 ];
 
-const removed = [
-  "🧹 Virus removed successfully",
+const virusRemoved = [
+  "🧹 Virus removed",
   "🧹 Threat neutralized",
   "🧹 Malware quarantined",
-  "🧹 Infection cleaned",
-  "🧹 System restored"
+  "🧹 Trojan cleaned",
+  "🧹 Threat eliminated"
 ];
 
-const failed = [
-  "❌ Unable to remove virus",
-  "❌ Threat persists",
+const virusFailed = [
   "❌ Removal failed",
+  "❌ Threat persists",
   "❌ System compromised",
-  "❌ Access denied"
+  "❌ Virus still active",
+  "❌ Unable to remove malware"
 ];
 
-// 🎲 Random helper
-function randomItem(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+const allMessages = [
+  ...alertMessages.map(msg => ({text: msg, blink: true})),
+  ...virusDetected.map(msg => ({text: msg, blink: false})),
+  ...virusRemoved.map(msg => ({text: msg, blink: false})),
+  ...virusFailed.map(msg => ({text: msg, blink: false}))
+];
+
+// 🔥 Show one event for 20–30 seconds
+function triggerEvent() {
+  isEventActive = true;
+  const msgObj = randomItem(allMessages);
+  let blink = msgObj.blink;
+  let timeElapsed = 0;
+  let blinkState = true;
+
+  // Clear scroll temporarily
+  clearInterval(scrollInterval);
+
+  const eventDuration = rand(20000,30000); // 20–30 sec
+  const blinkIntervalTime = 500;
+
+  const interval = setInterval(() => {
+    if(blink && blinkState){
+      document.title = msgObj.text + " 🔥";
+    } else {
+      document.title = msgObj.text;
+    }
+    blinkState = !blinkState;
+    timeElapsed += blinkIntervalTime;
+
+    if(timeElapsed >= eventDuration){
+      clearInterval(interval);
+      isEventActive = false;
+      index = 0;
+      scrollInterval = setInterval(scrollTitle, 180);
+    }
+  }, blink ? blinkIntervalTime : eventDuration);
 }
 
-// 💥 Interrupt sequence
-function triggerHackEvent() {
-  isInterrupting = true;
-
-  let sequence = [
-    randomItem(alerts),
-    randomItem(detected),
-    randomItem(removed),
-    randomItem(failed)
-  ];
-
-  let i = 0;
-
-  let flash = setInterval(() => {
-    document.title = sequence[i % sequence.length];
-    i++;
-  }, 300);
-
-  // ⏱️ stop after a few seconds
-  setTimeout(() => {
-    clearInterval(flash);
-    isInterrupting = false;
-  }, 3000);
-}
-
-// 🎲 Random intervals (every 5–12 seconds)
-function randomInterval() {
-  const time = Math.random() * 7000 + 5000;
-  setTimeout(() => {
-    triggerHackEvent();
-    randomInterval();
+// ⏱ Randomly trigger event every 60–90 sec
+function randomEventTimer() {
+  const time = rand(60000,90000);
+  setTimeout(()=>{
+    triggerEvent();
+    randomEventTimer();
   }, time);
 }
 
-// start random events
-randomInterval();
+randomEventTimer();
 </script>
   
 <!--
