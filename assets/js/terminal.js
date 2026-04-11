@@ -930,6 +930,14 @@ if (val === "run-jelly") {
 
   loadWebApp("JELLY MARIO", "https://jellymar.io/");
   return;
+}https:
+
+if (val === "play-mario") {
+  await typeLine("[+] Mushing Mushies and Shooting Flames...");
+  await loadingDots("Entering the Mushroom Kingdom", 1200);
+
+  loadWebApp("MARIO", "https://foss2016.github.io/");
+  return;
 }
 
 if (val === "view-2020") {
