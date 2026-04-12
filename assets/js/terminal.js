@@ -626,7 +626,7 @@ function loadHTML() {
   termBody.innerHTML = `
     <div class="htlm-wrapper">
       <iframe 
-        src="https://htmleditor-smoky.vercel.app/" 
+        src="https://htmleditor-smoky.vercel.app/index" 
         class="html-frame">
       </iframe>
     </div>
