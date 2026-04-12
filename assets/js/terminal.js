@@ -814,7 +814,7 @@ if (val === "view-html") {
   await typeLine("[+] Connecting to the online HTML Editor...");
   await loadingDots("Ready to Edit...", 1200);
 
-  loadHTML();
+  loadWebApp();
   return;
 }
 
