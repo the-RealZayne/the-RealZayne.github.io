@@ -619,20 +619,6 @@ function loadVSCode() {
   `;
 }
 
-/* HTML EDITOR */
-function loadHTML() {
-  document.querySelector(".title").textContent = ":HTML EDITOR:";
-
-  termBody.innerHTML = `
-    <div class="htlm-wrapper">
-      <iframe 
-        src="https://htmleditor-smoky.vercel.app/index" 
-        class="html-frame">
-      </iframe>
-    </div>
-  `;
-}
-
 /* YT Web TV */
 function loadTV() {
   document.querySelector(".title").textContent = ":LIVE TV:";
