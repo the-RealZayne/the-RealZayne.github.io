@@ -800,7 +800,7 @@ if (val === "view-html") {
   await typeLine("[+] Connecting to the online HTML Editor...");
   await loadingDots("Ready to Edit...", 1200);
 
-  loadWebApp();
+  loadWebApp("HTML EDITOR", "https://htmleditor-smoky.vercel.app/index");
   return;
 }
 
