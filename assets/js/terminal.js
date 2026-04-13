@@ -631,6 +631,7 @@ function loadWebApp(title, url) {
       ></iframe>
     </div>
   `;
+}
 
 /* INITIATE BUTTON */
 if (initBtn) {
