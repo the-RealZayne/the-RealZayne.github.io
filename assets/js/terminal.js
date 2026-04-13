@@ -627,7 +627,6 @@ function loadWebApp(title, url) {
       <iframe 
         src="${url}" 
         class="webapp-frame"
-        onload="this.dataset.loaded = true"
       ></iframe>
     </div>
   `;
@@ -769,14 +768,14 @@ if (val === "open-winxp") {
   await loadingDots("Saving session", 800);
   await loadingDots("Launching Windows XP", 1400);
 
-  loadWinxp("","https://windows11-psi-nine.vercel.app/");
+  loadWinxp("WINDOWS XP","https://windows11-psi-nine.vercel.app/");
   return;
 }     
 
 if (val === "open-ubuntu") {
   await typeLine("[+] Switching to Ubuntu...");
   await loadingDots("Saving session", 800);
-  await loadingDots("Launching Ubuntu", 1400);
+  await loadingDots("Launching Ubuntu","" 1400);
 
   loadUbuntu();
   return;
