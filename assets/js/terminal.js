@@ -774,7 +774,7 @@ if (val === "open-win11") {
   await loadingDots("Saving session", 800);
   await loadingDots("Launching Windows 11", 1400);
 
-  loadMacOS();
+  loadWin11();
   return;
 }     
 
@@ -783,7 +783,7 @@ if (val === "open-winxp") {
   await loadingDots("Saving session", 800);
   await loadingDots("Launching Windows XP", 1400);
 
-  loadMacOS();
+  loadWinxp();
   return;
 }     
 
@@ -792,7 +792,7 @@ if (val === "open-ubuntu") {
   await loadingDots("Saving session", 800);
   await loadingDots("Launching Ubuntu", 1400);
 
-  loadMacOS();
+  loadUbuntu();
   return;
 } 
 
