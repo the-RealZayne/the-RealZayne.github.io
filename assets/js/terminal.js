@@ -627,18 +627,10 @@ function loadWebApp(title, url) {
       <iframe 
         src="${url}" 
         class="webapp-frame"
+        onload="this.dataset.loaded = true"
       ></iframe>
     </div>
   `;
-
-  // fallback after delay
-  setTimeout(() => {
-    const frame = document.querySelector(".webapp-frame");
-    if (!frame || !frame.dataset.loaded) {
-      window.open(url, "_blank");
-    }
-  }, 2000);
-}
 
 /* INITIATE BUTTON */
 if (initBtn) {
