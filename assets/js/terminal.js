@@ -605,6 +605,20 @@ function loadPCfolio() {
   `;
 }
 
+/* VSCode */
+function loadVSCode() {
+  document.querySelector(".title").textContent = ":VSCode:";
+
+  termBody.innerHTML = `
+    <div class="vscode-wrapper">
+      <iframe 
+        src="https://emupedia.net/emupedia-app-vscode/" 
+        class="vscode-frame">
+      </iframe>
+    </div>
+  `;
+}
+
 /* YT Web TV */
 function loadTV() {
   document.querySelector(".title").textContent = ":LIVE TV:";
@@ -760,7 +774,7 @@ if (val === "open-win11") {
   await loadingDots("Saving session", 800);
   await loadingDots("Launching Windows 11", 1400);
 
-  loadWin11("WINDOWS 11","https://windows11-psi-nine.vercel.app/");
+  loadWin11();
   return;
 }     
 
@@ -769,14 +783,14 @@ if (val === "open-winxp") {
   await loadingDots("Saving session", 800);
   await loadingDots("Launching Windows XP", 1400);
 
-  loadWinxp("WINDOWS XP","https://windows11-psi-nine.vercel.app/");
+  loadWinxp();
   return;
 }     
 
 if (val === "open-ubuntu") {
   await typeLine("[+] Switching to Ubuntu...");
   await loadingDots("Saving session", 800);
-  await loadingDots("Launching Ubuntu","" 1400);
+  await loadingDots("Launching Ubuntu", 1400);
 
   loadUbuntu();
   return;
