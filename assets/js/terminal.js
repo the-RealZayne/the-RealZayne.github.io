@@ -605,20 +605,6 @@ function loadPCfolio() {
   `;
 }
 
-/* VSCode */
-function loadVSCode() {
-  document.querySelector(".title").textContent = ":VSCode:";
-
-  termBody.innerHTML = `
-    <div class="vscode-wrapper">
-      <iframe 
-        src="https://emupedia.net/emupedia-app-vscode/" 
-        class="vscode-frame">
-      </iframe>
-    </div>
-  `;
-}
-
 /* YT Web TV */
 function loadTV() {
   document.querySelector(".title").textContent = ":LIVE TV:";
@@ -774,7 +760,7 @@ if (val === "open-win11") {
   await loadingDots("Saving session", 800);
   await loadingDots("Launching Windows 11", 1400);
 
-  loadWin11();
+  loadWin11("WINDOWS 11","https://windows11-psi-nine.vercel.app/");
   return;
 }     
 
@@ -783,7 +769,7 @@ if (val === "open-winxp") {
   await loadingDots("Saving session", 800);
   await loadingDots("Launching Windows XP", 1400);
 
-  loadWinxp();
+  loadWinxp("","https://windows11-psi-nine.vercel.app/");
   return;
 }     
 
