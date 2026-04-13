@@ -631,6 +631,14 @@ function loadWebApp(title, url) {
       ></iframe>
     </div>
   `;
+
+  // fallback after delay
+  setTimeout(() => {
+    const frame = document.querySelector(".webapp-frame");
+    if (!frame || !frame.dataset.loaded) {
+      window.open(url, "_blank");
+    }
+  }, 2000);
 }
 
 /* INITIATE BUTTON */
