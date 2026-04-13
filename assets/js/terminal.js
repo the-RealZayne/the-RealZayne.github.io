@@ -832,7 +832,7 @@ if (val === "open-vscode") {
   await typeLine("[+] Launching VSCode...");
   await loadingDots("Initializing dev environment", 1200);
 
-  loadVSCode();
+  loadWebApp("VS CODE","https://emupedia.net/emupedia-app-vscode/");
   return;
 }
 
