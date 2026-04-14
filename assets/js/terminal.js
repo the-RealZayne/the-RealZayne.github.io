@@ -727,10 +727,9 @@ if (input && output && termBody) {
   }
 
   if (val === "run-zaynecraft") {
-  await runCommand("run-zaynecraft");
   await typeLine("[+] Launching ZayneCraft...");
   await loadingDots("Entering new biome", 1200);
-  loadWebApp("ZayneCraft","https://zayne-craft.vercel.app/");
+  loadWebApp("ZAYNECRAFT","https://zayne-craft.vercel.app/");
   return;
  }
 
