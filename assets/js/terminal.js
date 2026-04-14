@@ -726,13 +726,6 @@ if (input && output && termBody) {
     return;
   }
 
-  if (val === "run-zaynecraft") {
-  await typeLine("[+] Launching ZayneCraft...");
-  await loadingDots("Entering new biome", 1200);
-  loadWebApp("ZAYNECRAFT","https://zayne-craft.vercel.app/");
-  return;
- }
-
   if (val === "open-desktop") {
   await runCommand("open-desktop");
   await typeLine("[+] Launching desktop environment...");
@@ -801,7 +794,15 @@ if (val === "open-ubuntu") {
 
   loadUbuntu();
   return;
-} 
+}
+      
+if (val === "run-zaynecraft") {
+  await typeLine("[+] Launching ZayneCraft...");
+  await loadingDots("Entering new biome", 1200);
+  
+  loadWebApp("ZAYNECRAFT", "https://zayne-craft.vercel.app/");
+  return;
+  }
 
 if (val === "view-html") {
   await typeLine("[+] Connecting to the online HTML Editor...");
