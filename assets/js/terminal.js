@@ -726,6 +726,14 @@ if (input && output && termBody) {
     return;
   }
 
+  if (val === "run-zaynecraft") {
+  await runCommand("run-zaynecraft");
+  await typeLine("[+] Launching ZayneCraft...");
+  await loadingDots("Entering new biome", 1200);
+  loadWebApp("ZayneCraft","https://zayne-craft.vercel.app/");
+  return;
+ }
+
   if (val === "open-desktop") {
   await runCommand("open-desktop");
   await typeLine("[+] Launching desktop environment...");
