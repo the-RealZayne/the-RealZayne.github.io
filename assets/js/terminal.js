@@ -816,7 +816,7 @@ if (val === "play-superhot") {
   await typeLine("[+] SUPER HOT SUPER HOT SUPER HOT SUPER...");
   await loadingDots("Moving only when you do", 1200);
   
-  loadWebApp("SUPERHOT", "https://nite.games/game/super-hot");
+  loadWebApp("SUPERHOT", "https://nite.games/game/super-hot/");
   return;
   }
       
