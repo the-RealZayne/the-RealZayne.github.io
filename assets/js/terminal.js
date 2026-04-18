@@ -816,7 +816,7 @@ if (val === "play-superhot") {
   await typeLine("[+] SUPER HOT SUPER HOT SUPER HOT SUPER...");
   await loadingDots("Moving only when you do", 1200);
   
-  loadWebApp("SUPERHOT", "https://nite.games/game/super-hot/");
+  openInNewWindow("SUPERHOT", "https://nite.games/game/super-hot");
   return;
   }
       
@@ -824,7 +824,7 @@ if (val === "play-zombies") {
   await typeLine("[+] Killing them softly...");
   await loadingDots("Also with kindness", 1200);
   
-  loadWebApp("COD ZOMBIES", "https://nite.games/game/cod-zombies");
+  openInNewWindow("COD ZOMBIES", "https://nite.games/game/cod-zombies");
   return;
   }
       
@@ -832,7 +832,7 @@ if (val === "play-supermario") {
   await typeLine("[+] Its a me...");
   await loadingDots("Mario", 1200);
   
-  loadWebApp("SUPER MARIO BROS", "https://nite.games/game/super-mario");
+  openInNewWindow("SUPER MARIO BROS", "https://nite.games/game/super-mario");
   return;
   }
       
@@ -840,7 +840,7 @@ if (val === "play-messenger") {
   await typeLine("[+] Sorting out messages...");
   await loadingDots("Making routes now", 1200);
   
-  loadWebApp("MESSENGER", "https://messenger.abeto.co/");
+  openInNewWindow("MESSENGER", "https://messenger.abeto.co/");
   return;
   }
 
