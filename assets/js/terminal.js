@@ -15,7 +15,17 @@ let historyCommands = [];
 let historyIndex = -1;
 
 /* =========================
-   POPUP VIRUS SYSTEM
+   GLOBAL POPUP STATE (REQUIRED)
+========================= */
+
+let popupInterval = null;
+let popupTimeout = null;
+let popupActive = false;
+let popupIntensity = 1;
+
+
+/* =========================
+   POPUP CREATION
 ========================= */
 
 function createPopup() {
@@ -25,9 +35,13 @@ function createPopup() {
   const popup = document.createElement("div");
   popup.className = "retro-window";
 
+  // safer positioning (prevents off-screen spawn)
+  const maxX = window.innerWidth - 420;
+  const maxY = window.innerHeight - 260;
+
   popup.style.position = "fixed";
-  popup.style.top = rand(0, window.innerHeight - 250) + "px";
-  popup.style.left = rand(0, window.innerWidth - 400) + "px";
+  popup.style.top = rand(0, Math.max(0, maxY)) + "px";
+  popup.style.left = rand(0, Math.max(0, maxX)) + "px";
   popup.style.zIndex = 9999;
 
   const alerts = [
@@ -35,112 +49,86 @@ function createPopup() {
     // ================= BREACH =================
     () => `
       <p><b>⚠️ SECURITY BREACH DETECTED</b></p>
-      <p>Inbound connection established from ${randomIP()}</p>
+      <p>Inbound connection from ${randomIP()}</p>
       <p>Protocol: HTTPS (Encrypted)</p>
-      <p>Firewall status: BYPASSED</p>
+      <p>Firewall: BYPASSED</p>
       <p>Access Level: SYSTEM</p>
     `,
 
     () => `
       <p><b>⚠️ UNAUTHORIZED ACCESS</b></p>
       <p>Remote host ${randomIP()} authenticated</p>
-      <p>Session Token Injected</p>
-      <p>Privilege escalation successful</p>
+      <p>Session token injected</p>
+      <p>Privilege escalation: SUCCESS</p>
     `,
 
     // ================= ENCRYPTION =================
     () => `
-      <p><b>⚠️ FILE ENCRYPTION IN PROGRESS</b></p>
+      <p><b>⚠️ FILE ENCRYPTION</b></p>
       <p>Algorithm: AES-256</p>
-      <p>Target: /Users/Documents</p>
-      <p>Files queued: ${rand(120, 1200)}</p>
+      <p>Target: User directories</p>
+      <p>Files: ${rand(120, 1200)}</p>
       ${createProgressBar()}
     `,
 
     () => `
       <p><b>⚠️ RANSOM MODULE ACTIVE</b></p>
-      <p>Encrypting user directories...</p>
-      <p>Estimated time remaining: ${rand(1,5)}:${rand(10,59)}</p>
+      <p>Encrypting system files...</p>
+      <p>ETA: ${rand(1,5)}:${rand(10,59)}</p>
       ${createProgressBar()}
     `,
 
     // ================= DATA EXFIL =================
     () => `
       <p><b>⚠️ DATA EXFILTRATION</b></p>
-      <p>Uploading ${rand(50,500)}MB...</p>
+      <p>Uploading ${rand(50,500)}MB</p>
       <p>Destination: ${randomIP()}</p>
-      <p>Transfer protocol: TLS</p>
       ${createProgressBar()}
     `,
 
     () => `
-      <p><b>⚠️ SENSITIVE DATA TRANSFER</b></p>
-      <p>Exporting credentials + browser data</p>
+      <p><b>⚠️ DATA TRANSFER</b></p>
+      <p>Exporting credentials</p>
       <p>Packets/sec: ${rand(200,1200)}</p>
       ${createProgressBar()}
     `,
 
     // ================= ROOTKIT =================
     () => `
-      <p><b>⚠️ ROOTKIT INSTALLATION</b></p>
-      <p>Injecting into ntoskrnl.exe</p>
-      <p>Driver hooks applied</p>
-      <p>Stealth mode: ENABLED</p>
+      <p><b>⚠️ ROOTKIT INSTALL</b></p>
+      <p>Injecting kernel modules</p>
+      <p>Process: ntoskrnl.exe</p>
       ${createProgressBar()}
     `,
 
     () => `
       <p><b>⚠️ KERNEL MODIFICATION</b></p>
-      <p>System drivers altered</p>
-      <p>Memory regions rewritten</p>
-      <p>Detection evasion active</p>
+      <p>Drivers altered</p>
+      <p>Memory rewritten</p>
       ${createProgressBar()}
     `,
 
-    // ================= REMOTE CONTROL =================
+    // ================= REMOTE =================
     () => `
-      <p><b>⚠️ REMOTE ACCESS ACTIVE</b></p>
-      <p>Session ID: RMT-${rand(1000,9999)}</p>
-      <p>Keyboard injection enabled</p>
-      <p>Screen capture active</p>
+      <p><b>⚠️ REMOTE ACCESS</b></p>
+      <p>Session: RMT-${rand(1000,9999)}</p>
+      <p>Input override enabled</p>
+      <p>Monitoring active</p>
     `,
 
-    () => `
-      <p><b>⚠️ INPUT OVERRIDE DETECTED</b></p>
-      <p>External control granted</p>
-      <p>Mouse + keyboard hijacked</p>
-      <p>User monitoring enabled</p>
-    `,
-
-    // ================= PASSWORD / CREDENTIAL =================
+    // ================= PASSWORD =================
     () => `
       <p><b>⚠️ PASSWORD EXTRACTION</b></p>
-      <p>Accessing credential manager</p>
-      <p>Dumping stored login tokens</p>
-      <p>Browser autofill database accessed</p>
+      <p>Accessing credential store</p>
+      <p>Dumping login tokens</p>
     `,
 
+    // ================= FAILURE =================
     () => `
-      <p><b>⚠️ CREDENTIAL HARVESTING</b></p>
-      <p>Wi-Fi passwords exported</p>
-      <p>Saved sessions copied</p>
-      <p>Auth tokens collected</p>
-    `,
-
-    // ================= SYSTEM FAILURE =================
-    () => `
-      <p><b>⚠️ CRITICAL SECURITY FAILURE</b></p>
+      <p><b>⚠️ SYSTEM FAILURE</b></p>
       <p>Antivirus: OFFLINE</p>
       <p>Firewall: DISABLED</p>
-      <p>Intrusion Detection: FAILED</p>
       <p>System integrity compromised</p>
-    `,
-
-    () => `
-      <p><b>⚠️ SYSTEM OVERRIDE ENABLED</b></p>
-      <p>Admin controls bypassed</p>
-      <p>UAC disabled</p>
-      <p>External process has full access</p>
     `
 
   ];
@@ -173,6 +161,9 @@ function createPopup() {
 }
 
 
+/* =========================
+   CONTROL
+========================= */
 
 function startPopups() {
   if (popupActive) return;
@@ -185,9 +176,7 @@ function startPopups() {
       createPopup();
     }
 
-    // increase chaos over time
     if (popupIntensity < 5) popupIntensity++;
-
   }, 1200);
 
   popupTimeout = setTimeout(() => {
@@ -197,6 +186,7 @@ function startPopups() {
 
 function stopPopups() {
   popupActive = false;
+
   clearInterval(popupInterval);
   clearTimeout(popupTimeout);
 
