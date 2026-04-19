@@ -1,0 +1,133 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "MS Sans Serif", "Geneva", sans-serif;
+  margin: 0;
+  background: #008080; /* Classic Teal Desktop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.retro-window {
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 1px 1px 0 #808080 inset, -1px -1px 0 #dfdfdf inset;
+  padding: 2px;
+}
+
+.window-titlebar {
+  background: #000080;
+  color: #ffffff;
+  padding: 3px 3px 3px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.win-btn {
+  background: #c0c0c0;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.win-btn:active {
+  border-top: 1px solid #000000;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  padding-top: 2px;
+  padding-left: 2px;
+}
+
+.window-menu {
+  display: flex;
+  gap: 16px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #808080;
+}
+
+.window-menu span::first-letter {
+  text-decoration: underline;
+}
+
+.window-content {
+  padding: 16px;
+}
+
+.info-box {
+  background: #ffffff;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.info-box p {
+  margin-top: 0;
+}
+
+.action-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.classic-btn {
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  padding: 6px 24px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 1px 1px 0 #dfdfdf inset, -1px -1px 0 #808080 inset;
+}
+
+.classic-btn:active {
+  border-top: 2px solid #000000;
+  border-left: 2px solid #000000;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  box-shadow: none;
+  padding-top: 8px;
+  padding-left: 26px;
+  padding-right: 22px;
+  padding-bottom: 4px;
+}
