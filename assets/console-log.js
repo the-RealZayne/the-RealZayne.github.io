@@ -61,38 +61,21 @@ function styledLog(text) {
 }
 
 // 🔥 TYPEWRITER BOOT
-function renderBanner() {
-  const styles = {
-    main: 'color: #00ffcc; font-family: monospace;',
-    accent: 'color: #ff00ff; font-family: monospace;',
-    glitch: 'color: #7a00ff; font-family: monospace; opacity: 0.8;',
-  };
+function revealBanner(text, done) {
+  let output = '';
+  let i = 0;
 
-  let final = '';
-  let styleArr = [];
+  const interval = setInterval(() => {
+    output += text[i];
+    console.clear();
+    console.log(output);
+    i++;
 
-  for (let char of banner) {
-    let type = 'main';
-
-    // corruption logic
-    if (state.bannerIntegrity < 70 && Math.random() > 0.97) {
-      final += '%c' + ['█','▒','░','#','%'][Math.floor(Math.random() * 5)];
-      type = 'glitch';
-    } 
-    else if (state.bannerIntegrity < 40 && Math.random() > 0.9) {
-      final += '%c ';
-      type = 'glitch';
-    } 
-    else {
-      final += '%c' + char;
-      type = char.match(/[╔║═╗╚╝]/) ? 'accent' : 'main';
+    if (i >= text.length) {
+      clearInterval(interval);
+      done?.();
     }
-
-    styleArr.push(styles[type]);
-  }
-
-  console.clear();
-  console.log(final, ...styleArr);
+  }, 1);
 }
 
 // 💥 FAKE LOADER
@@ -132,7 +115,7 @@ function renderBanner() {
 function restoreBanner() {
   state.bannerIntegrity = 100;
   console.clear();
-  renderBanner(); // IMPORTANT: always re-render via unified system
+  styledLog(banner);
 }
 
 // 📉 CORRUPTION ENGINE
@@ -146,29 +129,15 @@ function drainIntegrity(amount = 5) {
   }
 }
 
-// 🚀 BOOT SEQUENCE (TWO STAGE RENDER)
+// 🚀 BOOT SEQUENCE
+revealBanner(banner, () => {
 
-// Phase 1: raw / unstyled system boot
-function bootRawBanner() {
-  console.clear();
-  console.log(banner);
-}
-
-// Phase 2: neon system activation
-function bootNeonBanner() {
-  renderBanner();
   styledLog(intro);
 
   console.log("%cYou found the console. That wasn’t an accident.", "color: #ff00ff;");
   console.log("%cTry zayne.help()", "color: #00ffcc;");
-}
 
-// RUN SEQUENCE
-bootRawBanner();
-
-setTimeout(() => {
-  bootNeonBanner();
-}, 900);
+});
 
 // 🧠 COMMAND SYSTEM
 window.zayne = {
