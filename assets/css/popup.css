@@ -1,31 +1,45 @@
-*, *::before, *::after {
+/* =========================
+   POPUP SYSTEM ONLY
+   (fully scoped — no global breakage)
+========================= */
+
+.popup-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  font-family: "MS Sans Serif", "Geneva", sans-serif;
+}
+
+/* only affect popup children */
+.popup-container *, 
+.popup-container *::before, 
+.popup-container *::after {
   box-sizing: border-box;
 }
 
-body {
-  font-family: "MS Sans Serif", "Geneva", sans-serif;
-  margin: 0;
-  background: #008080; /* Classic Teal Desktop */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-}
+/* =========================
+   WINDOW
+========================= */
 
-.retro-window {
+.popup-container .retro-window {
   background: #c0c0c0;
   border-top: 2px solid #ffffff;
   border-left: 2px solid #ffffff;
   border-right: 2px solid #000000;
   border-bottom: 2px solid #000000;
-  width: 100%;
-  max-width: 500px;
+  width: 280px; /* fixed size for floating popups */
   box-shadow: 1px 1px 0 #808080 inset, -1px -1px 0 #dfdfdf inset;
   padding: 2px;
+  position: absolute;
+  pointer-events: auto;
 }
 
-.window-titlebar {
+/* =========================
+   TITLE BAR
+========================= */
+
+.popup-container .window-titlebar {
   background: #000080;
   color: #ffffff;
   padding: 3px 3px 3px 6px;
@@ -37,12 +51,12 @@ body {
   letter-spacing: 0.5px;
 }
 
-.window-controls {
+.popup-container .window-controls {
   display: flex;
   gap: 2px;
 }
 
-.win-btn {
+.popup-container .win-btn {
   background: #c0c0c0;
   border-top: 1px solid #ffffff;
   border-left: 1px solid #ffffff;
@@ -60,7 +74,7 @@ body {
   padding: 0;
 }
 
-.win-btn:active {
+.popup-container .win-btn:active {
   border-top: 1px solid #000000;
   border-left: 1px solid #000000;
   border-right: 1px solid #ffffff;
@@ -69,23 +83,15 @@ body {
   padding-left: 2px;
 }
 
-.window-menu {
-  display: flex;
-  gap: 16px;
-  padding: 6px 10px;
-  font-size: 14px;
-  border-bottom: 1px solid #808080;
-}
+/* =========================
+   CONTENT
+========================= */
 
-.window-menu span::first-letter {
-  text-decoration: underline;
-}
-
-.window-content {
+.popup-container .window-content {
   padding: 16px;
 }
 
-.info-box {
+.popup-container .info-box {
   background: #ffffff;
   border-top: 2px solid #808080;
   border-left: 2px solid #808080;
@@ -97,37 +103,37 @@ body {
   line-height: 1.5;
 }
 
-.info-box p {
+.popup-container .info-box p {
   margin-top: 0;
 }
 
-.action-row {
+.popup-container .action-row {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
 }
 
-.classic-btn {
+.popup-container .classic-btn {
   background: #c0c0c0;
   border-top: 2px solid #ffffff;
   border-left: 2px solid #ffffff;
   border-right: 2px solid #000000;
   border-bottom: 2px solid #000000;
-  padding: 6px 24px;
+  padding: 6px 20px;
   font-family: inherit;
   font-size: 14px;
   cursor: pointer;
   box-shadow: 1px 1px 0 #dfdfdf inset, -1px -1px 0 #808080 inset;
 }
 
-.classic-btn:active {
+.popup-container .classic-btn:active {
   border-top: 2px solid #000000;
   border-left: 2px solid #000000;
   border-right: 2px solid #ffffff;
   border-bottom: 2px solid #ffffff;
   box-shadow: none;
   padding-top: 8px;
-  padding-left: 26px;
-  padding-right: 22px;
+  padding-left: 22px;
+  padding-right: 18px;
   padding-bottom: 4px;
 }
