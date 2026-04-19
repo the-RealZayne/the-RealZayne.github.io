@@ -23,6 +23,45 @@ let popupTimeout = null;
 let popupActive = false;
 let popupIntensity = 1;
 
+/* =========================
+   HELPERS (REQUIRED)
+========================= */
+
+function rand(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomIP() {
+  return `${rand(10,255)}.${rand(0,255)}.${rand(0,255)}.${rand(0,255)}`;
+}
+
+function createProgressBar() {
+  return `
+    <div class="progress-bar">
+      <div class="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-text">0%</div>
+  `;
+}
+
+function animateProgress(popup) {
+  const fill = popup.querySelector(".progress-fill");
+  const text = popup.querySelector(".progress-text");
+
+  if (!fill || !text) return;
+
+  let pct = 0;
+
+  const interval = setInterval(() => {
+    pct += rand(2, 8);
+    if (pct >= 100) pct = 100;
+
+    fill.style.width = pct + "%";
+    text.textContent = pct + "%";
+
+    if (pct >= 100) clearInterval(interval);
+  }, rand(150, 400));
+}
 
 /* =========================
    POPUP CREATION
@@ -1032,7 +1071,7 @@ if (val === "play-supermario") {
   await typeLine("[+] Its a me...");
   await loadingDots("Mario", 1200);
   
-  openInNewWindow("SUPER MARIO BROS", "https://nite.games/game/super-mario");
+  loadWebApp("SUPER MARIO BROS", "https://playmario.github.io/HTML5_Client/");
   return;
   }
       
