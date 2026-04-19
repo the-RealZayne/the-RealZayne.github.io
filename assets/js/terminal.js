@@ -912,6 +912,18 @@ if (input && output && termBody) {
   input.value = "";
 
   // SPECIAL CASES
+
+  if (val === "stop") {
+  stopPopups();
+
+  await typeLine("[✔] Terminating malicious processes...");
+  await loadingDots("Restoring system integrity", 1500);
+  await typeLine("[✔] Firewall re-enabled");
+  await typeLine("[✔] System stabilized");
+
+  return;
+}
+       
   if (val === "clear") {
     output.innerHTML = "";
     termBody.scrollTop = termBody.scrollHeight;
