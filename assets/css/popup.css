@@ -141,3 +141,22 @@
   padding-right: 18px;
   padding-bottom: 4px;
 }
+
+.popup-container .progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #000;
+  border: 1px solid #808080;
+  margin-top: 10px;
+}
+
+.popup-container .progress-fill {
+  height: 100%;
+  background: #00ff00;
+  width: 0%;
+}
+
+.popup-container .progress-text {
+  font-size: 12px;
+  margin-top: 4px;
+}
