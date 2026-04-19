@@ -23,16 +23,123 @@ let popupTimeout = null;
 let popupActive = false;
 
 const popupMessages = [
-  "Downloading system32.dll...",
-  "Injecting rootkit...",
-  "Bypassing firewall...",
-  "Accessing personal files...",
-  "Uploading passwords...",
-  "Installing keylogger...",
-  "Encrypting disk...",
-  "Connecting to remote host...",
-  "Overriding security protocols...",
-  "Executing malicious script..."
+`⚠️ CRITICAL SYSTEM ALERT
+
+Unauthorized privilege escalation has been detected within the Windows kernel.
+
+A remote process has obtained SYSTEM-level access and is actively modifying protected memory regions.
+
+Affected Modules:
+- winlogon.exe
+- lsass.exe
+- system32.dll
+
+Immediate action is recommended to prevent permanent data loss.`,
+
+`⚠️ SECURITY BREACH DETECTED
+
+Inbound connection established from unknown external host.
+
+IP Address: 185.34.22.91
+Port: 443 (Encrypted Channel)
+
+Active data streams detected:
+- Credential cache
+- Browser session tokens
+- Stored authentication keys
+
+Firewall bypass confirmed.`,
+
+`⚠️ MALWARE EXECUTION IN PROGRESS
+
+A hidden process is currently executing in the background.
+
+Process ID: 0x4F92
+Thread Injection: SUCCESS
+Persistence Method: Registry + Startup Tasks
+
+System integrity is compromised.`,
+
+`⚠️ FILE SYSTEM ENCRYPTION STARTED
+
+Multiple directories are being encrypted in real time.
+
+Affected Paths:
+- /Users/Documents/
+- /Users/Desktop/
+- /System/Config/
+
+Encryption Algorithm: AES-256
+Estimated Completion Time: 02:14
+
+Interrupting this process may result in data corruption.`,
+
+`⚠️ REMOTE ACCESS ACTIVE
+
+Your system is currently being controlled remotely.
+
+Active Input Sources:
+- Mouse Override
+- Keyboard Injection
+
+Screen capture and input logging are enabled.
+
+Session ID: RMT-8821-XA`,
+
+`⚠️ PASSWORD EXTRACTION DETECTED
+
+Stored credentials are being accessed from secure storage.
+
+Sources:
+- Browser Autofill Database
+- Saved Wi-Fi Profiles
+- System Credential Manager
+
+Export in progress...`,
+
+`⚠️ ROOTKIT INSTALLATION
+
+Low-level system drivers have been modified.
+
+Kernel hooks detected in:
+- ntoskrnl.exe
+- hal.dll
+
+Stealth mode: ENABLED
+Detection avoidance protocols active.`,
+
+`⚠️ NETWORK EXFILTRATION
+
+Outbound data transfer exceeding normal thresholds.
+
+Upload Stream:
+- 247 MB transferred
+- Destination: Encrypted Node
+
+Packet inspection disabled.
+Monitoring bypass confirmed.`,
+
+`⚠️ SYSTEM OVERRIDE ENABLED
+
+User-level restrictions have been disabled.
+
+Administrative controls bypassed:
+- UAC (User Account Control)
+- Windows Defender
+- Firewall Rules
+
+Full system access granted to external process.`,
+
+`⚠️ CRITICAL ERROR: SECURITY FAILURE
+
+Multiple protection layers have failed simultaneously.
+
+Status:
+- Antivirus: OFFLINE
+- Firewall: DISABLED
+- Intrusion Detection: FAILED
+
+System is operating in an unsecured state.`
 ];
 
 function createPopup() {
