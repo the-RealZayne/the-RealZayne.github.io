@@ -59,15 +59,33 @@ function styledLog(text) {
   console.log(final, ...styleArr);
 }
 
-// BOOT SEQUENCE (feels intentional now)
-styledLog(banner);
+// 🔥 TYPEWRITER / REVEAL EFFECT (FIXED)
+function revealBanner(text, done) {
+  let output = '';
+  let i = 0;
 
-setTimeout(() => {
+  const interval = setInterval(() => {
+    output += text[i];
+    console.clear();
+    console.log(output);
+    i++;
+
+    if (i >= text.length) {
+      clearInterval(interval);
+      if (done) done();
+    }
+  }, 1);
+}
+
+// BOOT SEQUENCE (ORDERED + CLEAN)
+revealBanner(banner, () => {
+
   styledLog(intro);
 
   console.log("%cYou found the console. That wasn’t an accident.", "color: #ff00ff;");
   console.log("%cTry zayne.help()", "color: #00ffcc;");
-}, 300);
+
+});
 
 // FAKE LOADING
 function fakeLoad(callback) {
@@ -163,7 +181,7 @@ Break it.
   unlock() {
     if (state.accessLevel === "admin") {
       console.log("🔓 Developer tools unlocked.");
-      
+
       zayne.edit = function () {
         console.log("You now control the system... or do you?");
       };
