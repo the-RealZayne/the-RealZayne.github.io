@@ -18,130 +18,6 @@ let historyIndex = -1;
    POPUP VIRUS SYSTEM
 ========================= */
 
-let popupInterval = null;
-let popupTimeout = null;
-let popupActive = false;
-
-const popupMessages = [
-`⚠️ CRITICAL SYSTEM ALERT
-
-Unauthorized privilege escalation has been detected within the Windows kernel.
-
-A remote process has obtained SYSTEM-level access and is actively modifying protected memory regions.
-
-Affected Modules:
-- winlogon.exe
-- lsass.exe
-- system32.dll
-
-Immediate action is recommended to prevent permanent data loss.`,
-
-`⚠️ SECURITY BREACH DETECTED
-
-Inbound connection established from unknown external host.
-
-IP Address: 185.34.22.91
-Port: 443 (Encrypted Channel)
-
-Active data streams detected:
-- Credential cache
-- Browser session tokens
-- Stored authentication keys
-
-Firewall bypass confirmed.`,
-
-`⚠️ MALWARE EXECUTION IN PROGRESS
-
-A hidden process is currently executing in the background.
-
-Process ID: 0x4F92
-Thread Injection: SUCCESS
-Persistence Method: Registry + Startup Tasks
-
-System integrity is compromised.`,
-
-`⚠️ FILE SYSTEM ENCRYPTION STARTED
-
-Multiple directories are being encrypted in real time.
-
-Affected Paths:
-- /Users/Documents/
-- /Users/Desktop/
-- /System/Config/
-
-Encryption Algorithm: AES-256
-Estimated Completion Time: 02:14
-
-Interrupting this process may result in data corruption.`,
-
-`⚠️ REMOTE ACCESS ACTIVE
-
-Your system is currently being controlled remotely.
-
-Active Input Sources:
-- Mouse Override
-- Keyboard Injection
-
-Screen capture and input logging are enabled.
-
-Session ID: RMT-8821-XA`,
-
-`⚠️ PASSWORD EXTRACTION DETECTED
-
-Stored credentials are being accessed from secure storage.
-
-Sources:
-- Browser Autofill Database
-- Saved Wi-Fi Profiles
-- System Credential Manager
-
-Export in progress...`,
-
-`⚠️ ROOTKIT INSTALLATION
-
-Low-level system drivers have been modified.
-
-Kernel hooks detected in:
-- ntoskrnl.exe
-- hal.dll
-
-Stealth mode: ENABLED
-Detection avoidance protocols active.`,
-
-`⚠️ NETWORK EXFILTRATION
-
-Outbound data transfer exceeding normal thresholds.
-
-Upload Stream:
-- 247 MB transferred
-- Destination: Encrypted Node
-
-Packet inspection disabled.
-Monitoring bypass confirmed.`,
-
-`⚠️ SYSTEM OVERRIDE ENABLED
-
-User-level restrictions have been disabled.
-
-Administrative controls bypassed:
-- UAC (User Account Control)
-- Windows Defender
-- Firewall Rules
-
-Full system access granted to external process.`,
-
-`⚠️ CRITICAL ERROR: SECURITY FAILURE
-
-Multiple protection layers have failed simultaneously.
-
-Status:
-- Antivirus: OFFLINE
-- Firewall: DISABLED
-- Intrusion Detection: FAILED
-
-System is operating in an unsecured state.`
-];
-
 function createPopup() {
   const container = document.getElementById("popup-container");
   if (!container) return;
@@ -149,62 +25,186 @@ function createPopup() {
   const popup = document.createElement("div");
   popup.className = "retro-window";
 
-  // random position
   popup.style.position = "fixed";
-  popup.style.top = Math.random() * (window.innerHeight - 200) + "px";
-  popup.style.left = Math.random() * (window.innerWidth - 300) + "px";
+  popup.style.top = rand(0, window.innerHeight - 250) + "px";
+  popup.style.left = rand(0, window.innerWidth - 400) + "px";
   popup.style.zIndex = 9999;
+
+  const alerts = [
+
+    // ================= BREACH =================
+    () => `
+      <p><b>⚠️ SECURITY BREACH DETECTED</b></p>
+      <p>Inbound connection established from ${randomIP()}</p>
+      <p>Protocol: HTTPS (Encrypted)</p>
+      <p>Firewall status: BYPASSED</p>
+      <p>Access Level: SYSTEM</p>
+    `,
+
+    () => `
+      <p><b>⚠️ UNAUTHORIZED ACCESS</b></p>
+      <p>Remote host ${randomIP()} authenticated</p>
+      <p>Session Token Injected</p>
+      <p>Privilege escalation successful</p>
+    `,
+
+    // ================= ENCRYPTION =================
+    () => `
+      <p><b>⚠️ FILE ENCRYPTION IN PROGRESS</b></p>
+      <p>Algorithm: AES-256</p>
+      <p>Target: /Users/Documents</p>
+      <p>Files queued: ${rand(120, 1200)}</p>
+      ${createProgressBar()}
+    `,
+
+    () => `
+      <p><b>⚠️ RANSOM MODULE ACTIVE</b></p>
+      <p>Encrypting user directories...</p>
+      <p>Estimated time remaining: ${rand(1,5)}:${rand(10,59)}</p>
+      ${createProgressBar()}
+    `,
+
+    // ================= DATA EXFIL =================
+    () => `
+      <p><b>⚠️ DATA EXFILTRATION</b></p>
+      <p>Uploading ${rand(50,500)}MB...</p>
+      <p>Destination: ${randomIP()}</p>
+      <p>Transfer protocol: TLS</p>
+      ${createProgressBar()}
+    `,
+
+    () => `
+      <p><b>⚠️ SENSITIVE DATA TRANSFER</b></p>
+      <p>Exporting credentials + browser data</p>
+      <p>Packets/sec: ${rand(200,1200)}</p>
+      ${createProgressBar()}
+    `,
+
+    // ================= ROOTKIT =================
+    () => `
+      <p><b>⚠️ ROOTKIT INSTALLATION</b></p>
+      <p>Injecting into ntoskrnl.exe</p>
+      <p>Driver hooks applied</p>
+      <p>Stealth mode: ENABLED</p>
+      ${createProgressBar()}
+    `,
+
+    () => `
+      <p><b>⚠️ KERNEL MODIFICATION</b></p>
+      <p>System drivers altered</p>
+      <p>Memory regions rewritten</p>
+      <p>Detection evasion active</p>
+      ${createProgressBar()}
+    `,
+
+    // ================= REMOTE CONTROL =================
+    () => `
+      <p><b>⚠️ REMOTE ACCESS ACTIVE</b></p>
+      <p>Session ID: RMT-${rand(1000,9999)}</p>
+      <p>Keyboard injection enabled</p>
+      <p>Screen capture active</p>
+    `,
+
+    () => `
+      <p><b>⚠️ INPUT OVERRIDE DETECTED</b></p>
+      <p>External control granted</p>
+      <p>Mouse + keyboard hijacked</p>
+      <p>User monitoring enabled</p>
+    `,
+
+    // ================= PASSWORD / CREDENTIAL =================
+    () => `
+      <p><b>⚠️ PASSWORD EXTRACTION</b></p>
+      <p>Accessing credential manager</p>
+      <p>Dumping stored login tokens</p>
+      <p>Browser autofill database accessed</p>
+    `,
+
+    () => `
+      <p><b>⚠️ CREDENTIAL HARVESTING</b></p>
+      <p>Wi-Fi passwords exported</p>
+      <p>Saved sessions copied</p>
+      <p>Auth tokens collected</p>
+    `,
+
+    // ================= SYSTEM FAILURE =================
+    () => `
+      <p><b>⚠️ CRITICAL SECURITY FAILURE</b></p>
+      <p>Antivirus: OFFLINE</p>
+      <p>Firewall: DISABLED</p>
+      <p>Intrusion Detection: FAILED</p>
+      <p>System integrity compromised</p>
+    `,
+
+    () => `
+      <p><b>⚠️ SYSTEM OVERRIDE ENABLED</b></p>
+      <p>Admin controls bypassed</p>
+      <p>UAC disabled</p>
+      <p>External process has full access</p>
+    `
+
+  ];
+
+  const content = alerts[rand(0, alerts.length - 1)]();
 
   popup.innerHTML = `
     <div class="window-titlebar">
       <div class="title-text">SYSTEM ALERT</div>
       <div class="window-controls">
-        <button class="win-btn">_</button>
-        <button class="win-btn">□</button>
         <button class="win-btn close-btn">X</button>
       </div>
     </div>
     <div class="window-content">
       <div class="info-box">
-        <p>${popupMessages[Math.floor(Math.random() * popupMessages.length)]}</p>
-      </div>
-      <div class="action-row">
-        <button class="classic-btn">OK</button>
+        ${content}
       </div>
     </div>
   `;
 
-  // remove on click
   popup.querySelector(".close-btn").onclick = () => popup.remove();
 
   container.appendChild(popup);
 
-  // auto remove after a bit
-  setTimeout(() => {
-    popup.remove();
-  }, 4000);
+  if (popup.querySelector(".progress-fill")) {
+    animateProgress(popup);
+  }
+
+  setTimeout(() => popup.remove(), rand(4000, 7000));
 }
+
+
 
 function startPopups() {
   if (popupActive) return;
 
   popupActive = true;
+  popupIntensity = 1;
 
   popupInterval = setInterval(() => {
-    createPopup();
-  }, 700); // speed of spam
+    for (let i = 0; i < popupIntensity; i++) {
+      createPopup();
+    }
+
+    // increase chaos over time
+    if (popupIntensity < 5) popupIntensity++;
+
+  }, 1200);
 
   popupTimeout = setTimeout(() => {
     stopPopups();
-  }, 10000); // auto stop after 10 sec
+  }, 10000);
 }
 
 function stopPopups() {
   popupActive = false;
-
   clearInterval(popupInterval);
   clearTimeout(popupTimeout);
+
+  const container = document.getElementById("popup-container");
+  if (container) container.innerHTML = "";
 }
+
+/* TERMINAL *?
 
 /* typing response */
 function typeResponse(text) {
