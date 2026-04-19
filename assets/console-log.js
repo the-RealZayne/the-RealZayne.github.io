@@ -4,7 +4,8 @@ const savedAccess = localStorage.getItem('zayne_access');
 const state = {
   overloaded: false,
   theme: 'default',
-  accessLevel: savedAccess || 'guest'
+  accessLevel: savedAccess || 'guest',
+  bannerIntegrity: 100
 };
 
 // ASCII BANNER
@@ -59,7 +60,7 @@ function styledLog(text) {
   console.log(final, ...styleArr);
 }
 
-// 🔥 TYPEWRITER / REVEAL EFFECT (FIXED)
+// 🔥 TYPEWRITER BOOT
 function revealBanner(text, done) {
   let output = '';
   let i = 0;
@@ -72,22 +73,12 @@ function revealBanner(text, done) {
 
     if (i >= text.length) {
       clearInterval(interval);
-      if (done) done();
+      done?.();
     }
   }, 1);
 }
 
-// BOOT SEQUENCE (ORDERED + CLEAN)
-revealBanner(banner, () => {
-
-  styledLog(intro);
-
-  console.log("%cYou found the console. That wasn’t an accident.", "color: #ff00ff;");
-  console.log("%cTry zayne.help()", "color: #00ffcc;");
-
-});
-
-// FAKE LOADING
+// 💥 FAKE LOADER
 function fakeLoad(callback) {
   let i = 0;
   const interval = setInterval(() => {
@@ -102,9 +93,58 @@ function fakeLoad(callback) {
   }, 200);
 }
 
-// COMMAND SYSTEM
+// 💀 BANNER DEGRADATION SYSTEM
+function renderBanner() {
+  let output = '';
+
+  for (let char of banner) {
+    if (state.bannerIntegrity < 70 && Math.random() > 0.97) {
+      output += ['█','▒','░','#','%'][Math.floor(Math.random()*5)];
+    } else if (state.bannerIntegrity < 40 && Math.random() > 0.9) {
+      output += ' ';
+    } else {
+      output += char;
+    }
+  }
+
+  console.clear();
+  console.log(output);
+}
+
+// 🔄 RESTORE SYSTEM
+function restoreBanner() {
+  state.bannerIntegrity = 100;
+  console.clear();
+  styledLog(banner);
+}
+
+// 📉 CORRUPTION ENGINE
+function drainIntegrity(amount = 5) {
+  state.bannerIntegrity -= amount;
+
+  if (state.bannerIntegrity < 0) state.bannerIntegrity = 0;
+
+  if (state.bannerIntegrity < 60) {
+    renderBanner();
+  }
+}
+
+// 🚀 BOOT SEQUENCE
+revealBanner(banner, () => {
+
+  styledLog(intro);
+
+  console.log("%cYou found the console. That wasn’t an accident.", "color: #ff00ff;");
+  console.log("%cTry zayne.help()", "color: #00ffcc;");
+
+});
+
+// 🧠 COMMAND SYSTEM
 window.zayne = {
+
   help() {
+    drainIntegrity(2);
+
     console.log(`
 Available commands:
 
@@ -115,22 +155,18 @@ zayne.overload()
 zayne.clear()
 zayne.theme('matrix')
 zayne.unlock()
+zayne.restore()
     `);
   },
 
   about() {
-    console.log(`
-You’re looking at a custom-built interactive portfolio.
-
-This isn't just a site.
-It's a system.
-
-Explore it.
-Break it.
-    `);
+    drainIntegrity(3);
+    console.log(`Custom interactive portfolio system.`);
   },
 
   projects() {
+    drainIntegrity(8);
+
     console.log("Loading projects...");
     fakeLoad(() => {
       console.log("→ Discord Bots");
@@ -140,11 +176,17 @@ Break it.
   },
 
   clear() {
-    console.clear();
-    styledLog(banner);
+    restoreBanner();
+  },
+
+  restore() {
+    restoreBanner();
+    console.log("System restored.");
   },
 
   hack() {
+    drainIntegrity(10);
+
     console.log("Injecting into mainframe...");
     setTimeout(() => console.log("Bypassing security..."), 400);
     setTimeout(() => {
@@ -155,6 +197,8 @@ Break it.
   },
 
   overload() {
+    drainIntegrity(15);
+
     state.overloaded = true;
 
     let count = 0;
@@ -171,14 +215,16 @@ Break it.
   },
 
   theme(mode) {
+    drainIntegrity(3);
+
     if (mode === 'matrix') {
       console.log("%cEntering MATRIX mode...", "color: #00ff00");
-    } else {
-      console.log("Unknown theme.");
     }
   },
 
   unlock() {
+    drainIntegrity(5);
+
     if (state.accessLevel === "admin") {
       console.log("🔓 Developer tools unlocked.");
 
@@ -191,22 +237,3 @@ Break it.
     }
   }
 };
-
-// PERSONALITY / EASTER EGGS
-setTimeout(() => {
-  console.log("%cHey… you weren’t supposed to open this 😐", "color: orange;");
-}, 1500);
-
-setTimeout(() => {
-  console.log("%cIf you're reading this, you're probably a dev. Respect.", "color: cyan;");
-}, 2500);
-
-// DEBUG MODE
-if (window.location.hash === "#debug") {
-  console.log("Debug mode enabled.");
-}
-
-// RANDOM GLITCH
-if (Math.random() > 0.7) {
-  console.log("▒░▒▓█ GLITCH █▓▒░▒");
-}
