@@ -14,6 +14,91 @@ let globalVersion = "v1.0.0";
 let historyCommands = [];
 let historyIndex = -1;
 
+/* =========================
+   POPUP VIRUS SYSTEM
+========================= */
+
+let popupInterval = null;
+let popupTimeout = null;
+let popupActive = false;
+
+const popupMessages = [
+  "Downloading system32.dll...",
+  "Injecting rootkit...",
+  "Bypassing firewall...",
+  "Accessing personal files...",
+  "Uploading passwords...",
+  "Installing keylogger...",
+  "Encrypting disk...",
+  "Connecting to remote host...",
+  "Overriding security protocols...",
+  "Executing malicious script..."
+];
+
+function createPopup() {
+  const container = document.getElementById("popup-container");
+  if (!container) return;
+
+  const popup = document.createElement("div");
+  popup.className = "retro-window";
+
+  // random position
+  popup.style.position = "fixed";
+  popup.style.top = Math.random() * (window.innerHeight - 200) + "px";
+  popup.style.left = Math.random() * (window.innerWidth - 300) + "px";
+  popup.style.zIndex = 9999;
+
+  popup.innerHTML = `
+    <div class="window-titlebar">
+      <div class="title-text">SYSTEM ALERT</div>
+      <div class="window-controls">
+        <button class="win-btn">_</button>
+        <button class="win-btn">□</button>
+        <button class="win-btn close-btn">X</button>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="info-box">
+        <p>${popupMessages[Math.floor(Math.random() * popupMessages.length)]}</p>
+      </div>
+      <div class="action-row">
+        <button class="classic-btn">OK</button>
+      </div>
+    </div>
+  `;
+
+  // remove on click
+  popup.querySelector(".close-btn").onclick = () => popup.remove();
+
+  container.appendChild(popup);
+
+  // auto remove after a bit
+  setTimeout(() => {
+    popup.remove();
+  }, 4000);
+}
+
+function startPopups() {
+  if (popupActive) return;
+
+  popupActive = true;
+
+  popupInterval = setInterval(() => {
+    createPopup();
+  }, 700); // speed of spam
+
+  popupTimeout = setTimeout(() => {
+    stopPopups();
+  }, 10000); // auto stop after 10 sec
+}
+
+function stopPopups() {
+  popupActive = false;
+
+  clearInterval(popupInterval);
+  clearTimeout(popupTimeout);
+}
+
 /* typing response */
 function typeResponse(text) {
   const resp = document.createElement("div");
@@ -670,6 +755,12 @@ if (initBtn) {
 
     await loginSequence();
     await bootSequence();
+
+    // start popups 10 seconds after load
+setTimeout(() => {
+  startPopups();
+}, 10000);
+    
   });
 }
 
