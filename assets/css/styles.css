@@ -322,3 +322,50 @@ div[style*="display: flex"][style*="gap: 12px"] img {
     max-width: 652px;      /* Matches your original wide width */
   }
 }
+
+/* TikTok profile embed */
+.tiktok-profile-card {
+    max-width: 860px;
+    margin: 2.5rem auto;
+    padding: 1.5rem;
+    border: 2px solid rgba(255, 69, 0, 0.75);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.92), rgba(20, 20, 20, 0.88));
+    box-shadow: 0 0 22px rgba(255, 69, 0, 0.35);
+    text-align: center;
+}
+
+.tiktok-profile-card .eyebrow {
+    margin-bottom: 0.35rem;
+    color: #00f2ea;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.tiktok-profile-card h2 {
+    margin-bottom: 0.75rem;
+    color: #ff0050;
+    text-shadow: 0 0 10px rgba(255, 0, 80, 0.55);
+}
+
+.tiktok-profile-card p {
+    color: #f7f7f7;
+}
+
+.tiktok-profile-card .tiktok-embed {
+    margin: 1.25rem auto !important;
+    width: 100%;
+}
+
+.tiktok-fallback a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #00f2ea, #ff0050);
+    color: #000;
+    font-weight: 800;
+    text-transform: uppercase;
+    box-shadow: 0 0 14px rgba(0, 242, 234, 0.35);
+}
